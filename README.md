@@ -16,7 +16,7 @@
 
 ---
 
-##Opis projekta
+## Opis projekta
 **Smart Hair Salon** je web platforma koja spaja frizerske usluge i online prodaju proizvoda za njegu kose.  
 Korisnici mogu pregledati salone, zakazati termine, kupovati proizvode i pratiti status svojih narudžbi.  
 Administrator i zaposlenici lako upravljaju podacima i rezervacijama.
