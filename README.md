@@ -9,10 +9,10 @@
 ---
 
 ## Članovi tima
-- Naida Denić (19648)  
-- Nudžejma Kantić (19573)  
-- Aiša Bečić (19511)  
-- Ajna Kantić (19572)  
+- Naida Denić   
+- Nudžejma Kantić  
+- Aiša Bečić  
+- Ajna Kantić 
 
 ---
 
