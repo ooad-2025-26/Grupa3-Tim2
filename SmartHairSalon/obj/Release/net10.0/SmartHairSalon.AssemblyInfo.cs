@@ -13,7 +13,7 @@ using System.Reflection;
 
 [assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("aspnet-SmartHairSalon-3c75ae1c-f8f3-4a88-b7e9-8d729a4fc2d8")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("SmartHairSalon")]
-[assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e30dab96bd7d71410959587b0b6ffb44d54051a1")]
 [assembly: System.Reflection.AssemblyProductAttribute("SmartHairSalon")]
