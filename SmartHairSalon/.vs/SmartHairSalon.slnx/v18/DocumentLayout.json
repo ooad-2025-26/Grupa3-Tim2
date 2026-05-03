@@ -1,10 +1,30 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\User\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalon\\",
+  "WorkspaceRootPath": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalon\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalon\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalon\\Data\\Migrations\\20260503210334_Final.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Data\\Migrations\\20260503210334_Final.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94FF9C33-1622-D79D-A59B-FB5D3CEDFAA3}|SmartHairSalon.csproj|c:\\users\\ajna\\documents\\github\\grupa3-tim2\\smarthairsalon\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{94FF9C33-1622-D79D-A59B-FB5D3CEDFAA3}|SmartHairSalon.csproj|solutionrelative:data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalon\\Data\\Migrations\\20260503205750_Init2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Data\\Migrations\\20260503205750_Init2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94FF9C33-1622-D79D-A59B-FB5D3CEDFAA3}|SmartHairSalon.csproj|c:\\users\\ajna\\documents\\github\\grupa3-tim2\\smarthairsalon\\data\\migrations\\applicationdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{94FF9C33-1622-D79D-A59B-FB5D3CEDFAA3}|SmartHairSalon.csproj|solutionrelative:data\\migrations\\applicationdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94FF9C33-1622-D79D-A59B-FB5D3CEDFAA3}|SmartHairSalon.csproj|c:\\users\\ajna\\documents\\github\\grupa3-tim2\\smarthairsalon\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{94FF9C33-1622-D79D-A59B-FB5D3CEDFAA3}|SmartHairSalon.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94FF9C33-1622-D79D-A59B-FB5D3CEDFAA3}|SmartHairSalon.csproj|c:\\users\\ajna\\documents\\github\\grupa3-tim2\\smarthairsalon\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{94FF9C33-1622-D79D-A59B-FB5D3CEDFAA3}|SmartHairSalon.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,12 +39,77 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "20260503210334_Final.cs",
+              "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalon\\Data\\Migrations\\20260503210334_Final.cs",
+              "RelativeDocumentMoniker": "Data\\Migrations\\20260503210334_Final.cs",
+              "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalon\\Data\\Migrations\\20260503210334_Final.cs",
+              "RelativeToolTip": "Data\\Migrations\\20260503210334_Final.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-03T21:03:34.396Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "20260503205750_Init2.cs",
+              "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalon\\Data\\Migrations\\20260503205750_Init2.cs",
+              "RelativeDocumentMoniker": "Data\\Migrations\\20260503205750_Init2.cs",
+              "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalon\\Data\\Migrations\\20260503205750_Init2.cs",
+              "RelativeToolTip": "Data\\Migrations\\20260503205750_Init2.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-03T20:57:50.331Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalon\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalon\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "Data\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-03T20:56:16.422Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ApplicationDbContextModelSnapshot.cs",
+              "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalon\\Data\\Migrations\\ApplicationDbContextModelSnapshot.cs",
+              "RelativeDocumentMoniker": "Data\\Migrations\\ApplicationDbContextModelSnapshot.cs",
+              "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalon\\Data\\Migrations\\ApplicationDbContextModelSnapshot.cs",
+              "RelativeToolTip": "Data\\Migrations\\ApplicationDbContextModelSnapshot.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-03T20:52:38.829Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalon\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalon\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-05-03T20:51:05.223Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalon\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalon\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalon\\Program.cs",
+              "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalon\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAswA4AAAAWAAAAAAAAAA==",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAswB0AAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-03T20:20:57.103Z",
               "EditorCaption": ""
