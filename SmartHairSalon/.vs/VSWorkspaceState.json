@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Models"
+    "\\Controllers",
+    "\\Data"
   ],
-  "SelectedNode": "\\Models\\Statusi.cs",
+  "SelectedNode": "\\Data\\ApplicationDbContext.cs",
   "PreviewInSolutionExplorer": false
 }
