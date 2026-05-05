@@ -31,7 +31,7 @@ public class ApplicationDbContext : IdentityDbContext<Korisnik>
         modelBuilder.Entity<Usluga>().ToTable("Usluge");
         modelBuilder.Entity<Rezervacija>().ToTable("Rezervacije");
 
-        // 🔴 FIX za multiple cascade paths (KLJUČNO)
+     
 
         modelBuilder.Entity<Rezervacija>()
             .HasOne(r => r.Korisnik)

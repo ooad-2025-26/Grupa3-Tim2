@@ -16,7 +16,6 @@ namespace SmartHairSalon.Models
 
         public string RadnoVrijeme { get; set; } = string.Empty;
 
-        public ICollection<Termin> Termini { get; set; } = new List<Termin>();
-        public ICollection<Usluga> Usluge { get; set; } = new List<Usluga>();
+     
     }
 }

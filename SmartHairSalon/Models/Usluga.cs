@@ -17,6 +17,6 @@ namespace SmartHairSalon.Models
         public int SalonId { get; set; }
         public Salon Salon { get; set; } = null!;
 
-        public ICollection<Rezervacija> Rezervacije { get; set; } = new List<Rezervacija>();
+     
     }
 }
