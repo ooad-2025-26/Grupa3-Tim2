@@ -1,0 +1,45 @@
+﻿@model SmartHairSalonApp.Models.Rezervacija
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Rezervacija</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="StatusRezervacije" class="control-label"></label>
+                <select asp-for="StatusRezervacije" class="form-control"></select>
+                <span asp-validation-for="StatusRezervacije" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KorisnikId" class="control-label"></label>
+                <select asp-for="KorisnikId" class ="form-control" asp-items="ViewBag.KorisnikId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="UslugaId" class="control-label"></label>
+                <select asp-for="UslugaId" class ="form-control" asp-items="ViewBag.UslugaId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="TerminId" class="control-label"></label>
+                <select asp-for="TerminId" class ="form-control" asp-items="ViewBag.TerminId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

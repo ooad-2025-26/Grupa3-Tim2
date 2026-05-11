@@ -1,0 +1,49 @@
+﻿@model SmartHairSalonApp.Models.Rezervacija
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Rezervacija</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="StatusRezervacije" class="control-label"></label>
+                <select asp-for="StatusRezervacije" class="form-control"></select>
+                <span asp-validation-for="StatusRezervacije" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KorisnikId" class="control-label"></label>
+                <select asp-for="KorisnikId" class="form-control" asp-items="ViewBag.KorisnikId"></select>
+                <span asp-validation-for="KorisnikId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UslugaId" class="control-label"></label>
+                <select asp-for="UslugaId" class="form-control" asp-items="ViewBag.UslugaId"></select>
+                <span asp-validation-for="UslugaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TerminId" class="control-label"></label>
+                <select asp-for="TerminId" class="form-control" asp-items="ViewBag.TerminId"></select>
+                <span asp-validation-for="TerminId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

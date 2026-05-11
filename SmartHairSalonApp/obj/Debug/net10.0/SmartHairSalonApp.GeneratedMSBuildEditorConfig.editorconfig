@@ -42,6 +42,66 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Ajna/Documents/GitHub/Grupa3-Tim2/SmartHairSalonApp/Views/Proizvod/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvaXp2b2RcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ajna/Documents/GitHub/Grupa3-Tim2/SmartHairSalonApp/Views/Proizvod/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvaXp2b2RcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ajna/Documents/GitHub/Grupa3-Tim2/SmartHairSalonApp/Views/Proizvod/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvaXp2b2RcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ajna/Documents/GitHub/Grupa3-Tim2/SmartHairSalonApp/Views/Proizvod/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvaXp2b2RcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ajna/Documents/GitHub/Grupa3-Tim2/SmartHairSalonApp/Views/Proizvod/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvaXp2b2RcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ajna/Documents/GitHub/Grupa3-Tim2/SmartHairSalonApp/Views/Rezervacija/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV6ZXJ2YWNpamFcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ajna/Documents/GitHub/Grupa3-Tim2/SmartHairSalonApp/Views/Rezervacija/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV6ZXJ2YWNpamFcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ajna/Documents/GitHub/Grupa3-Tim2/SmartHairSalonApp/Views/Rezervacija/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV6ZXJ2YWNpamFcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ajna/Documents/GitHub/Grupa3-Tim2/SmartHairSalonApp/Views/Rezervacija/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV6ZXJ2YWNpamFcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ajna/Documents/GitHub/Grupa3-Tim2/SmartHairSalonApp/Views/Rezervacija/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV6ZXJ2YWNpamFcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ajna/Documents/GitHub/Grupa3-Tim2/SmartHairSalonApp/Views/Salon/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2Fsb25cQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ajna/Documents/GitHub/Grupa3-Tim2/SmartHairSalonApp/Views/Salon/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2Fsb25cRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ajna/Documents/GitHub/Grupa3-Tim2/SmartHairSalonApp/Views/Salon/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2Fsb25cRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ajna/Documents/GitHub/Grupa3-Tim2/SmartHairSalonApp/Views/Salon/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2Fsb25cRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ajna/Documents/GitHub/Grupa3-Tim2/SmartHairSalonApp/Views/Salon/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2Fsb25cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Ajna/Documents/GitHub/Grupa3-Tim2/SmartHairSalonApp/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -52,6 +112,46 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Ajna/Documents/GitHub/Grupa3-Tim2/SmartHairSalonApp/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ajna/Documents/GitHub/Grupa3-Tim2/SmartHairSalonApp/Views/Termin/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVybWluXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ajna/Documents/GitHub/Grupa3-Tim2/SmartHairSalonApp/Views/Termin/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVybWluXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ajna/Documents/GitHub/Grupa3-Tim2/SmartHairSalonApp/Views/Termin/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVybWluXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ajna/Documents/GitHub/Grupa3-Tim2/SmartHairSalonApp/Views/Termin/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVybWluXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ajna/Documents/GitHub/Grupa3-Tim2/SmartHairSalonApp/Views/Termin/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVybWluXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ajna/Documents/GitHub/Grupa3-Tim2/SmartHairSalonApp/Views/Usluga/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNsdWdhXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ajna/Documents/GitHub/Grupa3-Tim2/SmartHairSalonApp/Views/Usluga/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNsdWdhXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ajna/Documents/GitHub/Grupa3-Tim2/SmartHairSalonApp/Views/Usluga/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNsdWdhXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ajna/Documents/GitHub/Grupa3-Tim2/SmartHairSalonApp/Views/Usluga/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNsdWdhXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ajna/Documents/GitHub/Grupa3-Tim2/SmartHairSalonApp/Views/Usluga/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNsdWdhXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Ajna/Documents/GitHub/Grupa3-Tim2/SmartHairSalonApp/Views/_ViewImports.cshtml]
