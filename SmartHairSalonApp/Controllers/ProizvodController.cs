@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SmartHairSalonApp.Data;
 using SmartHairSalonApp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SmartHairSalonApp.Controllers
 {
@@ -20,12 +21,15 @@ namespace SmartHairSalonApp.Controllers
         }
 
         // GET: Proizvod
+        [Authorize(Roles = "admin,zaposlenik,korisnik")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Proizvodi.ToListAsync());
         }
 
         // GET: Proizvod/Details/5
+
+        [Authorize(Roles = "admin,zaposlenik,korisnik")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,6 +48,7 @@ namespace SmartHairSalonApp.Controllers
         }
 
         // GET: Proizvod/Create
+        [Authorize(Roles = "admin,zaposlenik")]
         public IActionResult Create()
         {
             return View();
@@ -52,6 +57,8 @@ namespace SmartHairSalonApp.Controllers
         // POST: Proizvod/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        [Authorize(Roles = "admin,zaposlenik")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Naziv,Cijena,Opis,Kolicina")] Proizvod proizvod)
@@ -66,6 +73,8 @@ namespace SmartHairSalonApp.Controllers
         }
 
         // GET: Proizvod/Edit/5
+
+        [Authorize(Roles = "admin,zaposlenik")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -84,6 +93,7 @@ namespace SmartHairSalonApp.Controllers
         // POST: Proizvod/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "admin,zaposlenik")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Naziv,Cijena,Opis,Kolicina")] Proizvod proizvod)
@@ -117,6 +127,8 @@ namespace SmartHairSalonApp.Controllers
         }
 
         // GET: Proizvod/Delete/5
+
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,6 +147,7 @@ namespace SmartHairSalonApp.Controllers
         }
 
         // POST: Proizvod/Delete/5
+        [Authorize(Roles = "admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

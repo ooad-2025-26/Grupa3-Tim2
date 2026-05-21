@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SmartHairSalonApp.Data;
 using SmartHairSalonApp.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SmartHairSalonApp.Controllers
 {
@@ -20,12 +21,14 @@ namespace SmartHairSalonApp.Controllers
         }
 
         // GET: Salon
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Saloni.ToListAsync());
         }
 
         // GET: Salon/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,6 +47,7 @@ namespace SmartHairSalonApp.Controllers
         }
 
         // GET: Salon/Create
+        [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
             return View();
@@ -52,6 +56,7 @@ namespace SmartHairSalonApp.Controllers
         // POST: Salon/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Naziv,Lokacija,RadnoVrijeme")] Salon salon)
@@ -66,6 +71,7 @@ namespace SmartHairSalonApp.Controllers
         }
 
         // GET: Salon/Edit/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -84,6 +90,8 @@ namespace SmartHairSalonApp.Controllers
         // POST: Salon/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Naziv,Lokacija,RadnoVrijeme")] Salon salon)
@@ -117,6 +125,7 @@ namespace SmartHairSalonApp.Controllers
         }
 
         // GET: Salon/Delete/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

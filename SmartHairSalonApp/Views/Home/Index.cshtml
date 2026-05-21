@@ -2,7 +2,58 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container-fluid" style="
+    height: 90vh;
+    background: linear-gradient(135deg, #f5efe6, #f3d6db);
+    ">
+
+    <div class="row h-100 align-items-center">
+
+        <!-- LIJEVA STRANA -->
+        <div class="col-md-6 ps-5">
+            <h1 class="display-3" style="color:#3e2a2a;">
+                Smart Hair Salon ✂️
+            </h1>
+
+            <p class="lead mt-4" style="color:#6b4b4b;">
+                Dobrodošli u naš salon! Rezervišite termine, istražite naše usluge
+                i pronađite najbolje proizvode za njegu kose.
+            </p>
+
+            <div class="mt-4">
+                <a class="btn btn-lg me-3"
+                       style="background:#3e2a2a; color:white;"
+                       asp-controller="Rezervacija" asp-action="Index">
+                    Rezervacije
+                </a>
+
+                <a class="btn btn-lg"
+                       style="border:2px solid #3e2a2a; color:#3e2a2a;"
+                       asp-controller="Proizvod" asp-action="Index">
+                    Proizvodi
+                </a>
+            </div>
+        </div>
+
+        <!-- DESNA STRANA (VELIKI KRUG - POLA VANI) -->
+        <div class="col-md-6 position-relative overflow-hidden">
+
+            <div style="
+                position:absolute;
+                right:-180px;
+                top:50%;
+                transform:translateY(-50%);
+                width:550px;
+                height:550px;
+                border-radius:50%;
+                overflow:hidden;
+                box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+                ">
+                <img src="~/images/salon.jpg"
+                     style="width:100%; height:100%; object-fit:cover;" />
+            </div>
+
+        </div>
+
+    </div>
 </div>

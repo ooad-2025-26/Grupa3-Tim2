@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SmartHairSalonApp.Data;
 using SmartHairSalonApp.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SmartHairSalonApp.Controllers
 {
@@ -20,6 +21,7 @@ namespace SmartHairSalonApp.Controllers
         }
 
         // GET: Rezervacija
+        [Authorize(Roles = "admin,zaposlenik")]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Rezervacije.Include(r => r.Korisnik).Include(r => r.Termin).Include(r => r.Usluga);
@@ -27,6 +29,7 @@ namespace SmartHairSalonApp.Controllers
         }
 
         // GET: Rezervacija/Details/5
+        [Authorize(Roles = "admin,zaposlenik")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -48,6 +51,7 @@ namespace SmartHairSalonApp.Controllers
         }
 
         // GET: Rezervacija/Create
+        [Authorize(Roles = "admin,zaposlenik,korisnik")]
         public IActionResult Create()
         {
             ViewData["KorisnikId"] = new SelectList(_context.Users, "Id", "Id");
@@ -59,6 +63,7 @@ namespace SmartHairSalonApp.Controllers
         // POST: Rezervacija/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "admin,zaposlenik,korisnik")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,StatusRezervacije,KorisnikId,UslugaId,TerminId")] Rezervacija rezervacija)
@@ -76,6 +81,7 @@ namespace SmartHairSalonApp.Controllers
         }
 
         // GET: Rezervacija/Edit/5
+        [Authorize(Roles = "admin,zaposlenik")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -97,6 +103,7 @@ namespace SmartHairSalonApp.Controllers
         // POST: Rezervacija/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "admin,zaposlenik")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,StatusRezervacije,KorisnikId,UslugaId,TerminId")] Rezervacija rezervacija)
@@ -133,6 +140,8 @@ namespace SmartHairSalonApp.Controllers
         }
 
         // GET: Rezervacija/Delete/5
+
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

@@ -70,7 +70,16 @@ namespace SmartHairSalonApp.Areas.Identity.Pages.Account
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         public class InputModel
+
         {
+            [Required]
+            [Display(Name = "Ime")]
+            public string Ime { get; set; }
+
+            [Required]
+            [Display(Name = "Prezime")]
+            public string Prezime { get; set; }
+
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -159,7 +168,11 @@ namespace SmartHairSalonApp.Areas.Identity.Pages.Account
         {
             try
             {
-                return Activator.CreateInstance<Korisnik>();
+                return new Korisnik
+                {
+                    Ime = Input.Ime,
+                    Prezime = Input.Prezime
+                };
             }
             catch
             {
