@@ -4,6 +4,10 @@
     ViewData["Title"] = "Naše Lokacije";
 }
 
+@{
+    var prviSalon = Model.FirstOrDefault();
+}
+
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
         <div>
@@ -47,8 +51,11 @@
                                 <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary flex-grow-1fw-semibold">
                                     <i class="bi bi-info-circle me-1"></i> Detalji i Frizeri
                                 </a>
-                                <a asp-controller="Termin" asp-action="Create" class="btn btn-sm btn-success flex-grow-1 fw-bold shadow-sm">
-                                    <i class="bi bi-calendar-plus me-1"></i> Rezerviši Ovdje
+                                <a asp-controller="Rezervacija"
+                                   asp-action="Create"
+                                   class="btn btn-sm btn-success flex-grow-1 fw-bold shadow-sm">
+                                    <i class="bi bi-calendar-plus me-1"></i>
+                                    Rezerviši Ovdje
                                 </a>
                             </div>
                         </div>
@@ -73,7 +80,7 @@
                             scrolling="no"
                             marginheight="0"
                             marginwidth="0"
-                            src="https://maps.google.com/maps?q=Sarajevo&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                            src="https://maps.google.com/maps?q=@(prviSalon?.Lokacija)&t=&z=16&ie=UTF8&iwloc=&output=embed"
                             style="filter: grayscale(0.2) contrast(1.1); min-height: 500px;">
                     </iframe>
                 </div>

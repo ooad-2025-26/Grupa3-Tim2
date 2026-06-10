@@ -9,8 +9,7 @@ namespace SmartHairSalonApp.Data
     {
         public DbSet<Narudzba> Narudzbe { get; set; }
         public DbSet<Korpa> Korpe { get; set; }
-        public DbSet<Rezervacija> Rezervacije { get; set; }
-        public DbSet<Termin> Termini { get; set; }
+        public DbSet<Rezervacija> Rezervacije { get; set; } 
         public DbSet<Salon> Saloni { get; set; }
         public DbSet<Obavijest> Obavijesti { get; set; }
         public DbSet<Usluga> Usluge { get; set; }
@@ -22,7 +21,7 @@ namespace SmartHairSalonApp.Data
             modelBuilder.Entity<Narudzba>().ToTable("Narudzba");
             modelBuilder.Entity<Korpa>().ToTable("Korpa");
             modelBuilder.Entity<Rezervacija>().ToTable("Rezervacija");
-            modelBuilder.Entity<Termin>().ToTable("Termin");
+          
             modelBuilder.Entity<Salon>().ToTable("Salon");
             modelBuilder.Entity<Obavijest>().ToTable("Obavijest");
             modelBuilder.Entity<Usluga>().ToTable("Usluga");
