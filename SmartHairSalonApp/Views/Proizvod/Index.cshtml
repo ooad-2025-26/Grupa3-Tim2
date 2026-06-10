@@ -1,53 +1,110 @@
 ﻿@model IEnumerable<SmartHairSalonApp.Models.Proizvod>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Premium Shop";
 }
 
-<h1>Index</h1>
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+        <div>
+            <h1 class="display-5 fw-bold text-dark"><i class="bi bi-bag-heart-fill text-success me-2"></i>Premium Shop</h1>
+            <p class="text-muted mb-0">Kupite profesionalne proizvode za njegu i stilizovanje kose koje koriste naši frizeri.</p>
+        </div>
+        @if (User.IsInRole("admin") || User.IsInRole("zaposlenik"))
+        {
+            <a asp-action="Create" class="btn btn-success fw-bold shadow-sm">
+                <i class="bi bi-plus-circle me-1"></i> Dodaj Novi Proizvod
+            </a>
+        }
+    </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Naziv)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cijena)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Opis)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Kolicina)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Naziv)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cijena)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Opis)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Kolicina)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <div class="row g-4 row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm border-0 rounded-3 bg-white overflow-hidden transition-card">
+                    <div class="position-relative bg-light" style="height: 220px;">
+                        <img src="https://images.unsplash.com/photo-1608248597481-496100c80836?q=80&w=600"
+                             class="w-100 h-100 object-fit-cover"
+                             alt="@item.Naziv">
+                        <span class="badge bg-dark position-absolute top-3 start-3 px-3 py-2 rounded-pill fw-bold shadow-sm">
+                            @item.Cijena KM
+                        </span>
+                    </div>
+
+                    <div class="card-body p-4 d-flex flex-column">
+                        <h5 class="fw-bold text-dark mb-2">@item.Naziv</h5>
+
+                        <p class="card-text text-muted small mb-4 flex-grow-1">
+                            @(string.IsNullOrEmpty(item.Opis) ? "Premium salonska formula za savršenu njegu, sjaj i revitalizaciju vaše kose svakog dana." : item.Opis)
+                        </p>
+
+                        <div class="d-flex justify-content-between align-items-center mb-3 mt-auto pt-2 border-top">
+                            <span class="small text-muted">
+                                <i class="bi bi-boxes text-secondary me-1"></i> Na stanju: <strong class="text-dark">@item.Kolicina kom</strong>
+                            </span>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary flex-grow-1 fw-bold shadow-sm">
+                                <i class="bi bi-cart-plus me-1"></i> Dodaj u Korpu
+                            </a>
+
+                            @if (User.IsInRole("admin") || User.IsInRole("zaposlenik"))
+                            {
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-gear"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                                    <li>
+                                        <a class="dropdown-item py-2" asp-action="Edit" asp-route-id="@item.Id">
+                                            <i class="bi bi-pencil me-2 text-warning"></i> Uredi proizvod
+                                        </a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item py-2 text-danger fw-semibold" asp-action="Delete" asp-route-id="@item.Id">
+                                            <i class="bi bi-trash me-2"></i> Obriši iz shopa
+                                        </a>
+                                    </li>
+                                </ul>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info text-center py-5 border-0 rounded-3 shadow-sm mt-4" role="alert">
+            <i class="bi bi-bag-x fs-1 d-block mb-3 text-secondary"></i>
+            <h4 class="fw-bold">Polica je trenutno prazna</h4>
+            <p class="text-muted mb-0">Uskoro stižu naši premium proizvodi za njegu kose.</p>
+        </div>
+    }
+</div>
+
+<style>
+    .transition-card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+        .transition-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 .75rem 1.5rem rgba(0,0,0,.12) !important;
+        }
+
+    .object-fit-cover {
+        object-fit: cover;
+    }
+
+    .top-3 {
+        top: 1rem;
+    }
+
+    .start-3 {
+        start: 1rem;
+    }
+</style>

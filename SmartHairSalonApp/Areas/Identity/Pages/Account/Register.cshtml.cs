@@ -107,10 +107,12 @@ namespace SmartHairSalonApp.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+          
+
         }
 
-
-        public async Task OnGetAsync(string returnUrl = null)
+            public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
@@ -130,9 +132,14 @@ namespace SmartHairSalonApp.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    await _userManager.AddToRoleAsync(user, "admin");
+
+                    _logger.LogInformation("Korisnik je kreirano novi račun sa šifrom");
 
                     var userId = await _userManager.GetUserIdAsync(user);
+
+
+                    /* //zasad nebitno za potvrdu maila
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
@@ -143,16 +150,24 @@ namespace SmartHairSalonApp.Areas.Identity.Pages.Account
 
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    */
 
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-                    }
-                    else
-                    {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
-                    }
+                    /* ovo mozda bude trebalo vratit
+                                        if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                                        {
+                                            return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                                        }
+                                        else
+                                        {
+                                            await _signInManager.SignInAsync(user, isPersistent: false);
+                                            return LocalRedirect(returnUrl);
+                                        }
+                    */
+
+                TempData["SuccessMessage"] = "Registracija je uspješno završena.";
+                return Redirect("~/");
+
+
                 }
                 foreach (var error in result.Errors)
                 {

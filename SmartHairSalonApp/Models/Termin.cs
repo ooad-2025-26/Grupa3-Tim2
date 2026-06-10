@@ -22,5 +22,14 @@ namespace SmartHairSalonApp.Models
         public Salon Salon { get; set; }
 
         public Termin() { }
+
+        [NotMapped]
+        public string PrikazTermina
+        {
+            get
+            {
+                return Vrijeme.ToString("dd.MM.yyyy HH:mm");
+            }
+        }
     }
 }

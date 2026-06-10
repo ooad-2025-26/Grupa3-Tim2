@@ -1,45 +1,115 @@
 ﻿@model SmartHairSalonApp.Models.Rezervacija
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Rezervacija termina";
 }
 
-<h1>Create</h1>
+<div class="container mt-5">
 
-<h4>Rezervacija</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="StatusRezervacije" class="control-label"></label>
-                <select asp-for="StatusRezervacije" class="form-control"></select>
-                <span asp-validation-for="StatusRezervacije" class="text-danger"></span>
+    <div class="row justify-content-center">
+
+        <div class="col-md-8">
+
+            <div class="card shadow-lg p-4">
+
+                <h2 class="text-center mb-4">
+                    Rezervacija termina
+                </h2>
+
+                <div class="alert alert-info text-center">
+
+                    <h5>Radno vrijeme salona</h5>
+
+                    <p>
+                        Ponedjeljak - Petak:
+                        <strong>08:00 - 20:00</strong>
+                    </p>
+
+                    <p>
+                        Subota:
+                        <strong>09:00 - 17:00</strong>
+                    </p>
+
+                    <p class="mb-0">
+                        Molimo unesite željeni datum i vrijeme termina u okviru radnog vremena salona.
+                        Nakon slanja zahtjeva naši zaposlenici će pregledati rezervaciju i obraditi je u najkraćem roku.
+                    </p>
+
+                </div>
+
+                <form asp-action="Create">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="mb-3">
+
+                        <label asp-for="UslugaId" class="form-label">
+                            Odaberite uslugu
+                        </label>
+
+                        <select asp-for="UslugaId"
+                                class="form-select"
+                                asp-items="ViewBag.UslugaId">
+                            <option value="">-- Odaberite uslugu --</option>
+                        </select>
+
+                        <span asp-validation-for="UslugaId" class="text-danger"></span>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label asp-for="ZeljeniTermin" class="form-label">
+                            Željeni termin
+                        </label>
+
+                        <input asp-for="ZeljeniTermin"
+                               class="form-control"
+                               placeholder="Primjer: 15.06.2026 u 14:00" />
+
+                        <span asp-validation-for="ZeljeniTermin" class="text-danger"></span>
+
+                    </div>
+
+                    <div class="text-center">
+
+                        <button type="submit"
+                                class="btn btn-success px-4">
+                            Pošalji zahtjev
+                        </button>
+
+                    </div>
+
+                </form>
+
             </div>
-            <div class="form-group">
-                <label asp-for="KorisnikId" class="control-label"></label>
-                <select asp-for="KorisnikId" class ="form-control" asp-items="ViewBag.KorisnikId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="UslugaId" class="control-label"></label>
-                <select asp-for="UslugaId" class ="form-control" asp-items="ViewBag.UslugaId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="TerminId" class="control-label"></label>
-                <select asp-for="TerminId" class ="form-control" asp-items="ViewBag.TerminId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+
+        </div>
+
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
+
+<style>
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .form-select,
+    .form-control {
+        min-height: 55px;
+        font-size: 16px;
+    }
+
+    .btn-success {
+        min-width: 200px;
+    }
+
+</style>

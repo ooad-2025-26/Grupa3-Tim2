@@ -1,49 +1,60 @@
 ﻿@model SmartHairSalonApp.Models.Proizvod
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Uredi Proizvod";
 }
 
-<h1>Edit</h1>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card border-0 shadow rounded-3 border-start border-warning border-4">
+                <div class="card-body p-5">
+                    <h2 class="card-title fw-bold text-dark mb-2 text-center">Uredi Proizvod</h2>
+                    <p class="text-muted text-center small mb-4">ID Proizvoda: #@Model.Id</p>
+                    <hr class="mb-4">
 
-<h4>Proizvod</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Naziv" class="control-label"></label>
-                <input asp-for="Naziv" class="form-control" />
-                <span asp-validation-for="Naziv" class="text-danger"></span>
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="mb-3">
+                            <label asp-for="Naziv" class="form-label fw-semibold"></label>
+                            <input asp-for="Naziv" class="form-control form-control-lg" />
+                            <span asp-validation-for="Naziv" class="text-danger small"></span>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Cijena" class="form-label fw-semibold">Cijena (KM)</label>
+                                <input asp-for="Cijena" class="form-control form-control-lg" type="number" step="0.01" />
+                                <span asp-validation-for="Cijena" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Kolicina" class="form-label fw-semibold">Količina</label>
+                                <input asp-for="Kolicina" class="form-control form-control-lg" type="number" />
+                                <span asp-validation-for="Kolicina" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Opis" class="form-label fw-semibold"></label>
+                            <textarea asp-for="Opis" class="form-control" rows="4"></textarea>
+                            <span asp-validation-for="Opis" class="text-danger small"></span>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-warning btn-lg text-dark fw-bold shadow-sm">Spasi Izmjene</button>
+                            <a asp-action="Index" class="btn btn-light btn-lg border fw-semibold">Nazad na listu</a>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Cijena" class="control-label"></label>
-                <input asp-for="Cijena" class="form-control" />
-                <span asp-validation-for="Cijena" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Opis" class="control-label"></label>
-                <input asp-for="Opis" class="form-control" />
-                <span asp-validation-for="Opis" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Kolicina" class="control-label"></label>
-                <input asp-for="Kolicina" class="form-control" />
-                <span asp-validation-for="Kolicina" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

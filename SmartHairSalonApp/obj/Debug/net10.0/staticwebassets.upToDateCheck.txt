@@ -1,4 +1,7 @@
+wwwroot\css\site.css
 wwwroot\favicon.ico
+wwwroot\images\home-hero.jpg
+wwwroot\images\home-products.jpg
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
@@ -60,7 +63,7 @@ wwwroot\lib\jquery\dist\jquery.slim.js
 wwwroot\lib\jquery\dist\jquery.slim.min.js
 wwwroot\lib\jquery\dist\jquery.slim.min.map
 wwwroot\lib\jquery\LICENSE.txt
-wwwroot\css\site.css
+C:\Users\Ajna\Documents\GitHub\Grupa3-Tim2\SmartHairSalonApp\wwwroot\css\site.css
 C:\Users\Ajna\Documents\GitHub\Grupa3-Tim2\SmartHairSalonApp\wwwroot\favicon.ico
 C:\Users\Ajna\Documents\GitHub\Grupa3-Tim2\SmartHairSalonApp\wwwroot\js\site.js
 C:\Users\Ajna\Documents\GitHub\Grupa3-Tim2\SmartHairSalonApp\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
@@ -122,4 +125,3 @@ C:\Users\Ajna\Documents\GitHub\Grupa3-Tim2\SmartHairSalonApp\wwwroot\lib\jquery\
 C:\Users\Ajna\Documents\GitHub\Grupa3-Tim2\SmartHairSalonApp\wwwroot\lib\jquery\dist\jquery.slim.min.js
 C:\Users\Ajna\Documents\GitHub\Grupa3-Tim2\SmartHairSalonApp\wwwroot\lib\jquery\dist\jquery.slim.min.map
 C:\Users\Ajna\Documents\GitHub\Grupa3-Tim2\SmartHairSalonApp\wwwroot\lib\jquery\LICENSE.txt
-C:\Users\Ajna\Documents\GitHub\Grupa3-Tim2\SmartHairSalonApp\wwwroot\css\site.css

@@ -1,47 +1,94 @@
 ﻿@model IEnumerable<SmartHairSalonApp.Models.Salon>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Naše Lokacije";
 }
 
-<h1>Index</h1>
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+        <div>
+            <h1 class="display-5 fw-bold text-dark"><i class="bi bi-geo-alt-fill text-danger me-2"></i>Naši Saloni</h1>
+            <p class="text-muted mb-0">Pronađite najbliži salon, pogledajte radno vrijeme i lokaciju na mapi.</p>
+        </div>
+        @if (User.IsInRole("admin"))
+        {
+            <a asp-action="Create" class="btn btn-primary fw-bold shadow-sm">
+                <i class="bi bi-plus-circle me-1"></i> Dodaj Novi Salon
+            </a>
+        }
+    </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Naziv)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Lokacija)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RadnoVrijeme)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Naziv)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Lokacija)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RadnoVrijeme)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <div class="row g-4">
+        <div class="col-lg-5 col-md-12">
+            <div class="d-flex flex-column gap-3" style="max-height: 600px; overflow-y: auto; padding-right: 5px;">
+                @foreach (var item in Model)
+                {
+                    <div class="card h-100 shadow-sm border-start border-4 border-primary transition-card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <h4 class="card-title fw-bold text-dark mb-2">@item.Naziv</h4>
+                                @if (User.IsInRole("admin"))
+                                {
+                                    <div class="btn-group btn-group-sm">
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-secondary" title="Uredi"><i class="bi bi-pencil"></i></a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger" title="Obriši"><i class="bi bi-trash"></i></a>
+                                    </div>
+                                }
+                            </div>
+
+                            <p class="card-text text-muted mb-2">
+                                <i class="bi bi-pin-map-fill text-danger me-2"></i><strong>Adresa:</strong> @item.Lokacija
+                            </p>
+                            <p class="card-text text-muted mb-3">
+                                <i class="bi bi-clock-fill text-success me-2"></i><strong>Radno vrijeme:</strong> @item.RadnoVrijeme
+                            </p>
+
+                            <div class="d-flex gap-2">
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary flex-grow-1fw-semibold">
+                                    <i class="bi bi-info-circle me-1"></i> Detalji i Frizeri
+                                </a>
+                                <a asp-controller="Termin" asp-action="Create" class="btn btn-sm btn-success flex-grow-1 fw-bold shadow-sm">
+                                    <i class="bi bi-calendar-plus me-1"></i> Rezerviši Ovdje
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                @if (!Model.Any())
+                {
+                    <div class="alert alert-info text-center py-4" role="alert">
+                        <i class="bi bi-info-circle fs-3 d-block mb-2"></i>
+                        Trenutno nema registrovanih salona u sistemu.
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="col-lg-7 col-md-12">
+            <div class="card shadow-sm h-100 border-0 bg-light position-relative" style="min-height: 450px;">
+                <div class="w-100 h-100 rounded border shadow-inner overflow-hidden position-absolute">
+                    <iframe width="100%"
+                            height="100%"
+                            frameborder="0"
+                            scrolling="no"
+                            marginheight="0"
+                            marginwidth="0"
+                            src="https://maps.google.com/maps?q=Sarajevo&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                            style="filter: grayscale(0.2) contrast(1.1); min-height: 500px;">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .transition-card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+        .transition-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+        }
+</style>

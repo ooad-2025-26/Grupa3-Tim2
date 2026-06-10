@@ -375,17 +375,15 @@ namespace SmartHairSalonApp.Data.Migrations
                     b.Property<int>("StatusRezervacije")
                         .HasColumnType("int");
 
-                    b.Property<int>("TerminId")
-                        .HasColumnType("int");
-
                     b.Property<int>("UslugaId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ZeljeniTermin")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("KorisnikId");
-
-                    b.HasIndex("TerminId");
 
                     b.HasIndex("UslugaId");
 
@@ -591,12 +589,6 @@ namespace SmartHairSalonApp.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SmartHairSalonApp.Models.Termin", "Termin")
-                        .WithMany()
-                        .HasForeignKey("TerminId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("SmartHairSalonApp.Models.Usluga", "Usluga")
                         .WithMany()
                         .HasForeignKey("UslugaId")
@@ -604,8 +596,6 @@ namespace SmartHairSalonApp.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Korisnik");
-
-                    b.Navigation("Termin");
 
                     b.Navigation("Usluga");
                 });

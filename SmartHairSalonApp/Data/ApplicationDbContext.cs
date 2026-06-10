@@ -29,12 +29,7 @@ namespace SmartHairSalonApp.Data
             modelBuilder.Entity<Proizvod>().ToTable("Proizvod");
             modelBuilder.Entity<KorpaProizvod>().ToTable("KorpaProizvod");
 
-            modelBuilder.Entity<Rezervacija>()
-                .HasOne(r => r.Termin)
-                .WithMany()
-                .HasForeignKey(r => r.TerminId)
-                .OnDelete(DeleteBehavior.NoAction);
-
+            
             modelBuilder.Entity<Rezervacija>()
                 .HasOne(r => r.Usluga)
                 .WithMany()

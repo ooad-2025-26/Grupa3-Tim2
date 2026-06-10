@@ -1,35 +1,57 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SmartHairSalonApp.Data;
 using SmartHairSalonApp.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SmartHairSalonApp.Controllers
 {
     public class RezervacijaController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<Korisnik> _userManager;
 
-        public RezervacijaController(ApplicationDbContext context)
+        public RezervacijaController(
+            ApplicationDbContext context,
+            UserManager<Korisnik> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Rezervacija
-        [Authorize(Roles = "admin,zaposlenik")]
+        [Authorize(Roles = "admin,zaposlenik,korisnik")]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Rezervacije.Include(r => r.Korisnik).Include(r => r.Termin).Include(r => r.Usluga);
-            return View(await applicationDbContext.ToListAsync());
+    
+            var korisnik = await _userManager.GetUserAsync(User);
+            ViewBag.Admin = User.IsInRole("admin");
+            ViewBag.Zaposlenik = User.IsInRole("zaposlenik");
+            ViewBag.Korisnik = User.IsInRole("korisnik");
+
+            if (User.IsInRole("korisnik"))
+            {
+                var mojeRezervacije = await _context.Rezervacije
+                    .Include(r => r.Korisnik)
+                    .Include(r => r.Usluga)
+                    .Where(r => r.KorisnikId == korisnik.Id)
+                    .ToListAsync();
+
+                return View(mojeRezervacije);
+            }
+
+            var sveRezervacije = await _context.Rezervacije
+                .Include(r => r.Korisnik)
+                .Include(r => r.Usluga)
+                .ToListAsync();
+
+            return View(sveRezervacije);
         }
 
         // GET: Rezervacija/Details/5
-        [Authorize(Roles = "admin,zaposlenik")]
+        [Authorize(Roles = "admin,zaposlenik,korisnik")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -39,9 +61,9 @@ namespace SmartHairSalonApp.Controllers
 
             var rezervacija = await _context.Rezervacije
                 .Include(r => r.Korisnik)
-                .Include(r => r.Termin)
                 .Include(r => r.Usluga)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (rezervacija == null)
             {
                 return NotFound();
@@ -51,33 +73,69 @@ namespace SmartHairSalonApp.Controllers
         }
 
         // GET: Rezervacija/Create
-        [Authorize(Roles = "admin,zaposlenik,korisnik")]
+        [Authorize(Roles = "korisnik")]
         public IActionResult Create()
         {
-            ViewData["KorisnikId"] = new SelectList(_context.Users, "Id", "Id");
-            ViewData["TerminId"] = new SelectList(_context.Termini, "Id", "Id");
-            ViewData["UslugaId"] = new SelectList(_context.Usluge, "Id", "Id");
+            ViewData["UslugaId"] = new SelectList(
+                _context.Usluge,
+                "Id",
+                "Naziv");
+
             return View();
         }
 
         // POST: Rezervacija/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "admin,zaposlenik,korisnik")]
+        [Authorize(Roles = "korisnik")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,StatusRezervacije,KorisnikId,UslugaId,TerminId")] Rezervacija rezervacija)
+        public async Task<IActionResult> Create(
+            [Bind("UslugaId,ZeljeniTermin")] Rezervacija rezervacija)
         {
-            if (ModelState.IsValid)
+            var korisnik = await _userManager.GetUserAsync(User);
+
+            rezervacija.KorisnikId = korisnik.Id;
+            rezervacija.StatusRezervacije = StatusRezervacije.UObradi;
+
+            _context.Rezervacije.Add(rezervacija);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        // POTVRDI REZERVACIJU
+        [Authorize(Roles = "admin,zaposlenik")]
+        public async Task<IActionResult> Prihvati(int id)
+        {
+            var rezervacija = await _context.Rezervacije.FindAsync(id);
+
+            if (rezervacija == null)
             {
-                _context.Add(rezervacija);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return NotFound();
             }
-            ViewData["KorisnikId"] = new SelectList(_context.Users, "Id", "Id", rezervacija.KorisnikId);
-            ViewData["TerminId"] = new SelectList(_context.Termini, "Id", "Id", rezervacija.TerminId);
-            ViewData["UslugaId"] = new SelectList(_context.Usluge, "Id", "Id", rezervacija.UslugaId);
-            return View(rezervacija);
+
+            rezervacija.StatusRezervacije = StatusRezervacije.Potvrdjena;
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        // ODBIJ REZERVACIJU
+        [Authorize(Roles = "admin,zaposlenik")]
+        public async Task<IActionResult> Odbij(int id)
+        {
+            var rezervacija = await _context.Rezervacije.FindAsync(id);
+
+            if (rezervacija == null)
+            {
+                return NotFound();
+            }
+
+            rezervacija.StatusRezervacije = StatusRezervacije.Odbijena;
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Rezervacija/Edit/5
@@ -90,23 +148,29 @@ namespace SmartHairSalonApp.Controllers
             }
 
             var rezervacija = await _context.Rezervacije.FindAsync(id);
+
             if (rezervacija == null)
             {
                 return NotFound();
             }
-            ViewData["KorisnikId"] = new SelectList(_context.Users, "Id", "Id", rezervacija.KorisnikId);
-            ViewData["TerminId"] = new SelectList(_context.Termini, "Id", "Id", rezervacija.TerminId);
-            ViewData["UslugaId"] = new SelectList(_context.Usluge, "Id", "Id", rezervacija.UslugaId);
+
+            ViewData["KorisnikId"] =
+                new SelectList(_context.Users, "Id", "Id", rezervacija.KorisnikId);
+
+            ViewData["UslugaId"] =
+                new SelectList(_context.Usluge, "Id", "Naziv", rezervacija.UslugaId);
+
             return View(rezervacija);
         }
 
         // POST: Rezervacija/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [Authorize(Roles = "admin,zaposlenik")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,StatusRezervacije,KorisnikId,UslugaId,TerminId")] Rezervacija rezervacija)
+        public async Task<IActionResult> Edit(
+            int id,
+            [Bind("Id,StatusRezervacije,KorisnikId,UslugaId,ZeljeniTermin")]
+            Rezervacija rezervacija)
         {
             if (id != rezervacija.Id)
             {
@@ -126,21 +190,23 @@ namespace SmartHairSalonApp.Controllers
                     {
                         return NotFound();
                     }
-                    else
-                    {
-                        throw;
-                    }
+
+                    throw;
                 }
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["KorisnikId"] = new SelectList(_context.Users, "Id", "Id", rezervacija.KorisnikId);
-            ViewData["TerminId"] = new SelectList(_context.Termini, "Id", "Id", rezervacija.TerminId);
-            ViewData["UslugaId"] = new SelectList(_context.Usluge, "Id", "Id", rezervacija.UslugaId);
+
+            ViewData["KorisnikId"] =
+                new SelectList(_context.Users, "Id", "Id", rezervacija.KorisnikId);
+
+            ViewData["UslugaId"] =
+                new SelectList(_context.Usluge, "Id", "Naziv", rezervacija.UslugaId);
+
             return View(rezervacija);
         }
 
         // GET: Rezervacija/Delete/5
-
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -151,9 +217,9 @@ namespace SmartHairSalonApp.Controllers
 
             var rezervacija = await _context.Rezervacije
                 .Include(r => r.Korisnik)
-                .Include(r => r.Termin)
                 .Include(r => r.Usluga)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (rezervacija == null)
             {
                 return NotFound();
@@ -168,12 +234,14 @@ namespace SmartHairSalonApp.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var rezervacija = await _context.Rezervacije.FindAsync(id);
+
             if (rezervacija != null)
             {
                 _context.Rezervacije.Remove(rezervacija);
             }
 
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 

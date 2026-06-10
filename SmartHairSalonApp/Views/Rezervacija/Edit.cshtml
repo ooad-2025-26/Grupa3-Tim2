@@ -1,49 +1,73 @@
 ﻿@model SmartHairSalonApp.Models.Rezervacija
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Obrada rezervacije";
 }
 
-<h1>Edit</h1>
+<h1>Obrada rezervacije</h1>
 
-<h4>Rezervacija</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="StatusRezervacije" class="control-label"></label>
-                <select asp-for="StatusRezervacije" class="form-control"></select>
-                <span asp-validation-for="StatusRezervacije" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="KorisnikId" class="control-label"></label>
-                <select asp-for="KorisnikId" class="form-control" asp-items="ViewBag.KorisnikId"></select>
-                <span asp-validation-for="KorisnikId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UslugaId" class="control-label"></label>
-                <select asp-for="UslugaId" class="form-control" asp-items="ViewBag.UslugaId"></select>
-                <span asp-validation-for="UslugaId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TerminId" class="control-label"></label>
-                <select asp-for="TerminId" class="form-control" asp-items="ViewBag.TerminId"></select>
-                <span asp-validation-for="TerminId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+
+        <div class="card shadow p-4">
+
+            <form asp-action="Edit">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="KorisnikId" />
+                <input type="hidden" asp-for="UslugaId" />
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">
+                        Željeni termin korisnika
+                    </label>
+
+                    <input asp-for="ZeljeniTermin"
+                           class="form-control"
+                           readonly />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="StatusRezervacije"
+                           class="form-label fw-bold">
+                    </label>
+
+                    <select asp-for="StatusRezervacije"
+                            asp-items="Html.GetEnumSelectList<SmartHairSalonApp.Models.StatusRezervacije>()"
+                            class="form-select">
+                    </select>
+
+                    <span asp-validation-for="StatusRezervacije"
+                          class="text-danger">
+                    </span>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit"
+                            class="btn btn-success px-4">
+                        Sačuvaj promjene
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="mt-3 text-center">
+    <a asp-action="Index" class="btn btn-secondary">
+        Nazad
+    </a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

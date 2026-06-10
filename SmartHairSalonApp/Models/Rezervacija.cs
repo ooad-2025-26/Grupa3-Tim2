@@ -19,10 +19,9 @@ namespace SmartHairSalonApp.Models
         public int UslugaId { get; set; }
         public Usluga Usluga { get; set; }
 
-        [ForeignKey("Termin")]
-        public int TerminId { get; set; }
-        public Termin Termin { get; set; }
 
+        [Display(Name = "Željeni termin")]
+        public string? ZeljeniTermin { get; set; }
         public Rezervacija() { }
     }
 }

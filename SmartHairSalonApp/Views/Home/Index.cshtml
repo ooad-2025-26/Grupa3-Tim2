@@ -1,59 +1,228 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Početna";
 }
 
-<div class="container-fluid" style="
-    height: 90vh;
-    background: linear-gradient(135deg, #f5efe6, #f3d6db);
-    ">
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
 
-    <div class="row h-100 align-items-center">
+<div class="hero-container position-relative overflow-hidden">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
 
-        <!-- LIJEVA STRANA -->
-        <div class="col-md-6 ps-5">
-            <h1 class="display-3" style="color:#3e2a2a;">
-                Smart Hair Salon ✂️
-            </h1>
+            <div class="col-lg-6 col-12 text-section pe-lg-5">
+                <h1 class="hero-title fw-bold mb-4">
+                    Svaka žena zaslužuje da se osjeća predivno sigurna.
+                </h1>
+                <p class="hero-subtitle mb-4">
+                    Dobrodošli u Smart Hair Salon, gdje se vaša ljepota, stil i briga o sebi spajaju na jednom mjestu.
+                    Rezervišite svoj termin ili istražite premium proizvode za njegu kose napravljene samo za vas.
+                </p>
+                <p class="hero-motto fw-bold mb-5">
+                    Jer sjajan dan za kosu mijenja sve...
+                </p>
 
-            <p class="lead mt-4" style="color:#6b4b4b;">
-                Dobrodošli u naš salon! Rezervišite termine, istražite naše usluge
-                i pronađite najbolje proizvode za njegu kose.
-            </p>
-
-            <div class="mt-4">
-                <a class="btn btn-lg me-3"
-                       style="background:#3e2a2a; color:white;"
-                       asp-controller="Rezervacija" asp-action="Index">
-                    Rezervacije
-                </a>
-
-                <a class="btn btn-lg"
-                       style="border:2px solid #3e2a2a; color:#3e2a2a;"
-                       asp-controller="Proizvod" asp-action="Index">
-                    Proizvodi
-                </a>
-            </div>
-        </div>
-
-        <!-- DESNA STRANA (VELIKI KRUG - POLA VANI) -->
-        <div class="col-md-6 position-relative overflow-hidden">
-
-            <div style="
-                position:absolute;
-                right:-180px;
-                top:50%;
-                transform:translateY(-50%);
-                width:550px;
-                height:550px;
-                border-radius:50%;
-                overflow:hidden;
-                box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-                ">
-                <img src="~/images/salon.jpg"
-                     style="width:100%; height:100%; object-fit:cover;" />
+                <div class="d-flex flex-wrap gap-3">
+                    <a asp-controller="Rezervacija" asp-action="Create" class="btn btn-book-now text-uppercase fw-semibold">
+                        Rezerviši odmah
+                    </a>
+                    <a asp-controller="Proizvod" asp-action="Index" class="btn btn-shop-now text-uppercase fw-semibold">
+                        Posjeti shop
+                    </a>
+                </div>
             </div>
 
-        </div>
+            <div class="col-lg-6 col-12 position-relative image-section mt-5 mt-lg-0 d-flex justify-content-end align-items-center" style="min-height: 500px;">
 
+                <div class="main-image-wrapper shadow">
+                    <img src="@Url.Content("~/images/home-hero.jpg")" alt="Smart Hair Salon" class="img-fluid main-img" />
+                </div>
+
+                <div class="circle-image-wrapper shadow-lg d-none d-sm-block">
+                    <img src="@Url.Content("~/images/home-products.jpg")" alt="Premium Haircare" class="circle-img" />
+                </div>
+
+            </div>
+        </div>
     </div>
 </div>
+
+<div class="container pb-5 mt-4 mt-lg-0">
+    <div class="row justify-content-start">
+        <div class="col-lg-7 col-12">
+            <div class="features-card border-0 shadow-sm p-4 rounded-4 bg-white">
+                <div class="d-flex align-items-start gap-4 flex-column flex-sm-row">
+                    <div class="feature-badge-icon flex-shrink-0">
+                        <i class="bi bi-patch-check" style="font-size: 2.5rem; color: #1e2d1d;"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h6 class="fw-bold text-center text-sm-start mb-3 text-uppercase tracking-wider text-muted small" style="letter-spacing: 1px;">
+                            Vaša rutina ljepote, pojednostavljena
+                        </h6>
+                        <div class="row g-2 text-muted small">
+                            <div class="col-sm-6 col-12">
+                                <i class="bi bi-dot text-dark fs-5"></i> Laka rezervacija termina
+                            </div>
+                            <div class="col-sm-6 col-12">
+                                <i class="bi bi-dot text-dark fs-5"></i> Premium proizvodi za njegu kose
+                            </div>
+                            <div class="col-sm-6 col-12">
+                                <i class="bi bi-dot text-dark fs-5"></i> Profesionalne salonske usluge
+                            </div>
+                            <div class="col-sm-6 col-12">
+                                <i class="bi bi-dot text-dark fs-5"></i> Jedna pouzdana lokacija salona
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Gradient pozadina cijele stranice (Nude/soft pink prelazi) */
+    body {
+        background: linear-gradient(135deg, #fbf2eb 0%, #f7e6dc 50%, #f5dbcd 100%) !important;
+        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    .hero-container {
+        min-height: 75vh;
+        padding: 60px 0;
+    }
+
+    /* Boja i stil glavnog naslova */
+    .hero-title {
+        color: #2b392a;
+        font-size: 3.25rem;
+        line-height: 1.2;
+        letter-spacing: -0.5px;
+    }
+
+    /* Podnaslov i moto */
+    .hero-subtitle {
+        color: #555c54;
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+
+    .hero-motto {
+        color: #2b392a;
+        font-size: 1.15rem;
+    }
+
+    /* Stil dugmeta: BOOK NOW (Tamno maslinasto-zelena) */
+    .btn-book-now {
+        background-color: #2d3b2c;
+        color: #ffffff !important;
+        border: 1px solid #2d3b2c;
+        padding: 14px 32px;
+        font-size: 0.95rem;
+        letter-spacing: 1px;
+        border-radius: 0px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-book-now:hover {
+            background-color: #1e291d;
+            transform: translateY(-2px);
+        }
+
+    /* Stil dugmeta: SHOP NOW (Prozirno sa tankim okvirom) */
+    .btn-shop-now {
+        background-color: transparent;
+        color: #2d3b2c !important;
+        border: 1px solid #2d3b2c;
+        padding: 14px 32px;
+        font-size: 0.95rem;
+        letter-spacing: 1px;
+        border-radius: 0px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-shop-now:hover {
+            background-color: #2d3b2c;
+            color: #ffffff !important;
+            transform: translateY(-2px);
+        }
+
+    /* Veliki asimetrični okvir za sliku frizerke */
+    .main-image-wrapper {
+        width: 100%;
+        max-width: 520px;
+        height: 480px;
+        border-radius: 30% 70% 40% 60% / 40% 30% 70% 60%; /* Prilagođen za bolji balans lica na slici */
+        overflow: hidden;
+        margin-left: auto;
+        position: relative;
+        z-index: 1;
+    }
+
+    .main-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center; /* Drži centar slike fokusiranim */
+    }
+
+    /* ISPRAVLJENO: Savršeni krug koji se preklapa tačno kao na slici */
+    .circle-image-wrapper {
+        position: absolute;
+        width: 270px;
+        height: 270px;
+        border-radius: 50%;
+        overflow: hidden;
+        top: 20px;
+        left: 20px; /* Pomjereno skroz ulijevo da siječe veliku sliku */
+        border: 10px solid #f7e6dc; /* Deblji, mekani okvir koji se stapa s pozadinom */
+        z-index: 10; /* Osigurava da je krug na vrhu */
+    }
+
+    .circle-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    /* Donja bijela kartica sa pogodnostima */
+    .features-card {
+        background-color: rgba(255, 255, 255, 0.95) !important;
+        backdrop-filter: blur(10px);
+        border-radius: 12px !important;
+    }
+
+    /* Prilagođavanje za manje ekrane (mobitele) */
+    @@media (max-width: 991.98px) {
+        .hero-title {
+            font-size: 2.3rem;
+            text-align: center;
+        }
+
+        .hero-subtitle, .hero-motto {
+            text-align: center;
+        }
+
+        .text-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .main-image-wrapper {
+            margin: 0 auto;
+            height: 380px;
+        }
+        /* Na mobitelima pomijeramo krug da ne zaklanja cijelu sliku */
+        .circle-image-wrapper {
+            width: 180px;
+            height: 180px;
+            left: 0;
+            top: 0;
+        }
+    }
+</style>
