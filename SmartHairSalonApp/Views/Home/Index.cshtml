@@ -2,10 +2,17 @@
     ViewData["Title"] = "Početna";
 }
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
 @if (TempData["SuccessMessage"] != null)
 {
-    <div class="alert alert-success">
-        @TempData["SuccessMessage"]
+    <div class="container mt-4">
+        <div class="alert alert-success border-0 shadow-sm rounded-3 small" style="background-color: #fcf9f2; color: #b89728; border: 1px solid #eaddbd !important;">
+            @TempData["SuccessMessage"]
+        </div>
     </div>
 }
 
@@ -14,30 +21,33 @@
         <div class="row h-100 align-items-center">
 
             <div class="col-lg-6 col-12 text-section pe-lg-5">
+                <span class="text-uppercase tracking-widest text-gold fw-bold d-block mb-3 brand-header-lead">
+                    Smart Hair Salon & Premium Shop
+                </span>
                 <h1 class="hero-title fw-bold mb-4">
-                    Svaka žena zaslužuje da se osjeća predivno sigurna.
+                    Otkrijte novu dimenziju luksuza i zdravlja vaše kose.
                 </h1>
                 <p class="hero-subtitle mb-4">
-                    Dobrodošli u Smart Hair Salon, gdje se vaša ljepota, stil i briga o sebi spajaju na jednom mjestu.
-                    Rezervišite svoj termin ili istražite premium proizvode za njegu kose napravljene samo za vas.
+                    Dobrodošli u oazu u kojoj se vaša ljepota, autentičan stil i vrhunska briga o sebi spajaju u jedinstveno iskustvo.
+                    Rezervišite svoj termin ili istražite našu selekciju premium proizvoda za njegu kose kreiranih samo za vas.
                 </p>
-                <p class="hero-motto fw-bold mb-5">
-                    Jer sjajan dan za kosu mijenja sve...
+                <p class="hero-motto fw-semibold text-uppercase tracking-wider mb-5">
+                    Jer sjajan dan za kosu mijenja sve
                 </p>
 
-                <div class="d-flex flex-wrap gap-3">
-                    <a asp-controller="Rezervacija" asp-action="Create" class="btn btn-book-now text-uppercase fw-semibold">
-                        Rezerviši odmah
+                <div class="d-flex flex-wrap gap-3 structure-buttons">
+                    <a asp-controller="Rezervacija" asp-action="Create" class="btn btn-book-now text-uppercase fw-semibold rounded-pill shadow-sm">
+                        Rezerviši termin
                     </a>
-                    <a asp-controller="Proizvod" asp-action="Index" class="btn btn-shop-now text-uppercase fw-semibold">
+                    <a asp-controller="Proizvod" asp-action="Index" class="btn btn-shop-now text-uppercase fw-semibold rounded-pill shadow-sm">
                         Posjeti shop
                     </a>
                 </div>
             </div>
 
-            <div class="col-lg-6 col-12 position-relative image-section mt-5 mt-lg-0 d-flex justify-content-end align-items-center" style="min-height: 500px;">
+            <div class="col-lg-6 col-12 position-relative image-section mt-5 mt-lg-0 d-flex justify-content-end align-items-center" style="min-height: 600px;">
 
-                <div class="main-image-wrapper shadow">
+                <div class="main-image-wrapper shadow-lg">
                     <img src="@Url.Content("~/images/home-hero.jpg")" alt="Smart Hair Salon" class="img-fluid main-img" />
                 </div>
 
@@ -50,30 +60,31 @@
     </div>
 </div>
 
-<div class="container pb-5 mt-4 mt-lg-0">
+<div class="container pb-5 mt-4 mt-lg-2">
     <div class="row justify-content-start">
-        <div class="col-lg-7 col-12">
-            <div class="features-card border-0 shadow-sm p-4 rounded-4 bg-white">
+        <div class="col-lg-8 col-12">
+            <div class="features-card border-0 shadow-sm p-4 rounded-4 bg-white position-relative overflow-hidden">
+                <div class="features-gold-bar"></div>
                 <div class="d-flex align-items-start gap-4 flex-column flex-sm-row">
-                    <div class="feature-badge-icon flex-shrink-0">
-                        <i class="bi bi-patch-check" style="font-size: 2.5rem; color: #1e2d1d;"></i>
+                    <div class="feature-badge-icon flex-shrink-0 pt-1">
+                        <i class="bi bi-shield-check text-gold" style="font-size: 3.5rem;"></i>
                     </div>
                     <div class="flex-grow-1">
-                        <h6 class="fw-bold text-center text-sm-start mb-3 text-uppercase tracking-wider text-muted small" style="letter-spacing: 1px;">
+                        <h6 class="fw-bold text-center text-sm-start mb-3 text-uppercase tracking-widest text-dark small">
                             Vaša rutina ljepote, pojednostavljena
                         </h6>
-                        <div class="row g-2 text-muted small">
-                            <div class="col-sm-6 col-12">
-                                <i class="bi bi-dot text-dark fs-5"></i> Laka rezervacija termina
+                        <div class="row g-3 text-muted small">
+                            <div class="col-sm-6 col-12 d-flex align-items-center">
+                                <i class="bi bi-circle-fill text-gold me-2" style="font-size: 0.4rem;"></i> Laka i brza rezervacija termina
                             </div>
-                            <div class="col-sm-6 col-12">
-                                <i class="bi bi-dot text-dark fs-5"></i> Premium proizvodi za njegu kose
+                            <div class="col-sm-6 col-12 d-flex align-items-center">
+                                <i class="bi bi-circle-fill text-gold me-2" style="font-size: 0.4rem;"></i> Premium proizvodi za kućnu njegu
                             </div>
-                            <div class="col-sm-6 col-12">
-                                <i class="bi bi-dot text-dark fs-5"></i> Profesionalne salonske usluge
+                            <div class="col-sm-6 col-12 d-flex align-items-center">
+                                <i class="bi bi-circle-fill text-gold me-2" style="font-size: 0.4rem;"></i> Profesionalne i moderne salonske usluge
                             </div>
-                            <div class="col-sm-6 col-12">
-                                <i class="bi bi-dot text-dark fs-5"></i> Jedna pouzdana lokacija salona
+                            <div class="col-sm-6 col-12 d-flex align-items-center">
+                                <i class="bi bi-circle-fill text-gold me-2" style="font-size: 0.4rem;"></i> Ekskluzivan ambijent na prepoznatljivoj lokaciji
                             </div>
                         </div>
                     </div>
@@ -84,103 +95,143 @@
 </div>
 
 <style>
-    /* Gradient pozadina cijele stranice (Nude/soft pink prelazi) */
+    /* Luksuzna, mirna pozadina visokog kontrasta */
     body {
-        background: linear-gradient(135deg, #fbf2eb 0%, #f7e6dc 50%, #f5dbcd 100%) !important;
+        background: #fdfdfb !important;
         font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     }
 
     .hero-container {
-        min-height: 75vh;
-        padding: 60px 0;
+        min-height: 80vh;
+        padding: 80px 0;
     }
 
-    /* Boja i stil glavnog naslova */
+    /* Zlatni akcenat */
+    .text-gold {
+        color: #D4AF37 !important;
+    }
+
+    /* 🔥 POVEĆANO: Stil za glavno ime salona iznad naslova */
+    .brand-header-lead {
+        font-size: 1.15rem;
+        letter-spacing: 0.22em;
+    }
+
+    /* Glavni naslov sa Playfair Display fontom */
     .hero-title {
-        color: #2b392a;
-        font-size: 3.25rem;
-        line-height: 1.2;
+        color: #1a1a1a;
+        font-family: 'Playfair Display', serif;
+        font-size: 3.6rem;
+        line-height: 1.25;
         letter-spacing: -0.5px;
     }
 
-    /* Podnaslov i moto */
+    /* Podnaslov i profinjeni moto */
     .hero-subtitle {
-        color: #555c54;
-        font-size: 1.1rem;
-        line-height: 1.6;
+        color: #666666;
+        font-size: 1.15rem;
+        line-height: 1.7;
     }
 
     .hero-motto {
-        color: #2b392a;
-        font-size: 1.15rem;
+        color: #1a1a1a;
+        font-size: 0.85rem;
+        letter-spacing: 0.15em;
+        position: relative;
+        display: inline-block;
     }
 
-    /* Stil dugmeta: BOOK NOW (Tamno maslinasto-zelena) */
+        .hero-motto::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #D4AF37;
+        }
+
+    /* Dugme: REZERVIŠI TERMIN */
     .btn-book-now {
-        background-color: #2d3b2c;
+        background-color: #1a1a1a;
         color: #ffffff !important;
-        border: 1px solid #2d3b2c;
-        padding: 14px 32px;
-        font-size: 0.95rem;
-        letter-spacing: 1px;
-        border-radius: 0px;
-        transition: all 0.3s ease;
+        border: 1px solid #1a1a1a;
+        padding: 15px 36px;
+        font-size: 0.85rem;
+        letter-spacing: 0.1em;
+        transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
 
         .btn-book-now:hover {
-            background-color: #1e291d;
-            transform: translateY(-2px);
+            background-color: #000000;
+            border-color: #D4AF37;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1) !important;
         }
 
-    /* Stil dugmeta: SHOP NOW (Prozirno sa tankim okvirom) */
+    /* Dugme: POSJETI SHOP */
     .btn-shop-now {
-        background-color: transparent;
-        color: #2d3b2c !important;
-        border: 1px solid #2d3b2c;
-        padding: 14px 32px;
-        font-size: 0.95rem;
-        letter-spacing: 1px;
-        border-radius: 0px;
-        transition: all 0.3s ease;
+        background-color: #ffffff;
+        color: #1a1a1a !important;
+        border: 1px solid #e2e8f0;
+        padding: 15px 36px;
+        font-size: 0.85rem;
+        letter-spacing: 0.1em;
+        transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
 
         .btn-shop-now:hover {
-            background-color: #2d3b2c;
-            color: #ffffff !important;
-            transform: translateY(-2px);
+            border-color: #D4AF37;
+            color: #D4AF37 !important;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(212, 175, 55, 0.08) !important;
         }
 
-    /* Veliki asimetrični okvir za sliku frizerke */
+    /* Slike */
     .main-image-wrapper {
         width: 100%;
-        max-width: 520px;
-        height: 480px;
-        border-radius: 30% 70% 40% 60% / 40% 30% 70% 60%; /* Prilagođen za bolji balans lica na slici */
+        max-width: 560px;
+        height: 540px;
+        border-radius: 30% 70% 40% 60% / 40% 30% 70% 60%;
         overflow: hidden;
         margin-left: auto;
         position: relative;
         z-index: 1;
+        border: 1px solid rgba(212, 175, 55, 0.1);
     }
 
     .main-img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        object-position: center; /* Drži centar slike fokusiranim */
+        object-position: center;
     }
 
-    /* ISPRAVLJENO: Savršeni krug koji se preklapa tačno kao na slici */
     .circle-image-wrapper {
         position: absolute;
-        width: 270px;
-        height: 270px;
+        width: 310px;
+        height: 310px;
         border-radius: 50%;
         overflow: hidden;
-        top: 20px;
-        left: 20px; /* Pomjereno skroz ulijevo da siječe veliku sliku */
-        border: 10px solid #f7e6dc; /* Deblji, mekani okvir koji se stapa s pozadinom */
-        z-index: 10; /* Osigurava da je krug na vrhu */
+        top: 40px;
+        left: -30px;
+        border: 10px solid #ffffff;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.12) !important;
+        z-index: 10;
     }
+
+        .circle-image-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 2px solid #D4AF37;
+            border-radius: 50%;
+            z-index: 11;
+            pointer-events: none;
+        }
 
     .circle-img {
         width: 100%;
@@ -189,23 +240,50 @@
         object-position: center;
     }
 
-    /* Donja bijela kartica sa pogodnostima */
+    /* Donja kartica sa pogodnostima */
     .features-card {
-        background-color: rgba(255, 255, 255, 0.95) !important;
-        backdrop-filter: blur(10px);
-        border-radius: 12px !important;
+        background-color: #ffffff !important;
+        border: 1px solid #f1f1ef !important;
+        border-radius: 16px !important;
     }
 
-    /* Prilagođavanje za manje ekrane (mobitele) */
+    .features-gold-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 4px;
+        background: linear-gradient(180deg, #D4AF37 0%, #F3E5AB 100%);
+    }
+
+    .tracking-wider {
+        letter-spacing: 0.1em;
+    }
+
+    .tracking-widest {
+        letter-spacing: 0.15em;
+    }
+
+    /* Responzivnost */
     @@media (max-width: 991.98px) {
+        .brand-header-lead {
+            text-align: center;
+        }
+
         .hero-title {
-            font-size: 2.3rem;
+            font-size: 2.6rem;
             text-align: center;
         }
 
         .hero-subtitle, .hero-motto {
             text-align: center;
+            display: block;
         }
+
+            .hero-motto::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
 
         .text-section {
             display: flex;
@@ -213,16 +291,21 @@
             align-items: center;
         }
 
+        .structure-buttons {
+            justify-content: center;
+        }
+
         .main-image-wrapper {
             margin: 0 auto;
-            height: 380px;
+            height: 440px;
+            width: 90%;
         }
-        /* Na mobitelima pomijeramo krug da ne zaklanja cijelu sliku */
+
         .circle-image-wrapper {
-            width: 180px;
-            height: 180px;
-            left: 0;
-            top: 0;
+            width: 200px;
+            height: 200px;
+            left: 10px;
+            top: 10px;
         }
     }
 </style>

@@ -7,31 +7,34 @@
     bool jeSalonOsoblje = jeZaposlenik || jeAdmin;
 }
 
-<div class="container py-5" style="min-height: 70vh;">
-    <div class="mb-4">
-        <h2 style="font-family: 'Playfair Display', serif; color: #2b3a22;" class="fw-bold">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<div class="container my-5" style="min-height: 75vh;">
+    <div class="mb-5 pb-3 border-bottom border-light">
+        <span class="text-uppercase tracking-widest text-gold fw-bold small d-block mb-2">Kérastase E-Shop</span>
+        <h2 style="font-family: 'Playfair Display', serif;" class="fw-bold text-uppercase tracking-wide text-dark m-0">
             @if (jeZaposlenik)
             {
                 <text>Upravljanje Narudžbama (Zaposlenik Panel)</text>
             }
             else if (jeAdmin)
             {
-
                 <text>Pregled Narudžbi (Admin Monitoring)</text>
             }
             else
             {
-
                 <text>Moje Narudžbe</text>
             }
         </h2>
-        <p class="text-muted">Praćenje i ažuriranje statusa naručenih Kérastase proizvoda.</p>
+        <p class="text-muted small text-uppercase tracking-wider m-0 mt-1">Praćenje i ažuriranje statusa naručenih Kérastase proizvoda.</p>
     </div>
 
-    <div class="card border-0 shadow-sm" style="border-radius: 12px; background-color: #fbfbfa;">
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white">
+        <div style="height: 4px; background: linear-gradient(90deg, #D4AF37 0%, #F3E5AB 100%);"></div>
+
         <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
-                <thead style="background-color: #e9e6e1;">
+            <table class="table align-middle mb-0 custom-table">
+                <thead class="table-light text-uppercase tracking-wider small">
                     <tr>
                         <th class="py-3 px-4">ID Narudžbe</th>
                         @if (jeSalonOsoblje)
@@ -40,64 +43,71 @@
                         }
                         <th class="py-3 px-4">Ukupna Cijena</th>
                         <th class="py-3 px-4">Status</th>
-                        <th class="py-3 px-4 text-end">Akcija / Pravo</th>
+                        <th class="py-3 px-4 text-end pe-4">Akcija / Pravo</th>
                     </tr>
                 </thead>
                 <tbody>
                     @if (!Model.Any())
                     {
                         <tr>
-                            <td colspan="5" class="text-center py-5 text-muted">Trenutno nema narudžbi u bazi.</td>
+                            <td colspan="5" class="text-center py-5">
+                                <i class="bi bi-box-seam text-muted mb-2 d-block" style="font-size: 2.5rem;"></i>
+                                <span class="text-muted text-uppercase tracking-wider small">Trenutno nema narudžbi u bazi.</span>
+                            </td>
                         </tr>
                     }
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td class="py-3 px-4 fw-bold">#@item.Id</td>
+                            <td class="py-3 px-4 fw-bold text-dark">#@item.Id</td>
                             @if (jeSalonOsoblje)
                             {
-                                <td class="py-3 px-4">@(item.Korisnik?.Email ?? "Gost")</td>
+                                <td class="py-3 px-4 text-muted small">@(item.Korisnik?.Email ?? "Gost")</td>
                             }
-                            <td class="py-3 px-4 fw-semibold text-success">€@(item.Korpa?.UkupnaCijena.ToString("F2") ?? "0.00")</td>
+                            <td class="py-3 px-4 fw-bold text-dark" style="font-size: 1.05rem;">
+                                €@(item.Korpa?.UkupnaCijena.ToString("F2") ?? "0.00")
+                            </td>
                             <td class="py-3 px-4">
                                 @if (item.StatusNarudzbe == StatusNarudzbe.UObradi)
                                 {
-                                    <span class="badge bg-warning text-dark px-3 py-2" style="border-radius: 20px;">U Obradi</span>
+                                    <span class="badge rounded-pill bg-warning-light text-warning text-uppercase px-3 py-2 font-xs">U Obradi</span>
                                 }
                                 else if (item.StatusNarudzbe == StatusNarudzbe.Potvrdjena)
                                 {
-                                    <span class="badge bg-success px-3 py-2" style="border-radius: 20px;">Potvrđena</span>
+                                    <span class="badge rounded-pill bg-success-light text-success text-uppercase px-3 py-2 font-xs">Potvrđena</span>
                                 }
                                 else
                                 {
-                                    <span class="badge bg-danger px-3 py-2" style="border-radius: 20px;">Odbijena</span>
+                                    <span class="badge rounded-pill bg-danger-light text-danger text-uppercase px-3 py-2 font-xs">Odbijena</span>
                                 }
                             </td>
-                            <td class="py-3 px-4 text-end">
+                            <td class="py-3 px-4 text-end pe-4">
                                 @if (jeZaposlenik && item.StatusNarudzbe == StatusNarudzbe.UObradi)
                                 {
                                     <div class="d-inline-flex gap-2">
-                                        <form asp-action="Odluci" method="post">
+                                        <form asp-action="Odluci" method="post" class="m-0">
                                             <input type="hidden" name="id" value="@item.Id" />
-                                            <button type="submit" name="odluka" value="prihvati" class="btn btn-sm text-white px-3 fw-bold" style="background-color: #2b3a22; border-radius: 6px;">
-                                                Prihvati
+                                            <button type="submit" name="odluka" value="prihvati" class="btn btn-dark btn-sm rounded-pill text-uppercase btn-premium-action px-3 shadow-sm">
+                                                <i class="bi bi-check2 me-1"></i> Prihvati
                                             </button>
                                         </form>
-                                        <form asp-action="Odluci" method="post">
+                                        <form asp-action="Odluci" method="post" class="m-0">
                                             <input type="hidden" name="id" value="@item.Id" />
-                                            <button type="submit" name="odluka" value="odbij" class="btn btn-sm btn-outline-danger px-3 fw-bold" style="border-radius: 6px;">
-                                                Odbij
+                                            <button type="submit" name="odluka" value="odbij" class="btn btn-outline-danger btn-sm rounded-pill text-uppercase font-xs fw-bold px-3">
+                                                <i class="bi bi-x-lg me-1"></i> Odbij
                                             </button>
                                         </form>
                                     </div>
                                 }
                                 else if (jeAdmin)
                                 {
-                                    <span class="text-muted small border px-2 py-1 bg-light" style="border-radius: 4px;">Samo za čitanje</span>
+                                    <span class="badge bg-light text-muted border border-light text-uppercase px-2 py-1 font-xs tracking-wide">
+                                        <i class="bi bi-eye me-1"></i> Samo pregled
+                                    </span>
                                 }
                                 else
                                 {
-                                    <span class="text-muted small italic">Nema akcija</span>
+                                    <span class="text-muted small fst-italic">Bez akcija</span>
                                 }
                             </td>
                         </tr>
@@ -107,3 +117,69 @@
         </div>
     </div>
 </div>
+
+<style>
+    .text-gold {
+        color: #D4AF37 !important;
+    }
+
+    .tracking-wide {
+        letter-spacing: 0.05em;
+    }
+
+    .tracking-wider {
+        letter-spacing: 0.1em;
+    }
+
+    .tracking-widest {
+        letter-spacing: 0.2em;
+    }
+
+    .font-xs {
+        font-size: 0.7rem;
+        font-weight: 600;
+    }
+
+    /* Stilovi za premium tabelu */
+    .custom-table th {
+        background-color: #fafafa;
+        border-bottom: 1px solid #f1f1ef;
+        padding: 16px 12px;
+        color: #666;
+        font-size: 0.75rem;
+    }
+
+    .custom-table td {
+        padding: 18px 12px;
+        border-bottom: 1px solid #f8f9fa;
+    }
+
+    /* Elegantne pastelne pozadine za statuse */
+    .bg-success-light {
+        background-color: #ebfbee;
+    }
+
+    .bg-danger-light {
+        background-color: #fff5f5;
+    }
+
+    .bg-warning-light {
+        background-color: #fff9db;
+    }
+
+    /* Dugmad za akciju */
+    .btn-premium-action {
+        background-color: #1a1a1a;
+        border: 1px solid #1a1a1a;
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        transition: all 0.25s ease;
+    }
+
+        .btn-premium-action:hover {
+            background-color: #000000;
+            border-color: #D4AF37;
+            color: #D4AF37 !important;
+        }
+</style>

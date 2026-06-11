@@ -46,73 +46,41 @@ namespace SmartHairSalonApp.Areas.Identity.Pages.Account
             _emailSender = emailSender;
         }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public string ReturnUrl { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public class InputModel
-
         {
-            [Required]
+            [Required(ErrorMessage = "Polje Ime je obavezno.")]
             [Display(Name = "Ime")]
             public string Ime { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Polje Prezime je obavezno.")]
             [Display(Name = "Prezime")]
             public string Prezime { get; set; }
 
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "Polje Email je obavezno.")]
+            [EmailAddress(ErrorMessage = "Unesite ispravnu email adresu.")]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "Polje Lozinka je obavezno.")]
+            [StringLength(100, ErrorMessage = "{0} mora imati najmanje {2} a najviše {1} karaktera.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
 
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare("Password", ErrorMessage = "Lozinka i potvrda lozinke se ne podudaraju.")]
             public string ConfirmPassword { get; set; }
-
-          
-
         }
 
-            public async Task OnGetAsync(string returnUrl = null)
+        public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
@@ -132,42 +100,16 @@ namespace SmartHairSalonApp.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, "admin");
+                    // 🔥 POPRAVLJENO: Dodjeljuje se uloga "korisnik" umjesto "admin" za registraciju klijenata
+                    await _userManager.AddToRoleAsync(user, "korisnik");
 
-                    _logger.LogInformation("Korisnik je kreirano novi račun sa šifrom");
+                    _logger.LogInformation("Korisnik je kreirao novi račun sa šifrom.");
 
-                    var userId = await _userManager.GetUserIdAsync(user);
+                    // Automatska prijava korisnika nakon uspješne registracije
+                    await _signInManager.SignInAsync(user, isPersistent: false);
 
-
-                    /* //zasad nebitno za potvrdu maila
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
-                        protocol: Request.Scheme);
-
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-                    */
-
-                    /* ovo mozda bude trebalo vratit
-                                        if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                                        {
-                                            return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-                                        }
-                                        else
-                                        {
-                                            await _signInManager.SignInAsync(user, isPersistent: false);
-                                            return LocalRedirect(returnUrl);
-                                        }
-                    */
-
-                TempData["SuccessMessage"] = "Registracija je uspješno završena.";
-                return Redirect("~/");
-
-
+                    TempData["SuccessMessage"] = "Registracija je uspješno završena.";
+                    return Redirect("~/");
                 }
                 foreach (var error in result.Errors)
                 {
@@ -192,8 +134,7 @@ namespace SmartHairSalonApp.Areas.Identity.Pages.Account
             catch
             {
                 throw new InvalidOperationException($"Can't create an instance of '{nameof(Korisnik)}'. " +
-                    $"Ensure that '{nameof(Korisnik)}' is not an abstract class and has a parameterless constructor, or alternatively " +
-                    $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
+                    $"Ensure that '{nameof(Korisnik)}' is not an abstract class and has a parameterless constructor.");
             }
         }
 

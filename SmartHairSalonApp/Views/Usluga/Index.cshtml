@@ -1,47 +1,129 @@
 ﻿@model IEnumerable<SmartHairSalonApp.Models.Usluga>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Naše Usluge";
 }
 
-<h1>Index</h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Naziv)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cijena)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Salon)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Naziv)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cijena)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Salon.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-5 pb-3 border-bottom border-light">
+        <div>
+            <h2 class="fw-bold text-uppercase tracking-wide m-0" style="color: #1a1a1a; font-family: 'Playfair Display', serif;">Naše Usluge i Cjenovnik</h2>
+            <p class="text-muted small text-uppercase tracking-wider m-0 mt-1" style="color: #8c8c8c;">Otkrijte našu selekciju vrhunskih frizerskih i kozmetičkih tretmana</p>
+        </div>
+        @if (User.IsInRole("admin") || User.IsInRole("zaposlenik"))
+        {
+            <a asp-action="Create" class="btn btn-dark shadow-sm px-4 fw-semibold rounded-pill uppercase-btn btn-premium-dark">
+                <i class="bi bi-plus-lg me-2 text-gold"></i>Dodaj Novu Uslugu
+            </a>
+        }
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card h-100 border-0 shadow-sm rounded-4 position-relative overflow-hidden bg-white premium-card">
+
+                    <div style="height: 4px; background: linear-gradient(90deg, #D4AF37 0%, #F3E5AB 100%);"></div>
+
+                    <div class="card-body p-4 d-flex flex-column justify-content-between">
+                        <div>
+                            <h4 class="card-title fw-bold mb-2 text-dark" style="font-family: 'Playfair Display', serif;">@item.Naziv</h4>
+
+                            <p class="card-text text-muted small mb-4">
+                                <i class="bi bi-geo-alt-fill text-gold me-1"></i>
+                                Salon: <span class="fw-semibold text-dark">@(item.Salon != null ? item.Salon.Naziv : "Sve lokacije")</span>
+                            </p>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top border-light">
+                            <div>
+                                <span class="text-muted text-uppercase tracking-wider d-block mb-0" style="font-size: 0.75rem;">Cijena usluge</span>
+                                <span class="fs-4 fw-extrabold text-dark">@item.Cijena.ToString("0.00") <small class="fs-6 fw-semibold text-gold">KM</small></span>
+                            </div>
+
+                            @if (User.IsInRole("admin") || User.IsInRole("zaposlenik"))
+                            {
+                                <div class="btn-group shadow-sm rounded-3 overflow-hidden border border-light">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-white btn-sm px-3 border-end" title="Uredi">
+                                        <i class="bi bi-pencil-square text-dark"></i>
+                                    </a>
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-white btn-sm px-3 border-end" title="Detalji">
+                                        <i class="bi bi-info-circle text-muted"></i>
+                                    </a>
+                                    @if (User.IsInRole("admin"))
+                                    {
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-white btn-sm px-3" title="Obriši">
+                                            <i class="bi bi-trash3-fill text-danger"></i>
+                                        </a>
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <span class="badge rounded-pill px-3 py-2 fw-semibold tracking-wider text-uppercase" style="background-color: #fcf9f2; color: #b89728; font-size: 0.7rem; border: 1px solid #eaddbd;">
+                                    Premium tretman
+                                </span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .premium-card {
+        transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+        .premium-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(212, 175, 55, 0.08) !important;
+        }
+
+    .text-gold {
+        color: #D4AF37 !important;
+    }
+
+    .fw-extrabold {
+        font-weight: 800;
+    }
+
+    .tracking-wide {
+        letter-spacing: 0.05em;
+    }
+
+    .tracking-wider {
+        letter-spacing: 0.1em;
+    }
+
+    .btn-premium-dark {
+        background-color: #1a1a1a;
+        border: 1px solid #1a1a1a;
+        transition: all 0.25s ease;
+    }
+
+        .btn-premium-dark:hover {
+            background-color: #000000;
+            border-color: #D4AF37;
+        }
+
+    .uppercase-btn {
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.05em;
+    }
+
+    .btn-white {
+        background-color: #ffffff;
+        border: none;
+    }
+
+        .btn-white:hover {
+            background-color: #fafafa;
+        }
+</style>

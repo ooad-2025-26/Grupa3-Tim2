@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using SmartHairSalonApp.Data;
 using SmartHairSalonApp.Models;
 using System.Text.Json;
+using Microsoft.AspNetCore.Authorization; // 🔥 Dodano za zaključavanje pojedinačnih akcija
 
 namespace SmartHairSalonApp.Controllers
 {
@@ -21,12 +22,14 @@ namespace SmartHairSalonApp.Controllers
             _userManager = userManager;
         }
 
+        // Otvoreno za sve: Gosti mogu gledati Web Shop
         public async Task<IActionResult> Index()
         {
             var proizvodi = await _context.Proizvodi.ToListAsync();
             return View(proizvodi);
         }
 
+        // Otvoreno za sve: Gosti mogu gledati detalje proizvoda
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -162,9 +165,6 @@ namespace SmartHairSalonApp.Controllers
             HttpContext.Session.SetString(SessionKey, sessionData);
         }
 
-        // =========================================================================
-        // 🔥 MODIFIKOVANI ALGORITAM: BEZ DOSTAVE (SVE JE LIČNO PREUZIMANJE U SALONU)
-        // =========================================================================
         private KorpaObracunViewModel PokreniAlgoritamObracuna(List<StavkaKorpeViewModel> osnovnaKorpa)
         {
             var obracun = new KorpaObracunViewModel
@@ -172,7 +172,6 @@ namespace SmartHairSalonApp.Controllers
                 Stavke = osnovnaKorpa
             };
 
-            // 1. Pravilo algoritma: Količinski popust od 15% za 3 ili više komada istog artikla
             foreach (var stavka in obracun.Stavke)
             {
                 if (stavka.Kolicina >= 3)
@@ -185,7 +184,6 @@ namespace SmartHairSalonApp.Controllers
                 }
             }
 
-            // 2. Pravilo algoritma: Poklon lojalnosti za narudžbe preko 150 KM
             double privremeniSumaNakonPopusta = obracun.Stavke.Sum(s => s.UkupnoStavka);
             if (privremeniSumaNakonPopusta > 150)
             {
@@ -199,6 +197,11 @@ namespace SmartHairSalonApp.Controllers
             return obracun;
         }
 
+        // =========================================================================
+        // 🔥 ZAKLJUČANE AKCIJE ZA KORPU - ZAHTIJEVAJU LOGIN
+        // =========================================================================
+
+        [Authorize] // Zabrana za goste
         [HttpGet]
         [Route("Proizvod/Basket")]
         public IActionResult Basket()
@@ -208,6 +211,7 @@ namespace SmartHairSalonApp.Controllers
             return View(obracunataKorpa);
         }
 
+        [Authorize] // Zabrana za goste
         [HttpGet, HttpPost]
         [Route("Proizvod/DohvatiKorpu")]
         public IActionResult DohvatiKorpu()
@@ -216,6 +220,7 @@ namespace SmartHairSalonApp.Controllers
             return Json(korpa);
         }
 
+        [Authorize] // 🔥 KLJUČNO: Ako gost klikne kupi, sistem mu ne da već ga šalje na Login!
         [HttpGet, HttpPost]
         [Route("Proizvod/DodajUKorpu")]
         public IActionResult DodajUKorpu(int id)
@@ -248,6 +253,7 @@ namespace SmartHairSalonApp.Controllers
             return Json(korpa);
         }
 
+        [Authorize] // Zabrana za goste
         [HttpGet, HttpPost]
         [Route("Proizvod/PromijeniKolicinu")]
         public IActionResult PromijeniKolicinu(int id, int promjena)
@@ -268,6 +274,7 @@ namespace SmartHairSalonApp.Controllers
             return Json(korpa);
         }
 
+        [Authorize] // Zabrana za goste
         [HttpGet, HttpPost]
         [Route("Proizvod/UkloniIzKorpe")]
         public IActionResult UkloniIzKorpe(int id)
@@ -284,6 +291,7 @@ namespace SmartHairSalonApp.Controllers
             return Json(korpa);
         }
 
+        [Authorize] // Zabrana za goste
         [HttpPost]
         public async Task<IActionResult> ZavrsiNarudzbu()
         {
@@ -356,7 +364,6 @@ namespace SmartHairSalonApp.Controllers
 
                     HttpContext.Session.Remove(SessionKey);
 
-                    // 🔥 OVDJE JE PROMIJENJENA PORUKA KLIJENTU:
                     return Json(new { success = true, message = "Vaša narudžba je rezervisana! Proizvodi vas čekaju na preuzimanju u salonu." });
                 }
                 catch (Exception ex)
@@ -385,7 +392,6 @@ namespace SmartHairSalonApp.Controllers
         public List<StavkaKorpeViewModel> Stavke { get; set; } = new List<StavkaKorpeViewModel>();
         public double SubTotal => Stavke.Sum(s => s.Cijena * s.Kolicina);
         public double UkupniPopust => Stavke.Sum(s => (s.Cijena - s.CijenaSaPopustom) * s.Kolicina);
-        // Dostava izbačena iz Total formule, Total je sada čista vrijednost artikala nakon popusta
         public double Total => SubTotal - UkupniPopust;
         public string PoklonPoruka { get; set; } = string.Empty;
     }

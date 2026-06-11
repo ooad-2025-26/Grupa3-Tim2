@@ -25,7 +25,6 @@ namespace SmartHairSalonApp.Controllers
         [Authorize(Roles = "admin,zaposlenik,korisnik")]
         public async Task<IActionResult> Index()
         {
-    
             var korisnik = await _userManager.GetUserAsync(User);
             ViewBag.Admin = User.IsInRole("admin");
             ViewBag.Zaposlenik = User.IsInRole("zaposlenik");
@@ -73,7 +72,8 @@ namespace SmartHairSalonApp.Controllers
         }
 
         // GET: Rezervacija/Create
-        [Authorize(Roles = "korisnik")]
+        // 🔥 POPRAVLJENO: Puštamo admina i zaposlenika unutra kako bi im se renderovao naš "Management Access Only" pogled
+        [Authorize(Roles = "korisnik,admin,zaposlenik")]
         public IActionResult Create()
         {
             ViewData["UslugaId"] = new SelectList(
@@ -85,12 +85,19 @@ namespace SmartHairSalonApp.Controllers
         }
 
         // POST: Rezervacija/Create
-        [Authorize(Roles = "korisnik")]
+        // 🔥 POPRAVLJENO: Proširene uloge i dodana backend blokada za administratorske račune
+        [Authorize(Roles = "korisnik,admin,zaposlenik")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
             [Bind("UslugaId,ZeljeniTermin")] Rezervacija rezervacija)
         {
+            // Ako admin ili zaposlenik nekako pošalju zahtjev, odmah ih odbij i vrati na početnu
+            if (User.IsInRole("admin") || User.IsInRole("zaposlenik"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var korisnik = await _userManager.GetUserAsync(User);
 
             rezervacija.KorisnikId = korisnik.Id;

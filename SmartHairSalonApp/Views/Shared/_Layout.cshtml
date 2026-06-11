@@ -289,7 +289,8 @@
 
         if (korpa && korpa.length > 0) {
         korpa.forEach(item => {
-        ukupnoArtikala += item.kolicina;
+        // Osiguravamo mapiranje bez obzira na to da li C# vraća 'kolicina' ili 'Kolicina'
+        ukupnoArtikala += (item.kolicina || item.Kolicina || 0);
         });
         }
         if (brojac) {

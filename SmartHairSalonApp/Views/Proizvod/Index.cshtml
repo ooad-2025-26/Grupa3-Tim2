@@ -1,174 +1,163 @@
 ﻿@model IEnumerable<SmartHairSalonApp.Models.Proizvod>
 
 @{
-    ViewData["Title"] = "Premium Shop";
-    // Prečica da provjerimo da li je prijavljeni korisnik Admin ili Zaposlenik
+    ViewData["Title"] = "Luxury Haircare Shop";
     bool jeOsoblje = User.IsInRole("admin") || User.IsInRole("Admin") || User.IsInRole("zaposlenik") || User.IsInRole("Zaposlenik");
 }
 
 <div class="container py-4">
-    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
-        <div>
-            <h1 class="display-5 fw-bold text-dark"><i class="bi bi-bag-heart-fill text-success me-2"></i>Premium Shop</h1>
-            <p class="text-muted mb-0">Kupite profesionalne proizvode za njegu i stilizovanje kose koje koriste naši frizeri.</p>
-        </div>
-        @if (jeOsoblje)
-        {
-            <a asp-action="Create" class="btn btn-success fw-bold shadow-sm">
-                <i class="bi bi-plus-circle me-1"></i> Dodaj Novi Proizvod
-            </a>
-        }
+    <div class="text-center mb-4 font-luxury">
+        <span class="text-uppercase tracking-widest small fw-bold" style="color: #c9a054; letter-spacing: 3px;">Ekskluzivna Njega Kose</span>
+        <h1 class="display-5 fw-bold mt-1" style="color: #2b3a22; font-family: 'Playfair Display', serif;">Our Professional Shop</h1>
+        <div class="mx-auto my-2" style="width: 50px; height: 2px; background-color: #c9a054;"></div>
+        <p class="text-muted mx-auto small mb-2" style="max-width: 550px; font-family: 'Plus Jakarta Sans', sans-serif;">
+            Vrhunski Kérastase proizvodi. Rezervišite artikle online i preuzmite ih u salonu.
+        </p>
     </div>
 
-    <div class="row g-4 row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
-        @foreach (var item in Model)
+    @if (jeOsoblje)
+    {
+        <div class="alert border-0 p-3 mb-4 d-flex justify-content-between align-items-center shadow-sm" style="background-color: #fbfbfa; border-left: 4px solid #c9a054 !important;">
+            <div>
+                <h6 class="fw-bold mb-0" style="color: #2b3a22;"><i class="bi bi-sliders me-2"></i>Upravljanje Proizvodima</h6>
+                <p class="text-muted small mb-0" style="font-size: 0.8rem;">Dodavanje, ažuriranje ili brisanje artikala iz ponude.</p>
+            </div>
+            <a href="/Proizvod/Create" class="btn text-white fw-bold btn-sm px-3 py-2 shadow-sm" style="background-color: #2b3a22; border-radius: 4px;">
+                <i class="bi bi-plus-lg me-1"></i> Dodaj Novi Proizvod
+            </a>
+        </div>
+    }
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var proizvod in Model)
         {
             <div class="col">
-                <div class="card h-100 shadow-sm border-0 rounded-3 bg-white overflow-hidden transition-card">
-                    <div class="position-relative bg-light" style="height: 220px;">
-                        <img src="https://images.unsplash.com/photo-1608248597481-496100c80836?q=80&w=600"
-                             class="w-100 h-100 object-fit-cover"
-                             alt="@item.Naziv">
-                        <span class="badge bg-dark position-absolute top-3 start-3 px-3 py-2 rounded-pill fw-bold shadow-sm">
-                            @item.Cijena KM
-                        </span>
+                <div class="card h-100 border-0 shadow-sm position-relative overflow-hidden transition-card" style="border-radius: 0px; background: #ffffff;">
+
+                    @if (proizvod.Kolicina <= 0)
+                    {
+                        <span class="badge bg-danger position-absolute top-0 end-0 m-3 px-3 py-2 text-uppercase fw-bold" style="letter-spacing: 0.5px; z-index: 5; font-size: 0.7rem;">Rasprodano</span>
+                    }
+                    else if (proizvod.Kolicina < 5)
+                    {
+                        <span class="badge bg-warning text-dark position-absolute top-0 end-0 m-3 px-3 py-2 text-uppercase fw-bold" style="letter-spacing: 0.5px; z-index: 5; font-size: 0.7rem;">Zadnji komadi</span>
+                    }
+
+                    <div class="d-flex align-items-center justify-content-center" style="height: 240px; background-color: #fcfbfa; border-bottom: 1px solid #f5f4f0;">
+                        <div class="text-center p-4">
+                            <i class="bi bi-droplet text-muted opacity-50 fs-1 d-block mb-2"></i>
+                            <span class="text-uppercase tracking-wider text-muted fw-semibold small" style="letter-spacing: 2px; font-size: 0.8rem;">K É R A S T A S E</span>
+                        </div>
                     </div>
 
                     <div class="card-body p-4 d-flex flex-column">
-                        <h5 class="fw-bold text-dark mb-2">@item.Naziv</h5>
-
-                        <p class="card-text text-muted small mb-4 flex-grow-1">
-                            @(string.IsNullOrEmpty(item.Opis) ? "Premium salonska formula za savršenu njegu, sjaj i revitalizaciju vaše kose svakog dana." : item.Opis)
+                        <h4 class="card-title fw-bold mb-2 h5" style="color: #2b3a22; font-family: 'Playfair Display', serif;">@proizvod.Naziv</h4>
+                        <p class="card-text text-muted small flex-grow-1 text-truncate-2" style="font-family: 'Plus Jakarta Sans', sans-serif;">
+                            @proizvod.Opis
                         </p>
 
-                        <div class="d-flex gap-2">
-                            @if (!jeOsoblje)
-                            {
-                                <button type="button"
-                                        class="btn btn-primary flex-grow-1 fw-bold shadow-sm btn-dodaj-korpa"
-                                        onclick="direktnoDodaj(event, @item.Id)">
-                                    <i class="bi bi-cart-plus me-1"></i> Dodaj u Korpu
-                                </button>
+                        <div class="d-flex justify-content-between align-items-center mt-4 pt-3" style="border-top: 1px solid #f5f4f0;">
+                            <div>
+                                <span class="text-muted d-block small" style="font-size: 0.7rem; text-transform: uppercase;">Cijena</span>
+                                <span class="fs-4 fw-bold text-dark">@proizvod.Cijena.ToString("F2") <small class="fs-6 text-muted" style="font-size: 0.8rem;">KM</small></span>
+                            </div>
 
-                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary shadow-sm">
+                            <div class="d-flex gap-2">
+                                <a href="/Proizvod/Details/@proizvod.Id" class="btn btn-outline-secondary btn-sm px-3 py-2" style="border-radius: 4px;" title="Detalji">
                                     <i class="bi bi-eye"></i>
                                 </a>
-                            }
-                            else
-                            {
-                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary flex-grow-1 fw-bold shadow-sm">
-                                    <i class="bi bi-eye me-1"></i> Detalji
-                                </a>
 
-                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-gear"></i>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end shadow-sm">
-                                    <li>
-                                        <a class="dropdown-item py-2" asp-action="Edit" asp-route-id="@item.Id">
-                                            <i class="bi bi-pencil me-2 text-warning"></i> Uredi proizvod
-                                        </a>
-                                    </li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li>
-                                        <a class="dropdown-item py-2 text-danger fw-semibold" asp-action="Delete" asp-route-id="@item.Id">
-                                            <i class="bi bi-trash me-2"></i> Obriši iz shopa
-                                        </a>
-                                    </li>
-                                </ul>
-                            }
+                                @if (!jeOsoblje && proizvod.Kolicina > 0)
+                                {
+                                    <button onclick="dodajUKorpuPrekoAjaxa(@proizvod.Id)" class="btn text-white fw-bold btn-sm px-3 py-2 btn-shop-add" style="background-color: #2b3a22; border-radius: 4px;">
+                                        <i class="bi bi-cart-plus me-1"></i> Kupi
+                                    </button>
+                                }
+                            </div>
                         </div>
                     </div>
+
+                    @if (jeOsoblje)
+                    {
+                        <div class="card-footer bg-light border-0 p-2 d-flex justify-content-around" style="font-size: 0.85rem;">
+                            <a href="/Proizvod/Edit/@proizvod.Id" class="text-decoration-none fw-semibold text-warning"><i class="bi bi-pencil-square me-1"></i> Uredi</a>
+                            <div class="text-muted">|</div>
+                            <a href="/Proizvod/Delete/@proizvod.Id" class="text-decoration-none fw-semibold text-danger"><i class="bi bi-trash3 me-1"></i> Obriši</a>
+                        </div>
+                    }
                 </div>
             </div>
         }
     </div>
-
-    @if (!Model.Any())
-    {
-        <div class="alert alert-info text-center py-5 border-0 rounded-3 shadow-sm mt-4" role="alert">
-            <i class="bi bi-bag-x fs-1 d-block mb-3 text-secondary"></i>
-            <h4 class="fw-bold">Polica je trenutno prazna</h4>
-            <p class="text-muted mb-0">Uskoro stižu naši premium proizvodi za njegu kose.</p>
-        </div>
-    }
 </div>
 
 <style>
+    .tracking-widest {
+        letter-spacing: 3px;
+    }
+
+    .text-truncate-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
     .transition-card {
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
         .transition-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 .75rem 1.5rem rgba(0,0,0,.12) !important;
+            box-shadow: 0 10px 20px rgba(43,58,34,0.08) !important;
         }
 
-    .object-fit-cover {
-        object-fit: cover;
-    }
-
-    .top-3 {
-        top: 1rem;
-    }
-
-    .start-3 {
-        left: 1rem;
+    .btn-shop-add:hover {
+        background-color: #c9a054 !important;
     }
 </style>
 
 @section Scripts {
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        function direktnoDodaj(event, id) {
-        event.preventDefault();
+    @if (!jeOsoblje)
+    {
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            function dodajUKorpuPrekoAjaxa(id) {
+            fetch(`/Proizvod/DodajUKorpu?id=${id}`, { method: 'POST' })
+            .then(res => res.json())
+            .then(data => {
+            // Pozivamo globalnu funkciju iz _Layout.cshtml kako bi podaci i brojač bili u potpunom skladu
+            if (typeof azurirajBadgeKorpe === "function") {
+            azurirajBadgeKorpe(data);
+            } else {
+            // Rezervna varijanta ako se layout učita sporije
+            let brojac = document.getElementById('brojac-proizvoda');
+            let ukupnoArtikala = 0;
+            if (Array.isArray(data)) {
+            data.forEach(item => {
+            ukupnoArtikala += (item.kolicina || item.Kolicina || 0);
+            });
+            }
+            if (brojac) {
+            brojac.innerText = ukupnoArtikala;
+            }
+            }
 
-        // Spremamo referencu na dugme koje je kliknuto da ga možemo vizuelno animirati
-        const dugme = event.currentTarget;
-        dugme.disabled = true;
-        const originalniSadrzaj = dugme.innerHTML;
-        dugme.innerHTML = `<span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span> Dodavanje...`;
-
-        // Pozivamo tačnu rutu iz tvog Proizvod kontrolera koju koristi tvoj Layout
-        fetch(`/Proizvod/DodajUKorpu?id=${id}`, { method: 'POST' })
-        .then(res => {
-        if (!res.ok) throw new Error("Greška na serveru");
-        return res.json();
-        })
-        .then(data => {
-        // Pozivamo funkciju iz Layouta koja će automatski ažurirati broj na crvenom badge-u iznad kolica
-        if (typeof azurirajBadgeKorpe === "function") {
-        azurirajBadgeKorpe(data);
-        }
-
-        // Diskretni "toast" skočni prozor u donjem desnom uglu da je proizvod dodat, bez ometanja klijenta
-        const Toast = Swal.mixin({
-        toast: true,
-        position: 'bottom-end',
-        showConfirmButton: false,
-        timer: 2500,
-        timerProgressBar: true
-        });
-
-        Toast.fire({
-        icon: 'success',
-        title: 'Proizvod je dodan u vašu korpu!'
-        });
-        })
-        .catch(err => {
-        console.error("Greška pri dodavanju artikla:", err);
-        Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Došlo je do greške. Jeste li prijavljeni na svoj račun?',
-        confirmButtonColor: '#2b3a22'
-        });
-        })
-        .finally(() => {
-        // Vraćamo dugme u prvobitno stanje
-        dugme.disabled = false;
-        dugme.innerHTML = originalniSadrzaj;
-        });
-        }
-    </script>
+            // Notifikacija na dnu ekrana (bottom-end)
+            const Toast = Swal.mixin({
+            toast: true,
+            position: 'bottom-end',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true
+            });
+            Toast.fire({
+            icon: 'success',
+            title: 'Proizvod dodan u vašu beauty korpu!'
+            });
+            })
+            .catch(err => console.error("Greška:", err));
+            }
+        </script>
+    }
 }

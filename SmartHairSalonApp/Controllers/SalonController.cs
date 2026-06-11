@@ -21,14 +21,14 @@ namespace SmartHairSalonApp.Controllers
         }
 
         // GET: Salon
-        [Authorize]
+        // 🔥 POPRAVLJENO: Uklonjen [Authorize] - sada gosti slobodno vide lokaciju/salone
         public async Task<IActionResult> Index()
         {
             return View(await _context.Saloni.ToListAsync());
         }
 
         // GET: Salon/Details/5
-        [Authorize]
+        // 🔥 POPRAVLJENO: Uklonjen [Authorize] - gosti mogu vidjeti detalje o salonu
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -47,16 +47,14 @@ namespace SmartHairSalonApp.Controllers
         }
 
         // GET: Salon/Create
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")] // Ostaje zaključano za admina
         public IActionResult Create()
         {
             return View();
         }
 
         // POST: Salon/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")] // Ostaje zaključano za admina
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Naziv,Lokacija,RadnoVrijeme")] Salon salon)
@@ -71,7 +69,7 @@ namespace SmartHairSalonApp.Controllers
         }
 
         // GET: Salon/Edit/5
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")] // Ostaje zaključano za admina
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -88,10 +86,7 @@ namespace SmartHairSalonApp.Controllers
         }
 
         // POST: Salon/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")] // Ostaje zaključano za admina
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Naziv,Lokacija,RadnoVrijeme")] Salon salon)
@@ -125,7 +120,7 @@ namespace SmartHairSalonApp.Controllers
         }
 
         // GET: Salon/Delete/5
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")] // Ostaje zaključano za admina
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -144,6 +139,7 @@ namespace SmartHairSalonApp.Controllers
         }
 
         // POST: Salon/Delete/5
+        [Authorize(Roles = "admin")] // 🔥 OSIGURANJE: Dodano i ovdje iznad same akcije brisanja
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

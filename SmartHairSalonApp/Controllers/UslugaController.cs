@@ -21,7 +21,7 @@ namespace SmartHairSalonApp.Controllers
         }
 
         // GET: Usluga
-        [Authorize]
+        // 🔥 POPRAVLJENO: Uklonjen [Authorize] - gosti sada slobodno gledaju listu usluga
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Usluge.Include(u => u.Salon);
@@ -29,7 +29,7 @@ namespace SmartHairSalonApp.Controllers
         }
 
         // GET: Usluga/Details/5
-        [Authorize]
+        // 🔥 POPRAVLJENO: Uklonjen [Authorize] - gosti mogu vidjeti detalje pojedinačne usluge
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -57,8 +57,6 @@ namespace SmartHairSalonApp.Controllers
         }
 
         // POST: Usluga/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [Authorize(Roles = "admin,zaposlenik")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -93,8 +91,6 @@ namespace SmartHairSalonApp.Controllers
         }
 
         // POST: Usluga/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [Authorize(Roles = "admin,zaposlenik")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -130,7 +126,6 @@ namespace SmartHairSalonApp.Controllers
         }
 
         // GET: Usluga/Delete/5
-
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -151,6 +146,7 @@ namespace SmartHairSalonApp.Controllers
         }
 
         // POST: Usluga/Delete/5
+        [Authorize(Roles = "admin")] // 🔥 OSIGURANJE: Dodana autorizacija i na samu akciju brisanja
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

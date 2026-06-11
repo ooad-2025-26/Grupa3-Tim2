@@ -1,32 +1,217 @@
+/* ==========================================================================
+   1. STANDARDNE BOOTSTRAP I GLOBALNE OSNOVE (Smart Hair Salon)
+   ========================================================================== */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
     margin-bottom: 60px;
-    background-color: #f5efe6;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #212529;
+    background-color: #fafafa;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+/* Globalne klase za luksuzni zlatni ton */
+.text-gold {
+    color: #D4AF37 !important;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+.tracking-wide {
+    letter-spacing: 0.05em;
+}
+
+.tracking-wider {
+    letter-spacing: 0.1em;
+}
+
+.tracking-widest {
+    letter-spacing: 0.2em;
+}
+
+
+/* ==========================================================================
+   2. PREMIUM MINIMALISTIČKI STIL ZA SVE SKRIVENE IDENTITY STRANICE
+   (Moj Profil / Promjena lozinke / Login / Registracija bez Scaffoldovanja)
+   ========================================================================== */
+
+/* Glavni kontejner kartice - čista bijela osnova sa suptilnim zlatnim vrhom */
+#manage,
+.account-manage-container,
+div:has(> #profile-form),
+div:has(> #change-password-form) {
+    max-width: 450px !important; /* Elegantna, uža struktura */
+    margin: 60px auto !important;
+    background: #ffffff !important;
+    border-radius: 12px !important;
+    border: 1px solid #f1f1ef !important; /* Jedva primjetan okvir umjesto teške sjenke */
+    position: relative !important;
+    overflow: hidden !important;
+    padding: 2.5rem !important;
+}
+
+    /* Elegantna tanka zlatna linija na vrhu svake automatske kartice */
+    #manage::before,
+    .account-manage-container::before,
+    div:has(> #profile-form)::before,
+    div:has(> #change-password-form)::before {
+        content: "" !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        height: 3px !important;
+        background: linear-gradient(90deg, #D4AF37 0%, #F3E5AB 100%) !important;
+        z-index: 100;
+    }
+
+    /* Naslovi na profilu (Otmjeni i čisti Playfair font) */
+    #manage h2,
+    .account-manage-title,
+    #manage h4,
+    div:has(> #profile-form) h4,
+    div:has(> #change-password-form) h4 {
+        font-family: 'Playfair Display', serif !important;
+        font-weight: 600 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.08em !important;
+        color: #111111 !important;
+        text-align: center !important;
+        margin-bottom: 2rem !important;
+        margin-top: 0.5rem !important;
+    }
+
+    /* Labele iznad input polja (Minimalističke, sive i diskretne) */
+    #profile-form .form-label,
+    #change-password-form .form-label,
+    .form-floating > label,
+    div:has(> #profile-form) label,
+    div:has(> #change-password-form) label {
+        color: #888888 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.08em !important;
+        font-size: 0.75rem !important;
+        font-weight: 600 !important;
+        margin-bottom: 0.4rem !important;
+    }
+
+    /* Input polja - Čist dizajn sa tankim okvirom, savršeno zaobljen */
+    #profile-form .form-control,
+    #change-password-form .form-control,
+    .form-floating > .form-control,
+    div:has(> #profile-form) input.form-control,
+    div:has(> #change-password-form) input.form-control {
+        border: 1px solid #e2e8f0 !important;
+        border-radius: 8px !important; /* Prati formu tvog login-a */
+        padding: 10px 14px !important;
+        font-size: 0.95rem !important;
+        color: #222222 !important;
+        background-color: #ffffff !important;
+        box-shadow: none !important;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+    }
+
+        /* Fokus na polje - samo čista zlatna linija bez jakog blještanja */
+        #profile-form .form-control:focus,
+        #change-password-form .form-control:focus,
+        .form-floating > .form-control:focus,
+        div:has(> #profile-form) input.form-control:focus,
+        div:has(> #change-password-form) input.form-control:focus {
+            border-color: #D4AF37 !important;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.12) !important;
+            outline: none !important;
+        }
+
+        /* Zaključana polja koja korisnik ne može mijenjati (npr. Email/Username) */
+        #profile-form .form-control[readonly],
+        div:has(> #profile-form) input[readonly] {
+            background-color: #fafafa !important;
+            border-color: #f1f1ef !important;
+            color: #999999 !important;
+            cursor: not-allowed !important;
+        }
+
+    /* Glavna dugmad (Spasi izmjene / Promijeni lozinku) - Premium tamni stil */
+    #update-profile-button,
+    #change-password-button,
+    #profile-form button[type="submit"],
+    #change-password-form button[type="submit"],
+    div:has(> #profile-form) button.btn-primary,
+    div:has(> #change-password-form) button.btn-primary {
+        display: block !important;
+        width: 100% !important;
+        background-color: #1a1a1a !important;
+        border: 1px solid #1a1a1a !important;
+        color: #ffffff !important;
+        font-size: 0.85rem !important;
+        font-weight: 600 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.1em !important;
+        padding: 12px 0 !important;
+        border-radius: 50rem !important; /* Potpuno zaobljeno (rounded-pill) */
+        transition: all 0.25s ease !important;
+        margin-top: 1.5rem !important;
+        box-shadow: none !important;
+    }
+
+        /* Efekat prelaza mišem preko dugmeta - Ivica lagano pozlati */
+        #update-profile-button:hover,
+        #change-password-button:hover,
+        #profile-form button[type="submit"]:hover,
+        #change-password-form button[type="submit"]:hover {
+            background-color: #000000 !important;
+            border-color: #D4AF37 !important;
+            color: #D4AF37 !important; /* Tekst dobija premium zlatni ton */
+        }
+
+/* Čišćenje i centriranje ugrađene Identity pod-navigacije (Tabovi: Profil, Email, Lozinka) */
+.nav-pills {
+    justify-content: center !important;
+    gap: 5px !important;
+    margin-bottom: 2rem !important;
+    border-bottom: 1px solid #f1f1ef !important;
+    padding-bottom: 12px !important;
+}
+
+    .nav-pills .nav-link {
+        font-size: 0.75rem !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.05em !important;
+        color: #777777 !important;
+        padding: 6px 14px !important;
+        background: none !important;
+        border-radius: 0px !important;
+        transition: color 0.2s ease !important;
+    }
+
+        .nav-pills .nav-link:hover,
+        .nav-pills .nav-link.active {
+            color: #D4AF37 !important; /* Samo zlatni tekst za selektovanu opciju */
+            background: none !important;
+            font-weight: 600 !important;
+        }
+
+/* Obavještenje o uspješnom spašavanju (Statusne poruke / Alerti) */
+.alert-success, .alert {
+    background-color: #ffffff !important;
+    border: 1px solid #eaddbd !important;
+    color: #bfa15f !important;
+    border-radius: 8px !important;
+    font-size: 0.8rem !important;
+    text-align: center !important;
+    padding: 10px !important;
+    letter-spacing: 0.03em !important;
+    margin-bottom: 1.5rem !important;
+    max-width: 100% !important;
 }

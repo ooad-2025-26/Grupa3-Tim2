@@ -4,48 +4,101 @@
     ViewData["Title"] = "Registracija";
 }
 
-<h1 class="ms-4 mt-3">@ViewData["Title"]</h1>
-
-<div class="row justify-content-center">
-    <div class="col-md-6 col-lg-5">
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2>Kreirajte novi račun</h2>
-            <p class="text-muted">Unesite svoje podatke za registraciju.</p>
-            <hr />
-            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Ime" class="form-control" placeholder="Ime" />
-                <label asp-for="Input.Ime">Ime</label>
-                <span asp-validation-for="Input.Ime" class="text-danger"></span>
-            </div>
-
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Prezime" class="form-control" placeholder="Prezime" />
-                <label asp-for="Input.Prezime">Prezime</label>
-                <span asp-validation-for="Input.Prezime" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                <label asp-for="Input.Email">Email</label>
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.Password">Lozinka</label>
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.ConfirmPassword">Potvrdite lozinku</label>
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-           
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Registruj se</button>
-        </form>
+<div class="container my-5" style="max-width: 600px;">
+    <div class="text-center mb-4">
+        <span class="text-uppercase tracking-widest text-gold fw-bold small d-block mb-2">Smart Hair Salon</span>
+        <h2 class="fw-bold text-uppercase tracking-wide text-dark" style="font-family: 'Playfair Display', serif;">Kreirajte Nalog</h2>
     </div>
-  
+
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white">
+        <div style="height: 4px; background: linear-gradient(90deg, #D4AF37 0%, #F3E5AB 100%);"></div>
+        <div class="card-body p-4 p-md-5">
+            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-sm-6">
+                        <label asp-for="Input.Ime" class="form-label text-muted text-uppercase tracking-wider small fw-semibold">Ime</label>
+                        <input asp-for="Input.Ime" class="form-control custom-input" autocomplete="given-name" placeholder="Unesite ime" />
+                        <span asp-validation-for="Input.Ime" class="text-danger small"></span>
+                    </div>
+                    <div class="col-sm-6">
+                        <label asp-for="Input.Prezime" class="form-label text-muted text-uppercase tracking-wider small fw-semibold">Prezime</label>
+                        <input asp-for="Input.Prezime" class="form-control custom-input" autocomplete="family-name" placeholder="Unesite prezime" />
+                        <span asp-validation-for="Input.Prezime" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label asp-for="Input.Email" class="form-label text-muted text-uppercase tracking-wider small fw-semibold">Email adresa</label>
+                    <input asp-for="Input.Email" class="form-control custom-input" autocomplete="username" aria-required="true" placeholder="ime@example.com" />
+                    <span asp-validation-for="Input.Email" class="text-danger small"></span>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label asp-for="Input.Password" class="form-label text-muted text-uppercase tracking-wider small fw-semibold">Lozinka</label>
+                    <input asp-for="Input.Password" class="form-control custom-input" autocomplete="new-password" aria-required="true" placeholder="Kreirajte lozinku" />
+                    <span asp-validation-for="Input.Password" class="text-danger small"></span>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label asp-for="Input.ConfirmPassword" class="form-label text-muted text-uppercase tracking-wider small fw-semibold">Potvrdite lozinku</label>
+                    <input asp-for="Input.ConfirmPassword" class="form-control custom-input" autocomplete="new-password" aria-required="true" placeholder="Ponovite lozinku" />
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger small"></span>
+                </div>
+
+                <button id="registerSubmit" type="submit" class="btn btn-dark w-100 rounded-pill text-uppercase btn-premium-dark shadow-sm py-3 mt-2">Registruj se</button>
+
+                <div class="text-center mt-4 pt-3 border-top border-light">
+                    <p class="m-0 small text-muted">Već imate nalog? <a asp-page="./Login" class="text-gold fw-semibold text-decoration-none">Prijavite se</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+<style>
+    .text-gold {
+        color: #D4AF37 !important;
+    }
+
+    .tracking-wide {
+        letter-spacing: 0.05em;
+    }
+
+    .tracking-wider {
+        letter-spacing: 0.1em;
+    }
+
+    .tracking-widest {
+        letter-spacing: 0.2em;
+    }
+
+    .custom-input {
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 12px 16px;
+        font-size: 0.95rem;
+        transition: all 0.2s ease;
+    }
+
+        .custom-input:focus {
+            border-color: #D4AF37;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+            outline: none;
+        }
+
+    .btn-premium-dark {
+        background-color: #1a1a1a;
+        border: 1px solid #1a1a1a;
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        transition: all 0.25s ease;
+    }
+
+        .btn-premium-dark:hover {
+            background-color: #000000;
+            border-color: #D4AF37;
+        }
+</style>

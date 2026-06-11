@@ -1,115 +1,175 @@
 ﻿@model SmartHairSalonApp.Models.Rezervacija
 
-@{
-    ViewData["Title"] = "Rezervacija termina";
+@if (User.IsInRole("admin") || User.IsInRole("zaposlenik"))
+{
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <div class="container my-5" style="max-width: 650px;">
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden text-center p-5 bg-white">
+            <div style="height: 4px; background: linear-gradient(90deg, #D4AF37 0%, #F3E5AB 100%); position: absolute; top: 0; left: 0; right: 0;"></div>
+
+            <div class="my-3">
+                <i class="bi bi-shield-lock text-gold" style="font-size: 3.5rem;"></i>
+            </div>
+
+            <h4 class="fw-bold tracking-wide text-dark mt-3 mb-2" style="font-family: 'Playfair Display', serif; text-transform: uppercase;">
+                Management Access Only
+            </h4>
+
+            <p class="text-muted small text-uppercase tracking-wider px-3 mb-4">
+                Sistemski nalozi ne mogu kreirati rezervacije termina. Ova stranica je namijenjena isključivo za klijente salona.
+            </p>
+
+            <div class="pt-3 border-top border-light mt-2">
+                <a asp-controller="Home" asp-action="Index" class="btn btn-dark px-4 rounded-pill text-uppercase btn-premium-dark shadow-sm">
+                    Nazad na početnu
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .text-gold {
+            color: #D4AF37 !important;
+        }
+
+        .tracking-wide {
+            letter-spacing: 0.05em;
+        }
+
+        .tracking-wider {
+            letter-spacing: 0.1em;
+        }
+
+        .btn-premium-dark {
+            background-color: #1a1a1a;
+            border: 1px solid #1a1a1a;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all 0.25s ease;
+        }
+
+            .btn-premium-dark:hover {
+                background-color: #000000;
+                border-color: #D4AF37;
+            }
+    </style>
 }
+else
+{
+    // 🔥 POPRAVLJENO: Nema više @{ unutar C# bloka, samo direktno dodjeljujemo naslov
+    ViewData["Title"] = "Rezervacija termina";
 
-<div class="container mt-5">
+    <div class="container my-5" style="max-width: 700px;">
+        <div class="mb-4 pb-2 text-center border-bottom border-light">
+            <h2 class="fw-bold text-uppercase tracking-wide" style="color: #1a1a1a; font-family: 'Playfair Display', serif;">Rezervacija Termina</h2>
+            <p class="text-muted small text-uppercase tracking-wider m-0">Osigurajte svoje vrijeme za opuštanje i njegu</p>
+        </div>
 
-    <div class="row justify-content-center">
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white">
+            <div style="height: 4px; background: linear-gradient(90deg, #D4AF37 0%, #F3E5AB 100%); position: absolute; top: 0; left: 0; right: 0;"></div>
 
-        <div class="col-md-8">
+            <div class="card-body p-4 p-md-5">
 
-            <div class="card shadow-lg p-4">
-
-                <h2 class="text-center mb-4">
-                    Rezervacija termina
-                </h2>
-
-                <div class="alert alert-info text-center">
-
-                    <h5>Radno vrijeme salona</h5>
-
-                    <p>
-                        Ponedjeljak - Petak:
-                        <strong>08:00 - 20:00</strong>
+                <div class="p-4 rounded-3 text-center mb-4 border border-light" style="background-color: #fcf9f2; border-color: #eaddbd !important;">
+                    <h6 class="fw-bold text-uppercase tracking-wider text-dark mb-3" style="font-size: 0.85rem; color: #b89728 !important;">Radno vrijeme salona</h6>
+                    <div class="row small text-muted">
+                        <div class="col-sm-6 border-end border-light mb-2 mb-sm-0">
+                            <span class="d-block text-uppercase tracking-wide font-xs">Ponedjeljak - Petak</span>
+                            <strong class="text-dark">08:00 - 20:00</strong>
+                        </div>
+                        <div class="col-sm-6">
+                            <span class="d-block text-uppercase tracking-wide font-xs">Subota</span>
+                            <strong class="text-dark">09:00 - 17:00</strong>
+                        </div>
+                    </div>
+                    <p class="text-muted mt-3 mb-0 text-center" style="font-size: 0.8rem; line-height: 1.4;">
+                        Molimo unesite željeni datum i vrijeme u okviru radnog vremena. Naš tim će obraditi zahtjev i potvrditi termin u najkraćem roku.
                     </p>
-
-                    <p>
-                        Subota:
-                        <strong>09:00 - 17:00</strong>
-                    </p>
-
-                    <p class="mb-0">
-                        Molimo unesite željeni datum i vrijeme termina u okviru radnog vremena salona.
-                        Nakon slanja zahtjeva naši zaposlenici će pregledati rezervaciju i obraditi je u najkraćem roku.
-                    </p>
-
                 </div>
 
                 <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
 
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-                    <div class="mb-3">
-
-                        <label asp-for="UslugaId" class="form-label">
-                            Odaberite uslugu
-                        </label>
-
-                        <select asp-for="UslugaId"
-                                class="form-select"
-                                asp-items="ViewBag.UslugaId">
-                            <option value="">-- Odaberite uslugu --</option>
+                    <div class="form-group mb-4">
+                        <label asp-for="UslugaId" class="form-label text-muted text-uppercase tracking-wider small fw-semibold">Odaberite uslugu</label>
+                        <select asp-for="UslugaId" class="form-select custom-input" asp-items="ViewBag.UslugaId">
+                            <option value="">-- Izaberite tretman --</option>
                         </select>
-
-                        <span asp-validation-for="UslugaId" class="text-danger"></span>
-
+                        <span asp-validation-for="UslugaId" class="text-danger small"></span>
                     </div>
 
-                    <div class="mb-3">
-
-                        <label asp-for="ZeljeniTermin" class="form-label">
-                            Željeni termin
-                        </label>
-
-                        <input asp-for="ZeljeniTermin"
-                               class="form-control"
-                               placeholder="Primjer: 15.06.2026 u 14:00" />
-
-                        <span asp-validation-for="ZeljeniTermin" class="text-danger"></span>
-
+                    <div class="form-group mb-4">
+                        <label asp-for="ZeljeniTermin" class="form-label text-muted text-uppercase tracking-wider small fw-semibold">Željeni termin</label>
+                        <input asp-for="ZeljeniTermin" class="form-control custom-input" placeholder="Primjer: 15.06.2026 u 14:00" />
+                        <span asp-validation-for="ZeljeniTermin" class="text-danger small"></span>
                     </div>
 
-                    <div class="text-center">
-
-                        <button type="submit"
-                                class="btn btn-success px-4">
-                            Pošalji zahtjev
+                    <div class="d-flex justify-content-between align-items-center pt-3 border-top border-light mt-5">
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary px-4 rounded-pill text-uppercase btn-custom-outline">
+                            Odustani
+                        </a>
+                        <button type="submit" class="btn btn-dark px-5 rounded-pill text-uppercase btn-premium-dark shadow-sm">
+                            Pošalji Zahtjev
                         </button>
-
                     </div>
-
                 </form>
 
             </div>
-
         </div>
-
     </div>
 
-</div>
+    <style>
+        .tracking-wide {
+            letter-spacing: 0.05em;
+        }
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        .tracking-wider {
+            letter-spacing: 0.1em;
+        }
+
+        .font-xs {
+            font-size: 0.75rem;
+        }
+
+        .custom-input {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            min-height: 50px !important;
+        }
+
+            .custom-input:focus {
+                border-color: #D4AF37;
+                box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+                outline: none;
+            }
+
+        .btn-premium-dark {
+            background-color: #1a1a1a;
+            border: 1px solid #1a1a1a;
+            transition: all 0.25s ease;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+            .btn-premium-dark:hover {
+                background-color: #000000;
+                border-color: #D4AF37;
+            }
+
+        .btn-custom-outline {
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 50px;
+        }
+    </style>
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
     }
 }
-
-<style>
-
-    .card {
-        border-radius: 15px;
-    }
-
-    .form-select,
-    .form-control {
-        min-height: 55px;
-        font-size: 16px;
-    }
-
-    .btn-success {
-        min-width: 200px;
-    }
-
-</style>
