@@ -14,12 +14,22 @@
 
         if (trenutniKorisnikId != null)
         {
-            bool jeOsoblje = User.IsInRole("zaposlenik") || User.IsInRole("Zaposlenik") ||
-                             User.IsInRole("admin") || User.IsInRole("Admin");
+            // Razdvajamo uloge radi preciznijeg filtriranja na zvoncu
+            bool jeAdmin = User.IsInRole("admin") || User.IsInRole("Admin");
+            bool jeZaposlenik = User.IsInRole("zaposlenik") || User.IsInRole("Zaposlenik");
 
-            if (jeOsoblje)
+            if (jeAdmin)
             {
-                // Zaposlenik vidi sve obavijesti koje počinju sa "SALON:" (sve nove narudžbe)
+                // Admin na svom zvoncu vidi i nove narudžbe (SALON:) i nove registracije (ADMIN:)
+                listaObavijesti = _context.Obavijesti
+                    .Where(o => o.Poruka.StartsWith("SALON:") || o.Poruka.StartsWith("ADMIN:"))
+                    .OrderByDescending(o => o.Datum)
+                    .Take(5)
+                    .ToList();
+            }
+            else if (jeZaposlenik)
+            {
+                // Zaposlenik na svom zvoncu vidi SAMO nove narudžbe za salon
                 listaObavijesti = _context.Obavijesti
                     .Where(o => o.Poruka.StartsWith("SALON:"))
                     .OrderByDescending(o => o.Datum)
@@ -28,9 +38,9 @@
             }
             else
             {
-                // Obični klijent vidi samo svoje obavijesti (koje NE počinju sa SALON:, npr. "Vaša narudžba je prihvaćena")
+                // Obični klijent vidi samo lične poruke poslane njemu
                 listaObavijesti = _context.Obavijesti
-                    .Where(o => o.KorisnikId == trenutniKorisnikId && !o.Poruka.StartsWith("SALON:"))
+                    .Where(o => o.KorisnikId == trenutniKorisnikId && !o.Poruka.StartsWith("SALON:") && !o.Poruka.StartsWith("ADMIN:"))
                     .OrderByDescending(o => o.Datum)
                     .Take(5)
                     .ToList();
@@ -132,11 +142,23 @@
                                         {
                                             foreach (var ob in listaObavijesti)
                                             {
+                                                bool jeAdminPoruka = ob.Poruka.StartsWith("ADMIN:");
+                                                string borderBoja = jeAdminPoruka ? "#8c7a6b" : "#2b3a22";
+
                                                 <li>
                                                     <a class="dropdown-item small p-2 rounded mb-2 text-wrap text-dark d-flex align-items-start pojedinacna-obavijest"
-                                                       style="background-color: #f4f1ed; border-left: 4px solid #2b3a22;"
+                                                       style="background-color: #f4f1ed; border-left: 4px solid @borderBoja;"
                                                        asp-controller="Narudzba" asp-action="Index">
-                                                        <i class="bi bi-chat-left-dots-fill me-2 mt-1" style="color: #2b3a22;"></i>
+
+                                                        @if (jeAdminPoruka)
+                                                        {
+                                                            <i class="bi bi-person-plus-fill me-2 mt-1" style="color: #8c7a6b;"></i>
+                                                        }
+                                                        else
+                                                        {
+                                                            <i class="bi bi-chat-left-dots-fill me-2 mt-1" style="color: #2b3a22;"></i>
+                                                        }
+
                                                         <div>
                                                             @ob.Poruka
                                                             <div class="text-muted" style="font-size: 0.75rem;">@ob.Datum.ToString("HH:mm")</div>
@@ -211,12 +233,10 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-        // Pokrećemo samo ako brojač korpe postoji na ekranu (korisnik je logovan)
         if (document.getElementById('brojac-proizvoda')) {
         osvjeziKorpuIzBaze();
         }
 
-        // Provjera stanja pročitanih obavijesti iz sesije
         if (sessionStorage.getItem("obavijestiProcitane") === "true") {
         ukloniBrojacObavijesti();
         }

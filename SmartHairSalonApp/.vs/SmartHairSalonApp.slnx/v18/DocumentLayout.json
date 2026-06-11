@@ -3,8 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|c:\\users\\ajna\\documents\\github\\grupa3-tim2\\smarthairsalonapp\\controllers\\proizvodcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|solutionrelative:controllers\\proizvodcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|c:\\users\\ajna\\documents\\github\\grupa3-tim2\\smarthairsalonapp\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|c:\\users\\ajna\\documents\\github\\grupa3-tim2\\smarthairsalonapp\\views\\proizvod\\basket.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|solutionrelative:views\\proizvod\\basket.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|c:\\users\\ajna\\documents\\github\\grupa3-tim2\\smarthairsalonapp\\views\\proizvod\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|solutionrelative:views\\proizvod\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|c:\\users\\ajna\\documents\\github\\grupa3-tim2\\smarthairsalonapp\\views\\proizvod\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|solutionrelative:views\\proizvod\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|c:\\users\\ajna\\documents\\github\\grupa3-tim2\\smarthairsalonapp\\areas\\identity\\pages\\account\\register.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|solutionrelative:areas\\identity\\pages\\account\\register.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|c:\\users\\ajna\\documents\\github\\grupa3-tim2\\smarthairsalonapp\\areas\\identity\\pages\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|solutionrelative:areas\\identity\\pages\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|c:\\users\\ajna\\documents\\github\\grupa3-tim2\\smarthairsalonapp\\views\\narudzba\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -13,10 +37,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|c:\\users\\ajna\\documents\\github\\grupa3-tim2\\smarthairsalonapp\\controllers\\narudzbacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|solutionrelative:controllers\\narudzbacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|c:\\users\\ajna\\documents\\github\\grupa3-tim2\\smarthairsalonapp\\controllers\\proizvodcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|solutionrelative:controllers\\proizvodcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|c:\\users\\ajna\\documents\\github\\grupa3-tim2\\smarthairsalonapp\\smarthairsalonapp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
@@ -43,18 +63,6 @@
       "RelativeMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|c:\\users\\ajna\\documents\\github\\grupa3-tim2\\smarthairsalonapp\\views\\proizvod\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|solutionrelative:views\\proizvod\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|c:\\users\\ajna\\documents\\github\\grupa3-tim2\\smarthairsalonapp\\views\\proizvod\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|solutionrelative:views\\proizvod\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|c:\\users\\ajna\\documents\\github\\grupa3-tim2\\smarthairsalonapp\\views\\proizvod\\basket.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|solutionrelative:views\\proizvod\\basket.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|c:\\users\\ajna\\documents\\github\\grupa3-tim2\\smarthairsalonapp\\models\\salon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|solutionrelative:models\\salon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -65,10 +73,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|c:\\users\\ajna\\documents\\github\\grupa3-tim2\\smarthairsalonapp\\areas\\identity\\pages\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|solutionrelative:areas\\identity\\pages\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|c:\\users\\ajna\\documents\\github\\grupa3-tim2\\smarthairsalonapp\\areas\\identity\\pages\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|solutionrelative:areas\\identity\\pages\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|c:\\users\\ajna\\documents\\github\\grupa3-tim2\\smarthairsalonapp\\controllers\\saloncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -85,10 +89,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|c:\\users\\ajna\\documents\\github\\grupa3-tim2\\smarthairsalonapp\\views\\rezervacija\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|solutionrelative:views\\rezervacija\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|c:\\users\\ajna\\documents\\github\\grupa3-tim2\\smarthairsalonapp\\areas\\identity\\pages\\account\\register.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|solutionrelative:areas\\identity\\pages\\account\\register.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B4150948-ACC7-B15F-3074-8CDB2CE4333E}|SmartHairSalonApp.csproj|c:\\users\\ajna\\documents\\github\\grupa3-tim2\\smarthairsalonapp\\models\\statusrezervacije.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -311,110 +311,84 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Narudzba\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Narudzba\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Narudzba\\Index.cshtml",
-              "RelativeToolTip": "Views\\Narudzba\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGwAAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-11T11:12:02.363Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "NarudzbaController.cs",
-              "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Controllers\\NarudzbaController.cs",
-              "RelativeDocumentMoniker": "Controllers\\NarudzbaController.cs",
-              "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Controllers\\NarudzbaController.cs",
-              "RelativeToolTip": "Controllers\\NarudzbaController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGkAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-11T11:08:44.751Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Salon\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Salon\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Salon\\Index.cshtml",
-              "RelativeToolTip": "Views\\Salon\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJ0AAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-09T13:57:13.907Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Salon\\Create.cshtml",
-              "RelativeDocumentMoniker": "Views\\Salon\\Create.cshtml",
-              "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Salon\\Create.cshtml",
-              "RelativeToolTip": "Views\\Salon\\Create.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIEAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-09T13:56:45.026Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Details.cshtml",
-              "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Salon\\Details.cshtml",
-              "RelativeDocumentMoniker": "Views\\Salon\\Details.cshtml",
-              "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Salon\\Details.cshtml",
-              "RelativeToolTip": "Views\\Salon\\Details.cshtml",
-              "ViewState": "AgIAAHwAAAAAAAAAAAAswK4AAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-09T13:57:00.846Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "SmartHairSalonApp.csproj",
-              "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\SmartHairSalonApp.csproj",
-              "RelativeDocumentMoniker": "SmartHairSalonApp.csproj",
-              "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\SmartHairSalonApp.csproj",
-              "RelativeToolTip": "SmartHairSalonApp.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-05-17T20:57:28.758Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
               "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Shared\\_Layout.cshtml",
               "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHkBAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAPwAAAAAAAAAAAAQwI0BAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2026-06-09T13:57:21.819Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "SaloniApiController.cs",
-              "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Controllers\\SaloniApiController.cs",
-              "RelativeDocumentMoniker": "Controllers\\SaloniApiController.cs",
-              "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Controllers\\SaloniApiController.cs",
-              "RelativeToolTip": "Controllers\\SaloniApiController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACYAAAABAAAAAAAAAA==",
+              "DocumentIndex": 6,
+              "Title": "Register.cshtml",
+              "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Areas\\Identity\\Pages\\Account\\Register.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Identity\\Pages\\Account\\Register.cshtml",
+              "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Areas\\Identity\\Pages\\Account\\Register.cshtml",
+              "RelativeToolTip": "Areas\\Identity\\Pages\\Account\\Register.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC0AAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-21T13:48:59.476Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Register.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
+              "RelativeDocumentMoniker": "Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
+              "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
+              "RelativeToolTip": "Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-11T10:17:06.082Z",
+              "WhenOpened": "2026-05-21T13:49:01.873Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Proizvod\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Proizvod\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Proizvod\\Index.cshtml",
+              "RelativeToolTip": "Views\\Proizvod\\Index.cshtml",
+              "ViewState": "AgIAAIMAAAAAAAAAAAAswK0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-09T13:23:15.452Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Proizvod\\Details.cshtml",
+              "RelativeDocumentMoniker": "Views\\Proizvod\\Details.cshtml",
+              "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Proizvod\\Details.cshtml",
+              "RelativeToolTip": "Views\\Proizvod\\Details.cshtml",
+              "ViewState": "AgIAAFUAAAAAAAAAAAAswH8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-09T13:23:02.848Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Basket.cshtml",
+              "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Proizvod\\Basket.cshtml",
+              "RelativeDocumentMoniker": "Views\\Proizvod\\Basket.cshtml",
+              "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Proizvod\\Basket.cshtml",
+              "RelativeToolTip": "Views\\Proizvod\\Basket.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAKgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-11T09:52:40.322Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "ProizvodController.cs",
               "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Controllers\\ProizvodController.cs",
               "RelativeDocumentMoniker": "Controllers\\ProizvodController.cs",
@@ -427,31 +401,91 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "SmartHairSalonApp.csproj",
+              "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\SmartHairSalonApp.csproj",
+              "RelativeDocumentMoniker": "SmartHairSalonApp.csproj",
+              "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\SmartHairSalonApp.csproj",
+              "RelativeToolTip": "SmartHairSalonApp.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-05-17T20:57:28.758Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 10,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Proizvod\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Proizvod\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Proizvod\\Index.cshtml",
-              "RelativeToolTip": "Views\\Proizvod\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIwAAAABAAAAAAAAAA==",
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Salon\\Details.cshtml",
+              "RelativeDocumentMoniker": "Views\\Salon\\Details.cshtml",
+              "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Salon\\Details.cshtml",
+              "RelativeToolTip": "Views\\Salon\\Details.cshtml",
+              "ViewState": "AgIAAHwAAAAAAAAAAAAswK4AAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-09T13:23:15.452Z"
+              "WhenOpened": "2026-06-09T13:57:00.846Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Salon\\Create.cshtml",
+              "RelativeDocumentMoniker": "Views\\Salon\\Create.cshtml",
+              "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Salon\\Create.cshtml",
+              "RelativeToolTip": "Views\\Salon\\Create.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-09T13:56:45.026Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 11,
-              "Title": "Details.cshtml",
-              "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Proizvod\\Details.cshtml",
-              "RelativeDocumentMoniker": "Views\\Proizvod\\Details.cshtml",
-              "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Proizvod\\Details.cshtml",
-              "RelativeToolTip": "Views\\Proizvod\\Details.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEoAAAAAAAAAAAAAAA==",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Salon\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Salon\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Salon\\Index.cshtml",
+              "RelativeToolTip": "Views\\Salon\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJ0AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-09T13:23:02.848Z"
+              "WhenOpened": "2026-06-09T13:57:13.907Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "NarudzbaController.cs",
+              "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Controllers\\NarudzbaController.cs",
+              "RelativeDocumentMoniker": "Controllers\\NarudzbaController.cs",
+              "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Controllers\\NarudzbaController.cs",
+              "RelativeToolTip": "Controllers\\NarudzbaController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-11T11:08:44.751Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Narudzba\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Narudzba\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Narudzba\\Index.cshtml",
+              "RelativeToolTip": "Views\\Narudzba\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGwAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-11T11:12:02.363Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 13,
+              "Title": "SaloniApiController.cs",
+              "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Controllers\\SaloniApiController.cs",
+              "RelativeDocumentMoniker": "Controllers\\SaloniApiController.cs",
+              "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Controllers\\SaloniApiController.cs",
+              "RelativeToolTip": "Controllers\\SaloniApiController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-11T10:17:06.082Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
               "Title": "Salon.cs",
               "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Models\\Salon.cs",
               "RelativeDocumentMoniker": "Models\\Salon.cs",
@@ -475,19 +509,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Basket.cshtml",
-              "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Proizvod\\Basket.cshtml",
-              "RelativeDocumentMoniker": "Views\\Proizvod\\Basket.cshtml",
-              "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Proizvod\\Basket.cshtml",
-              "RelativeToolTip": "Views\\Proizvod\\Basket.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJIAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-11T09:52:40.322Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 14,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -495,12 +517,11 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAE8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-06T15:17:54.195Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-06T15:17:54.195Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 16,
               "Title": "ApplicationDbContext.cs",
               "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Data\\ApplicationDbContext.cs",
               "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
@@ -512,7 +533,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 17,
               "Title": "Login.cshtml",
               "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Areas\\Identity\\Pages\\Account\\Login.cshtml",
               "RelativeDocumentMoniker": "Areas\\Identity\\Pages\\Account\\Login.cshtml",
@@ -524,7 +545,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "SalonController.cs",
               "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Controllers\\SalonController.cs",
               "RelativeDocumentMoniker": "Controllers\\SalonController.cs",
@@ -536,7 +557,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "Rezervacija.cs",
               "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Models\\Rezervacija.cs",
               "RelativeDocumentMoniker": "Models\\Rezervacija.cs",
@@ -548,19 +569,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "Register.cshtml",
-              "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Areas\\Identity\\Pages\\Account\\Register.cshtml",
-              "RelativeDocumentMoniker": "Areas\\Identity\\Pages\\Account\\Register.cshtml",
-              "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Areas\\Identity\\Pages\\Account\\Register.cshtml",
-              "RelativeToolTip": "Areas\\Identity\\Pages\\Account\\Register.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC0AAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-21T13:48:59.476Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "RezervacijaController.cs",
               "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Controllers\\RezervacijaController.cs",
               "RelativeDocumentMoniker": "Controllers\\RezervacijaController.cs",
@@ -572,7 +581,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Views\\Rezervacija\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\Rezervacija\\Index.cshtml",
@@ -593,18 +602,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-06T15:05:23.988Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "Register.cshtml.cs",
-              "DocumentMoniker": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
-              "RelativeDocumentMoniker": "Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
-              "ToolTip": "C:\\Users\\Ajna\\Documents\\GitHub\\Grupa3-Tim2\\SmartHairSalonApp\\Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
-              "RelativeToolTip": "Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
-              "ViewState": "AgIAAHIAAAAAAAAAAIA3wIYAAABCAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-21T13:49:01.873Z"
             },
             {
               "$type": "Document",

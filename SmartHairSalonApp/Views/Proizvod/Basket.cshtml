@@ -4,144 +4,166 @@
     ViewData["Title"] = "Your Beauty Basket";
     // Računanje ukupne cijene svih proizvoda u korpi
     double ukupno = Model != null ? Model.Sum(s => s.Cijena * s.Kolicina) : 0;
+
+    // Provjera da li je prijavljeni korisnik Admin ili Zaposlenik
+    bool jeOsoblje = User.IsInRole("admin") || User.IsInRole("Admin") || User.IsInRole("zaposlenik") || User.IsInRole("Zaposlenik");
 }
 
 <div class="container py-5" style="min-height: 80vh;">
-    <div class="row align-items-center mt-4">
 
-        <div class="col-md-6 mb-5 mb-md-0">
-            <h1 class="display-4 fw-bold mb-4" style="color: #2b3a22; font-family: 'Playfair Display', serif;">
-                Your Beauty Basket
-            </h1>
-            <p class="lead text-muted fs-5 mb-3">
-                We proudly offer Kérastase, professional luxury haircare trusted by experts worldwide.
-            </p>
-            <p class="text-muted mb-4 fs-5">
-                These products are waiting to make your hair shine!
-            </p>
-            <p class="fw-semibold fs-5 mb-5" style="color: #2b3a22;">
-                Complete your order and your haircare will be on its way
-            </p>
-
-            <button onclick="zavrsiNarudzbu()" class="btn px-5 py-3 text-white fw-bold shadow-sm"
-                    style="background-color: #2b3a22; border-radius: 4px; letter-spacing: 1px;">
-                PLACE ORDER
-            </button>
-        </div>
-
-        <div class="col-md-6">
-            <div class="card border-0 shadow-sm" style="border-radius: 0px;">
-                <div class="table-responsive">
-                    <table class="table mb-0 align-middle">
-                        <thead style="background-color: #e9e6e1;">
-                            <tr>
-                                <th class="py-3 px-4 text-secondary" style="font-weight: 500; font-family: 'Plus Jakarta Sans', sans-serif;">Product name + quantity</th>
-                                <th class="py-3 px-4 text-secondary text-end" style="font-weight: 500; font-family: 'Plus Jakarta Sans', sans-serif;">Price</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (Model == null || !Model.Any())
-                            {
-                                <tr>
-                                    <td colspan="2" class="text-center py-5 text-muted" style="font-family: 'Plus Jakarta Sans', sans-serif;">
-                                        <i class="bi bi-cart-x d-block fs-3 mb-2"></i>
-                                        Vaša kozmetička korpa je trenutno prazna.
-                                    </td>
-                                </tr>
-                            }
-                            else
-                            {
-                                @foreach (var stavka in Model)
-                                {
-                                    <tr style="border-bottom: 1px solid #f2effa;">
-                                        <td class="py-4 px-4 fw-medium text-dark" style="font-family: 'Plus Jakarta Sans', sans-serif;">
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <span>@stavka.Naziv</span>
-
-                                                <div class="d-flex align-items-center gap-2 ms-3">
-                                                    <button class="btn btn-sm btn-light py-0 px-2 border" onclick="promijeniKolicinu(@stavka.ProizvodId, -1)">-</button>
-                                                    <span class="fw-bold bg-light px-2 py-1 rounded" style="font-size: 0.85rem;">@stavka.Kolicina</span>
-                                                    <button class="btn btn-sm btn-light py-0 px-2 border" onclick="promijeniKolicinu(@stavka.ProizvodId, 1)">+</button>
-                                                    <button class="btn btn-sm text-danger ms-1" onclick="ukloniIzKorpe(@stavka.ProizvodId)" title="Ukloni artikl">
-                                                        <i class="bi bi-trash3"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="py-4 px-4 fw-semibold text-dark text-end" style="font-family: 'Plus Jakarta Sans', sans-serif;">
-                                            €@((stavka.Cijena * stavka.Kolicina).ToString("F2"))
-                                        </td>
-                                    </tr>
-                                }
-                            }
-
-                            <tr style="background-color: #ded9d2; border-top: 2px solid #c9c2ba;">
-                                <td class="py-4 px-4 fw-bold text-dark" style="font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: 0.5px;">TOTAL :</td>
-                                <td class="py-4 px-4 fw-bold text-dark text-end" style="font-family: 'Plus Jakarta Sans', sans-serif;">
-                                    €@ukupno.ToString("F2")
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+    @if (jeOsoblje)
+    {
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6 text-center">
+                <div class="card border-0 shadow-sm p-5" style="border-radius: 16px; background-color: #fbfbfa;">
+                    <i class="bi bi-shield-lock-fill text-warning mb-4" style="font-size: 4rem;"></i>
+                    <h2 class="fw-bold mb-3" style="color: #2b3a22; font-family: 'Playfair Display', serif;">Management Access Only</h2>
+                    <p class="text-muted mb-4 fs-5" style="font-family: 'Plus Jakarta Sans', sans-serif;">
+                        Kao administrator ili zaposlenik salona, nemate mogućnost kreiranja narudžbi i korištenja potrošačke korpe. Vaš račun služi isključivo za upravljanje proizvodima i salonom.
+                    </p>
+                    <a href="/Proizvod/Index" class="btn text-white fw-bold px-4 py-3 shadow-sm" style="background-color: #2b3a22; border-radius: 4px; letter-spacing: 0.5px;">
+                        <i class="bi bi-arrow-left me-2"></i> Nazad na Upravljanje Shopom
+                    </a>
                 </div>
             </div>
         </div>
+    }
+    else
+    {
+        <div class="row align-items-center mt-4">
 
-    </div>
+            <div class="col-md-6 mb-5 mb-md-0">
+                <h1 class="display-4 fw-bold mb-4" style="color: #2b3a22; font-family: 'Playfair Display', serif;">
+                    Your Beauty Basket
+                </h1>
+                <p class="lead text-muted fs-5 mb-3">
+                    We proudly offer Kérastase, professional luxury haircare trusted by experts worldwide.
+                </p>
+                <p class="text-muted mb-4 fs-5">
+                    These products are waiting to make your hair shine!
+                </p>
+                <p class="fw-semibold fs-5 mb-5" style="color: #2b3a22;">
+                    Complete your order and your haircare will be on its way
+                </p>
+
+                <button onclick="zavrsiNarudzbu()" class="btn px-5 py-3 text-white fw-bold shadow-sm"
+                        style="background-color: #2b3a22; border-radius: 4px; letter-spacing: 1px;">
+                    PLACE ORDER
+                </button>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm" style="border-radius: 0px;">
+                    <div class="table-responsive">
+                        <table class="table mb-0 align-middle">
+                            <thead style="background-color: #e9e6e1;">
+                                <tr>
+                                    <th class="py-3 px-4 text-secondary" style="font-weight: 500; font-family: 'Plus Jakarta Sans', sans-serif;">Product name + quantity</th>
+                                    <th class="py-3 px-4 text-secondary text-end" style="font-weight: 500; font-family: 'Plus Jakarta Sans', sans-serif;">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model == null || !Model.Any())
+                                {
+                                    <tr>
+                                        <td colspan="2" class="text-center py-5 text-muted" style="font-family: 'Plus Jakarta Sans', sans-serif;">
+                                            <i class="bi bi-cart-x d-block fs-3 mb-2"></i>
+                                            Vaša kozmetička korpa je trenutno prazna.
+                                        </td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    @foreach (var stavka in Model)
+                                    {
+                                        <tr style="border-bottom: 1px solid #f2effa;">
+                                            <td class="py-4 px-4 fw-medium text-dark" style="font-family: 'Plus Jakarta Sans', sans-serif;">
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <span>@stavka.Naziv</span>
+
+                                                    <div class="d-flex align-items-center gap-2 ms-3">
+                                                        <button class="btn btn-sm btn-light py-0 px-2 border" onclick="promijeniKolicinu(@stavka.ProizvodId, -1)">-</button>
+                                                        <span class="fw-bold bg-light px-2 py-1 rounded" style="font-size: 0.85rem;">@stavka.Kolicina</span>
+                                                        <button class="btn btn-sm btn-light py-0 px-2 border" onclick="promijeniKolicinu(@stavka.ProizvodId, 1)">+</button>
+                                                        <button class="btn btn-sm text-danger ms-1" onclick="ukloniIzKorpe(@stavka.ProizvodId)" title="Ukloni artikl">
+                                                            <i class="bi bi-trash3"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="py-4 px-4 fw-semibold text-dark text-end" style="font-family: 'Plus Jakarta Sans', sans-serif;">
+                                                €@((stavka.Cijena * stavka.Kolicina).ToString("F2"))
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                                <tr style="background-color: #ded9d2; border-top: 2px solid #c9c2ba;">
+                                    <td class="py-4 px-4 fw-bold text-dark" style="font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: 0.5px;">TOTAL :</td>
+                                    <td class="py-4 px-4 fw-bold text-dark text-end" style="font-family: 'Plus Jakarta Sans', sans-serif;">
+                                        €@ukupno.ToString("F2")
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    }
 </div>
 
 @section Scripts {
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <script>
-        function zavrsiNarudzbu() {
-        // Šaljemo POST zahtjev na kontroler za završetak narudžbe
-        fetch('/Proizvod/ZavrsiNarudzbu', {
-        method: 'POST'
-        })
-        .then(res => res.json())
-        .then(data => {
-        if (data.success) {
-        // Prikazujemo estetski usklađenu poruku o uspjehu
-        Swal.fire({
-        title: 'Thank you!',
-        text: 'Your haircare order has been successfully placed.',
-        icon: 'success',
-        confirmButtonColor: '#2b3a22', // Boja tvog brenda
-        confirmButtonText: 'Back to Shop'
-        }).then(() => {
-        // Nakon klika vraćamo korisnika na početnu shop stranicu
-        window.location.href = '/Proizvod/Index';
-        });
-        } else if (data.redirectUrl) {
-        // Ako korisnik nije prijavljen, SweetAlert ga obavještava i šalje na Login
-        Swal.fire({
-        title: 'Login Required',
-        text: 'You need to be logged in to place an order.',
-        icon: 'info',
-        confirmButtonColor: '#2b3a22',
-        confirmButtonText: 'Go to Login'
-        }).then(() => {
-        window.location.href = data.redirectUrl;
-        });
-        } else {
-        Swal.fire({
-        title: 'Error',
-        text: data.message,
-        icon: 'error',
-        confirmButtonColor: '#d33'
-        });
-        }
-        })
-        .catch(err => {
-        console.error("Greška prilikom narudžbe:", err);
-        Swal.fire({
-        title: 'Error',
-        text: 'Something went wrong. Please try again.',
-        icon: 'error',
-        confirmButtonColor: '#d33'
-        });
-        });
-        }
-    </script>
+    @if (!jeOsoblje)
+    {
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            function zavrsiNarudzbu() {
+            fetch('/Proizvod/ZavrsiNarudzbu', {
+            method: 'POST'
+            })
+            .then(res => res.json())
+            .then(data => {
+            if (data.success) {
+            Swal.fire({
+            title: 'Thank you!',
+            text: 'Your haircare order has been successfully placed.',
+            icon: 'success',
+            confirmButtonColor: '#2b3a22',
+            confirmButtonText: 'Back to Shop'
+            }).then(() => {
+            window.location.href = '/Proizvod/Index';
+            });
+            } else if (data.redirectUrl) {
+            Swal.fire({
+            title: 'Login Required',
+            text: 'You need to be logged in to place an order.',
+            icon: 'info',
+            confirmButtonColor: '#2b3a22',
+            confirmButtonText: 'Go to Login'
+            }).then(() => {
+            window.location.href = data.redirectUrl;
+            });
+            } else {
+            Swal.fire({
+            title: 'Error',
+            text: data.message,
+            icon: 'error',
+            confirmButtonColor: '#d33'
+            });
+            }
+            })
+            .catch(err => {
+            console.error("Greška prilikom narudžbe:", err);
+            Swal.fire({
+            title: 'Error',
+            text: 'Something went wrong. Please try again.',
+            icon: 'error',
+            confirmButtonColor: '#d33'
+            });
+            });
+            }
+        </script>
+    }
 }

@@ -1,74 +1,128 @@
 ﻿@model SmartHairSalonApp.Models.Proizvod
 
 @{
-    ViewData["Title"] = Model.Naziv;
+    ViewData["Title"] = Model.Naziv + " - Detalji";
+    // Provjera da li je prijavljeni korisnik Admin ili Zaposlenik
+    bool jeOsoblje = User.IsInRole("admin") || User.IsInRole("Admin") || User.IsInRole("zaposlenik") || User.IsInRole("Zaposlenik");
 }
 
-<div class="container-fluid bg-white flex-grow-1" style="min-height: 85vh;">
-    <div class="container py-5">
-        <div class="row mt-4">
+<div class="container py-5" style="min-height: 80vh;">
+    <div class="mb-4">
+        <a asp-action="Index" class="btn btn-link text-decoration-none p-0" style="color: #2b3a22; font-family: 'Plus Jakarta Sans', sans-serif;">
+            <i class="bi bi-arrow-left me-2"></i> Nazad na Shop
+        </a>
+    </div>
 
-            <div class="col-md-5 mb-4 text-center">
-                <div class="p-4 border rounded-3 bg-light d-inline-block w-100" style="max-width: 450px;">
-                    <img src="~/images/@(Model.Naziv.ToLower().Contains("šampon") ? "sampon.png" : "maska.png")"
-                         alt="@Model.Naziv"
-                         class="img-fluid"
-                         onerror="this.src='/images/sampon.png';" />
-                </div>
+    <div class="row g-5 align-items-center">
+        <div class="col-md-6">
+            <div class="bg-light rounded-3 overflow-hidden shadow-sm" style="height: 450px;">
+                <img src="https://images.unsplash.com/photo-1608248597481-496100c80836?q=80&w=800"
+                     class="w-100 h-100 style-izgled"
+                     style="object-fit: cover;"
+                     alt="@Model.Naziv">
             </div>
+        </div>
 
-            <div class="col-md-7 ps-md-5">
-                <nav aria-label="breadcrumb" class="small text-muted mb-2">
-                    Shop / @Model.Naziv
-                </nav>
+        <div class="col-md-6">
+            <div class="p-2">
+                <h1 class="display-5 fw-bold text-dark mb-3" style="font-family: 'Playfair Display', serif;">@Model.Naziv</h1>
 
-                <h1 class="display-5 fw-bold mb-3 text-dark" style="font-family: 'Plus Jakarta Sans', sans-serif;">
-                    @Model.Naziv
-                </h1>
-
-                <h2 class="fw-bold mb-4" style="color: #0d6efd; font-family: 'Plus Jakarta Sans', sans-serif;">
-                    @Model.Cijena.ToString("F2") KM
-                </h2>
-
-                <div class="mb-5">
-                    <h6 class="fw-bold text-dark mb-2">Opis proizvoda:</h6>
-                    <p class="text-muted small" style="line-height: 1.6; text-align: justify;">
-                        @Model.Opis
-                    </p>
+                <div class="fs-3 fw-bold mb-4" style="color: #2b3a22; font-family: 'Plus Jakarta Sans', sans-serif;">
+                    @Model.Cijena KM
                 </div>
+
+                <hr class="my-4 opacity-10">
+
+                <h5 class="fw-bold text-secondary mb-3" style="font-family: 'Plus Jakarta Sans', sans-serif;">Opis proizvoda</h5>
+                <p class="text-muted fs-5 mb-5" style="line-height: 1.7; font-family: 'Plus Jakarta Sans', sans-serif;">
+                    @(string.IsNullOrEmpty(Model.Opis) ? "Premium salonska formula za savršenu njegu, sjaj i revitalizaciju vaše kose svakog dana. Proizvod je testiran od strane naših stručnjaka." : Model.Opis)
+                </p>
 
                 <div class="d-flex gap-3 align-items-center">
-                    <button onclick="dodajIzDetails(event, @Model.Id)" class="btn btn-primary fw-semibold px-4 py-2.5 d-flex align-items-center gap-2 shadow-sm" style="font-size: 1.05rem; border-radius: 6px;">
-                        <i class="bi bi-cart3"></i> Dodaj u korpu
-                    </button>
-
-                    <a asp-action="Index" class="btn btn-outline-secondary px-4 py-2.5 fw-medium" style="border-radius: 6px;">
-                        Nazad
-                    </a>
+                    @if (!jeOsoblje)
+                    {
+                        <button type="button"
+                                id="btn-dodaj-detalji"
+                                class="btn text-white fw-bold px-5 py-3 shadow-sm btn-akcija"
+                                style="background-color: #2b3a22; border-radius: 4px; letter-spacing: 0.5px;"
+                                onclick="dodajIzDetaljeva(event, @Model.Id)">
+                            <i class="bi bi-cart-plus me-2"></i> Dodaj u Korpu
+                        </button>
+                    }
+                    else
+                    {
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning fw-bold px-5 py-3 shadow-sm text-dark btn-akcija" style="border-radius: 4px;">
+                            <i class="bi bi-pencil me-2"></i> Uredi ovaj proizvod
+                        </a>
+                    }
                 </div>
             </div>
-
         </div>
     </div>
 </div>
 
-@section Scripts {
-    <script>
-        function dodajIzDetails(event, id) {
-            if (event) event.preventDefault();
+<style>
+    .btn-akcija {
+        transition: transform 0.2s ease, filter 0.2s ease;
+    }
 
-            if (typeof window.dodajUKorpu === "function") {
-                window.dodajUKorpu(id);
-            } else {
-                fetch(`/Proizvod/DodajUKorpu?id=${id}`, { method: 'POST' })
-                    .then(res => res.json())
-                    .then(data => {
-                        window.location.href = '/Proizvod/Basket';
-                    })
-                    .catch(err => {
-                        window.location.href = `/Proizvod/Basket`;
-                    });
-            }
+        .btn-akcija:hover {
+            transform: scale(1.02);
+            filter: brightness(1.1);
+        }
+</style>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function dodajIzDetaljeva(event, id) {
+        event.preventDefault();
+
+        const btn = event.currentTarget;
+        btn.disabled = true;
+        const prvobitniTekst = btn.innerHTML;
+        btn.innerHTML = `<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Dodavanje...`;
+
+        // Šaljemo AJAX zahtjev na istu rutu kao i sa glavne stranice shopa
+        fetch(`/Proizvod/DodajUKorpu?id=${id}`, { method: 'POST' })
+        .then(res => {
+        if (!res.ok) throw new Error("Problem sa serverom");
+        return res.json();
+        })
+        .then(data => {
+        // Ako funkcija za ažuriranje bedža na kolicima postoji u _Layoutu, osvježi je odmah
+        if (typeof azurirajBadgeKorpe === "function") {
+        azurirajBadgeKorpe(data);
+        }
+
+        // Diskretan prozorčić u donjem desnom uglu – ne preusmjerava nigdje!
+        const Toast = Swal.mixin({
+        toast: true,
+        position: 'bottom-end',
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true
+        });
+
+        Toast.fire({
+        icon: 'success',
+        title: 'Proizvod je uspješno dodan u korpu!'
+        });
+        })
+        .catch(err => {
+        console.error("Greška:", err);
+        Swal.fire({
+        icon: 'error',
+        title: 'Greška',
+        text: 'Nije moguće dodati proizvod. Provjerite da li ste prijavljeni.',
+        confirmButtonColor: '#2b3a22'
+        });
+        })
+        .finally(() => {
+        // Vraćamo dugme u normalno stanje
+        btn.disabled = false;
+        btn.innerHTML = prvobitniTekst;
+        });
         }
     </script>
 }

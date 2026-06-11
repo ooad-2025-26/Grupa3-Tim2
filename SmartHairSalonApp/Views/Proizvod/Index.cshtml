@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Premium Shop";
+    // Prečica da provjerimo da li je prijavljeni korisnik Admin ili Zaposlenik
+    bool jeOsoblje = User.IsInRole("admin") || User.IsInRole("Admin") || User.IsInRole("zaposlenik") || User.IsInRole("Zaposlenik");
 }
 
 <div class="container py-4">
@@ -10,7 +12,7 @@
             <h1 class="display-5 fw-bold text-dark"><i class="bi bi-bag-heart-fill text-success me-2"></i>Premium Shop</h1>
             <p class="text-muted mb-0">Kupite profesionalne proizvode za njegu i stilizovanje kose koje koriste naši frizeri.</p>
         </div>
-        @if (User.IsInRole("admin") || User.IsInRole("zaposlenik"))
+        @if (jeOsoblje)
         {
             <a asp-action="Create" class="btn btn-success fw-bold shadow-sm">
                 <i class="bi bi-plus-circle me-1"></i> Dodaj Novi Proizvod
@@ -39,21 +41,25 @@
                             @(string.IsNullOrEmpty(item.Opis) ? "Premium salonska formula za savršenu njegu, sjaj i revitalizaciju vaše kose svakog dana." : item.Opis)
                         </p>
 
-                       
-
                         <div class="d-flex gap-2">
-                            <button type="button"
-                                    class="btn btn-primary flex-grow-1 fw-bold shadow-sm"
-                                    onclick="direktnoDodaj(event, @item.Id)">
-                                <i class="bi bi-cart-plus me-1"></i> Dodaj u Korpu
-                            </button>
-
-                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary shadow-sm">
-                                <i class="bi bi-eye"></i>
-                            </a>
-
-                            @if (User.IsInRole("admin") || User.IsInRole("zaposlenik"))
+                            @if (!jeOsoblje)
                             {
+                                <button type="button"
+                                        class="btn btn-primary flex-grow-1 fw-bold shadow-sm btn-dodaj-korpa"
+                                        onclick="direktnoDodaj(event, @item.Id)">
+                                    <i class="bi bi-cart-plus me-1"></i> Dodaj u Korpu
+                                </button>
+
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary shadow-sm">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary flex-grow-1 fw-bold shadow-sm">
+                                    <i class="bi bi-eye me-1"></i> Detalji
+                                </a>
+
                                 <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="bi bi-gear"></i>
                                 </button>
@@ -107,35 +113,62 @@
     }
 
     .start-3 {
-        start: 1rem;
+        left: 1rem;
     }
 </style>
 
-
-
 @section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function direktnoDodaj(event, id) {
-            // Sprečavamo bilo kakvo podrazumijevano ponašanje linka/stranice
-            event.preventDefault();
+        event.preventDefault();
 
-            // Pozivamo glavnu funkciju koja se nalazi u Layoutu
-            if (typeof dodajUKorpu === "function") {
-                dodajUKorpu(id);
-            } else {
-                // Ako layout još nije učitao skriptu, izvršavamo fetch direktno odavde
-                fetch(`/Korpa/Dodaj?id=${id}`, { method: 'POST' })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (typeof azurirajUIKorpe === "function") {
-                            azurirajUIKorpe(data);
-                            document.getElementById('korpa-prozor').style.display = 'block';
-                        } else {
-                            window.location.reload(); // Ako ništa drugo ne uspije, osvježi stranicu da povuče sesiju
-                        }
-                    })
-                    .catch(err => console.error("Greška pri dodavanju:", err));
-            }
+        // Spremamo referencu na dugme koje je kliknuto da ga možemo vizuelno animirati
+        const dugme = event.currentTarget;
+        dugme.disabled = true;
+        const originalniSadrzaj = dugme.innerHTML;
+        dugme.innerHTML = `<span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span> Dodavanje...`;
+
+        // Pozivamo tačnu rutu iz tvog Proizvod kontrolera koju koristi tvoj Layout
+        fetch(`/Proizvod/DodajUKorpu?id=${id}`, { method: 'POST' })
+        .then(res => {
+        if (!res.ok) throw new Error("Greška na serveru");
+        return res.json();
+        })
+        .then(data => {
+        // Pozivamo funkciju iz Layouta koja će automatski ažurirati broj na crvenom badge-u iznad kolica
+        if (typeof azurirajBadgeKorpe === "function") {
+        azurirajBadgeKorpe(data);
+        }
+
+        // Diskretni "toast" skočni prozor u donjem desnom uglu da je proizvod dodat, bez ometanja klijenta
+        const Toast = Swal.mixin({
+        toast: true,
+        position: 'bottom-end',
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true
+        });
+
+        Toast.fire({
+        icon: 'success',
+        title: 'Proizvod je dodan u vašu korpu!'
+        });
+        })
+        .catch(err => {
+        console.error("Greška pri dodavanju artikla:", err);
+        Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Došlo je do greške. Jeste li prijavljeni na svoj račun?',
+        confirmButtonColor: '#2b3a22'
+        });
+        })
+        .finally(() => {
+        // Vraćamo dugme u prvobitno stanje
+        dugme.disabled = false;
+        dugme.innerHTML = originalniSadrzaj;
+        });
         }
     </script>
 }
