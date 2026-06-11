@@ -1,36 +1,175 @@
 ﻿@model SmartHairSalonApp.Models.Salon
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = Model.Naziv + " - Detalji";
 }
 
-<h1>Details</h1>
+<div class="container py-5">
+    <div class="mb-4">
+        <a asp-action="Index" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
+            <i class="bi bi-arrow-left me-1"></i> Nazad na sve salone
+        </a>
+    </div>
 
-<div>
-    <h4>Salon</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Naziv)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Naziv)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Lokacija)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Lokacija)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RadnoVrijeme)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RadnoVrijeme)
-        </dd>
-    </dl>
+    <div class="card shadow-sm border-0 overflow-hidden mb-5 rounded-4 bg-dark text-white position-relative">
+        <div class="position-absolute w-100 h-100" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=1474&auto=format&fit=crop') center/cover; z-index: 1;"></div>
+
+        <div class="card-body p-5 position-relative" style="z-index: 2;">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <span class="badge bg-primary mb-3 px-3 py-2 rounded-pill text-uppercase fw-bold letter-spacing">Premium Salon</span>
+                    <h1 class="display-4 fw-bold mb-3">@Model.Naziv</h1>
+                    <p class="fs-5 text-light opacity-90 mb-0">
+                        <i class="bi bi-geo-alt-fill text-danger me-2"></i>@Model.Lokacija
+                    </p>
+                </div>
+                <div class="col-md-4 text-md-end mt-4 mt-md-0">
+                    <div class="bg-white bg-opacity-10 backdrop-blur p-3 rounded-3 d-inline-block border border-white border-opacity-20">
+                        <h6 class="text-uppercase small fw-bold text-muted-white mb-1"><i class="bi bi-clock text-success me-1"></i> Radno Vrijeme</h6>
+                        <p class="fs-5 fw-semibold mb-0">@Model.RadnoVrijeme</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-5">
+        <div class="col-lg-7">
+            <h3 class="fw-bold text-dark mb-4 border-bottom pb-2"><i class="bi bi-stars text-warning me-2"></i>O našem salonu</h3>
+            <p class="lead text-secondary justify-text">
+                Dobrodošli u <strong>@Model.Naziv</strong>, oazu ljepote i stila smještenu u samom srcu Sarajeva. Naš salon predstavlja spoj vrhunske estetike, najsavremenijih tehnika stilizovanja kose i strasti prema kreiranju savršenog izgleda za svakog klijenta.
+            </p>
+            <p class="text-muted justify-text mb-4">
+                Ponosimo se upotrebom isključivo luksuznih i svjetski priznatih <strong>Kérastase Paris</strong> preparata koji dubinski njeguju, obnavljaju i štite vašu kosu od korijena do vrhova. Bez obzira da li želite potpunu transformaciju boje, modernu urbanu frizuru ili napredni <strong>Kérastase ritual</strong> njege i oporavka, naš ekspertni tim stručnjakinja je tu da vaše želje pretvori u stvarnost. Svakom klijentu pristupamo individualno, analizirajući teksturu kose i oblik lica kako bismo postigli maksimalan efekat.
+            </p>
+
+            <div class="row g-3 my-4">
+                <div class="col-6 col-md-4">
+                    <div class="p-3 border rounded-3 text-center bg-light h-100">
+                        <i class="bi bi-gem text-primary fs-3 d-block mb-2"></i>
+                        <h6 class="fw-bold mb-1">Luksuzna Njega</h6>
+                        <small class="text-white bg-dark px-2 py-0.5 rounded-pill" style="font-size: 11px;">Kérastase Paris</small>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="p-3 border rounded-3 text-center bg-light h-100">
+                        <i class="bi bi-cup-hot text-success fs-3 d-block mb-2"></i>
+                        <h6 class="fw-bold mb-1">Besplatna Kafa</h6>
+                        <small class="text-muted">Za sve klijente</small>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 mx-auto">
+                    <div class="p-3 border rounded-3 text-center bg-light h-100">
+                        <i class="bi bi-wifi text-info fs-3 d-block mb-2"></i>
+                        <h6 class="fw-bold mb-1">Brzi Wi-Fi</h6>
+                        <small class="text-muted">Besplatan pristup</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <h3 class="fw-bold text-dark mb-4 border-bottom pb-2"><i class="bi bi-people-fill text-primary me-2"></i>Naš Ekspertni Tim</h3>
+
+            <div class="d-flex flex-column gap-3">
+                <div class="card border-0 shadow-sm bg-white p-3 rounded-3 transition-hover">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center fw-bold fs-4 shadow" style="width: 60px; height: 60px; min-width: 60px; background: linear-gradient(135deg, #0d6efd, #6610f2) !important;">
+                            AŠ
+                        </div>
+                        <div class="w-100">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="fw-bold text-dark mb-0">Amra Šarić</h5>
+                                <span class="badge bg-soft-primary text-primary px-2 py-1 rounded small">Art Direktor</span>
+                            </div>
+                            <p class="small text-muted mb-1">Specijalnost: <b>Napredno žensko šišanje & Stilistkinja</b></p>
+                            <p class="small text-secondary mb-0 card-description">Sa više od 10 godina međunarodnog iskustva, Amra je vizionar salona zadužena za geometrijska šišanja i kompletne transformacije imidža.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card border-0 shadow-sm bg-white p-3 rounded-3 transition-hover">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="rounded-circle bg-danger text-white d-flex align-items-center justify-content-center fw-bold fs-4 shadow" style="width: 60px; height: 60px; min-width: 60px; background: linear-gradient(135deg, #dc3545, #f43f5e) !important;">
+                            EM
+                        </div>
+                        <div class="w-100">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="fw-bold text-dark mb-0">Ema Mehmedović</h5>
+                                <span class="badge bg-soft-danger text-danger px-2 py-1 rounded small">Master Colorist</span>
+                            </div>
+                            <p class="small text-muted mb-1">Specijalnost: <b>Balayage, AirTouch & Kérastase Rituali</b></p>
+                            <p class="small text-secondary mb-0 card-description">Ekspert za luksuzne tehnike posvjetljivanja kose. Specijalizovana za dubinsku njegu i Kérastase protokole obnove oštećene vlasi.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card border-0 shadow-sm bg-white p-3 rounded-3 transition-hover">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="rounded-circle bg-success text-white d-flex align-items-center justify-content-center fw-bold fs-4 shadow" style="width: 60px; height: 60px; min-width: 60px; background: linear-gradient(135deg, #198754, #10b981) !important;">
+                            NH
+                        </div>
+                        <div class="w-100">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="fw-bold text-dark mb-0">Nejra Hadžić</h5>
+                                <span class="badge bg-soft-success text-success px-2 py-1 rounded small">Senior Barber</span>
+                            </div>
+                            <p class="small text-muted mb-1">Specijalnost: <b>Muški Fade, Stilizovanje brade & Hair Tattoo</b></p>
+                            <p class="small text-secondary mb-0 card-description">Dokaz da su žene majstori i muškog šišanja. Nejra je regionalno prepoznata po hirurški preciznim fade-ovima i modernom dizajnu brada.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @if (!User.IsInRole("admin") && !User.IsInRole("zaposlenik"))
+            {
+                <div class="d-grid mt-4">
+                    <a asp-controller="Rezervacija" asp-action="Create" class="btn btn-success btn-lg fw-bold shadow">
+                        <i class="bi bi-calendar-check me-2"></i> Rezerviši termin u ovom salonu
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+<style>
+    .backdrop-blur {
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+
+    .text-muted-white {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .justify-text {
+        text-align: justify;
+    }
+
+    .bg-soft-primary {
+        background-color: rgba(13, 110, 253, 0.1);
+    }
+
+    .bg-soft-danger {
+        background-color: rgba(220, 53, 69, 0.1);
+    }
+
+    .bg-soft-success {
+        background-color: rgba(25, 135, 84, 0.1);
+    }
+
+    .transition-hover {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+        .transition-hover:hover {
+            transform: scale(1.02);
+            box-shadow: 0 .25rem .75rem rgba(0,0,0,.08) !important;
+        }
+
+    .card-description {
+        font-size: 12.5px;
+        line-height: 1.4;
+    }
+</style>

@@ -1,0 +1,109 @@
+﻿@model IEnumerable<SmartHairSalonApp.Models.Narudzba>
+
+@{
+    ViewData["Title"] = "Spisak Narudžbi";
+    bool jeZaposlenik = User.IsInRole("zaposlenik");
+    bool jeAdmin = User.IsInRole("admin");
+    bool jeSalonOsoblje = jeZaposlenik || jeAdmin;
+}
+
+<div class="container py-5" style="min-height: 70vh;">
+    <div class="mb-4">
+        <h2 style="font-family: 'Playfair Display', serif; color: #2b3a22;" class="fw-bold">
+            @if (jeZaposlenik)
+            {
+                <text>Upravljanje Narudžbama (Zaposlenik Panel)</text>
+            }
+            else if (jeAdmin)
+            {
+
+                <text>Pregled Narudžbi (Admin Monitoring)</text>
+            }
+            else
+            {
+
+                <text>Moje Narudžbe</text>
+            }
+        </h2>
+        <p class="text-muted">Praćenje i ažuriranje statusa naručenih Kérastase proizvoda.</p>
+    </div>
+
+    <div class="card border-0 shadow-sm" style="border-radius: 12px; background-color: #fbfbfa;">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead style="background-color: #e9e6e1;">
+                    <tr>
+                        <th class="py-3 px-4">ID Narudžbe</th>
+                        @if (jeSalonOsoblje)
+                        {
+                            <th class="py-3 px-4">Klijent</th>
+                        }
+                        <th class="py-3 px-4">Ukupna Cijena</th>
+                        <th class="py-3 px-4">Status</th>
+                        <th class="py-3 px-4 text-end">Akcija / Pravo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center py-5 text-muted">Trenutno nema narudžbi u bazi.</td>
+                        </tr>
+                    }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="py-3 px-4 fw-bold">#@item.Id</td>
+                            @if (jeSalonOsoblje)
+                            {
+                                <td class="py-3 px-4">@(item.Korisnik?.Email ?? "Gost")</td>
+                            }
+                            <td class="py-3 px-4 fw-semibold text-success">€@(item.Korpa?.UkupnaCijena.ToString("F2") ?? "0.00")</td>
+                            <td class="py-3 px-4">
+                                @if (item.StatusNarudzbe == StatusNarudzbe.UObradi)
+                                {
+                                    <span class="badge bg-warning text-dark px-3 py-2" style="border-radius: 20px;">U Obradi</span>
+                                }
+                                else if (item.StatusNarudzbe == StatusNarudzbe.Potvrdjena)
+                                {
+                                    <span class="badge bg-success px-3 py-2" style="border-radius: 20px;">Potvrđena</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger px-3 py-2" style="border-radius: 20px;">Odbijena</span>
+                                }
+                            </td>
+                            <td class="py-3 px-4 text-end">
+                                @if (jeZaposlenik && item.StatusNarudzbe == StatusNarudzbe.UObradi)
+                                {
+                                    <div class="d-inline-flex gap-2">
+                                        <form asp-action="Odluci" method="post">
+                                            <input type="hidden" name="id" value="@item.Id" />
+                                            <button type="submit" name="odluka" value="prihvati" class="btn btn-sm text-white px-3 fw-bold" style="background-color: #2b3a22; border-radius: 6px;">
+                                                Prihvati
+                                            </button>
+                                        </form>
+                                        <form asp-action="Odluci" method="post">
+                                            <input type="hidden" name="id" value="@item.Id" />
+                                            <button type="submit" name="odluka" value="odbij" class="btn btn-sm btn-outline-danger px-3 fw-bold" style="border-radius: 6px;">
+                                                Odbij
+                                            </button>
+                                        </form>
+                                    </div>
+                                }
+                                else if (jeAdmin)
+                                {
+                                    <span class="text-muted small border px-2 py-1 bg-light" style="border-radius: 4px;">Samo za čitanje</span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted small italic">Nema akcija</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

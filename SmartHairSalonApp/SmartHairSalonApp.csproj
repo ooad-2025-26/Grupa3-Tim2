@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-SmartHairSalonApp-6d793a11-662b-4c3d-a0ca-1c0745700db0</UserSecretsId>
   </PropertyGroup>

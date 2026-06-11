@@ -19,18 +19,12 @@ namespace SmartHairSalonApp.Controllers
             _userManager = userManager;
         }
 
-        // ==========================================================
-        // STANDARDNE CRUD AKCIJE ZA PROIZVOD (SHOP)
-        // ==========================================================
-
-        // GET: Proizvod
         public async Task<IActionResult> Index()
         {
             var proizvodi = await _context.Proizvodi.ToListAsync();
             return View(proizvodi);
         }
 
-        // GET: Proizvod/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -49,13 +43,11 @@ namespace SmartHairSalonApp.Controllers
             return View(proizvod);
         }
 
-        // GET: Proizvod/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Proizvod/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Naziv,Cijena,Opis,Kolicina")] Proizvod proizvod)
@@ -69,7 +61,6 @@ namespace SmartHairSalonApp.Controllers
             return View(proizvod);
         }
 
-        // GET: Proizvod/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -85,7 +76,6 @@ namespace SmartHairSalonApp.Controllers
             return View(proizvod);
         }
 
-        // POST: Proizvod/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Naziv,Cijena,Opis,Kolicina")] Proizvod proizvod)
@@ -118,7 +108,6 @@ namespace SmartHairSalonApp.Controllers
             return View(proizvod);
         }
 
-        // GET: Proizvod/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -136,7 +125,6 @@ namespace SmartHairSalonApp.Controllers
             return View(proizvod);
         }
 
-        // POST: Proizvod/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -156,10 +144,6 @@ namespace SmartHairSalonApp.Controllers
             return _context.Proizvodi.Any(e => e.Id == id);
         }
 
-        // ==========================================================
-        // POMOĆNE METODE ZA UPRAVLJANJE KORPOM (SESIJA)
-        // ==========================================================
-
         private List<StavkaKorpeViewModel> DohvatiKorpuIzSesije()
         {
             var sessionData = HttpContext.Session.GetString(SessionKey);
@@ -176,11 +160,6 @@ namespace SmartHairSalonApp.Controllers
             HttpContext.Session.SetString(SessionKey, sessionData);
         }
 
-        // ==========================================================
-        // AKCIJE ZA UPRAVLJANJE KORPOM (SA FIKSNIM RUTAMA)
-        // ==========================================================
-
-        // GET: /Proizvod/Basket (Prikazuje cijelu "Your Beauty Basket" stranicu)
         [HttpGet]
         [Route("Proizvod/Basket")]
         public IActionResult Basket()
@@ -189,7 +168,6 @@ namespace SmartHairSalonApp.Controllers
             return View(korpa);
         }
 
-        // GET ili POST: /Proizvod/DohvatiKorpu
         [HttpGet, HttpPost]
         [Route("Proizvod/DohvatiKorpu")]
         public IActionResult DohvatiKorpu()
@@ -198,7 +176,6 @@ namespace SmartHairSalonApp.Controllers
             return Json(korpa);
         }
 
-        // GET ili POST: /Proizvod/DodajUKorpu?id=X
         [HttpGet, HttpPost]
         [Route("Proizvod/DodajUKorpu")]
         public IActionResult DodajUKorpu(int id)
@@ -217,7 +194,7 @@ namespace SmartHairSalonApp.Controllers
                 korpa.Add(new StavkaKorpeViewModel
                 {
                     ProizvodId = proizvod.Id,
-                    Naziv = proizvod.Naziv,
+                    Naziv = proizvod.Naziv ?? "Proizvod",
                     Cijena = proizvod.Cijena,
                     Kolicina = 1
                 });
@@ -231,7 +208,6 @@ namespace SmartHairSalonApp.Controllers
             return Json(korpa);
         }
 
-        // GET ili POST: /Proizvod/PromijeniKolicinu?id=X&promjena=Y
         [HttpGet, HttpPost]
         [Route("Proizvod/PromijeniKolicinu")]
         public IActionResult PromijeniKolicinu(int id, int promjena)
@@ -252,7 +228,6 @@ namespace SmartHairSalonApp.Controllers
             return Json(korpa);
         }
 
-        // GET ili POST: /Proizvod/UkloniIzKorpe?id=X
         [HttpGet, HttpPost]
         [Route("Proizvod/UkloniIzKorpe")]
         public IActionResult UkloniIzKorpe(int id)
@@ -269,44 +244,35 @@ namespace SmartHairSalonApp.Controllers
             return Json(korpa);
         }
 
-        // ==========================================================
-        // FINALE: ZAVRŠETAK NARUDŽBE I SPAŠAVANJE U BAZU
-        // ==========================================================
         [HttpPost]
         public async Task<IActionResult> ZavrsiNarudzbu()
         {
-            // 1. Dohvati trenutno ulogovanog korisnika preko UserManager-a
             var korisnikId = _userManager.GetUserId(User);
             if (string.IsNullOrEmpty(korisnikId))
             {
                 return Json(new { success = false, redirectUrl = "/Identity/Account/Login" });
             }
 
-            // 2. Povuci podatke iz sesije
             var sesijaKorpa = DohvatiKorpuIzSesije();
             if (sesijaKorpa == null || !sesijaKorpa.Any())
             {
                 return Json(new { success = false, message = "Vaša korpa je prazna." });
             }
 
-            // Računamo ukupnu cijenu za bazu
             double ukupnaCijena = sesijaKorpa.Sum(s => s.Cijena * s.Kolicina);
 
-            // Koristimo DB transakciju kako bismo osigurali integritet podataka (sve ili ništa)
             using (var transaction = await _context.Database.BeginTransactionAsync())
             {
                 try
                 {
-                    // 3. Kreiraj novu Korpu u bazi sa svim potrebnim poljima
                     var novaKorpa = new Korpa
                     {
                         UkupnaCijena = ukupnaCijena,
                         KorisnikId = korisnikId
                     };
                     _context.Korpe.Add(novaKorpa);
-                    await _context.SaveChangesAsync(); // Generiše se novaKorpa.Id
+                    await _context.SaveChangesAsync();
 
-                    // 4. Napuni veznu tabelu KorpaProizvod za svaki artikal
                     foreach (var stavka in sesijaKorpa)
                     {
                         var korpaProizvod = new KorpaProizvod
@@ -315,9 +281,9 @@ namespace SmartHairSalonApp.Controllers
                             ProizvodId = stavka.ProizvodId,
                             Kolicina = stavka.Kolicina
                         };
+
                         _context.KorpaProizvodi.Add(korpaProizvod);
 
-                        // Smanji skladište u bazi (upravljanje zalihama)
                         var proizvodUBazi = await _context.Proizvodi.FindAsync(stavka.ProizvodId);
                         if (proizvodUBazi != null)
                         {
@@ -327,29 +293,37 @@ namespace SmartHairSalonApp.Controllers
                     }
                     await _context.SaveChangesAsync();
 
-                    // 5. Kreiraj finalnu Narudžbu sa ispravnim enum statusom
                     var novaNarudzba = new Narudzba
                     {
-                        StatusNarudzbe = StatusNarudzbe.UObradi, // Postavljeno na tvoj enum "UObradi"
+                        StatusNarudzbe = StatusNarudzbe.UObradi,
                         KorisnikId = korisnikId,
                         KorpaId = novaKorpa.Id
                     };
                     _context.Narudzbe.Add(novaNarudzba);
                     await _context.SaveChangesAsync();
 
-                    // Potvrdi transakciju u bazi podataka
+
+                    var obavijestZaSalon = new Obavijest
+                    {
+                        Poruka = $"SALON: Nova narudžba #{novaNarudzba.Id} je pristigla i čeka obradu.",
+                        KorisnikId = korisnikId, // Prosljeđujemo ID kupca umjesto null kako baza ne bi pucala
+                        Datum = DateTime.Now
+                    };
+                    _context.Obavijesti.Add(obavijestZaSalon);
+                    await _context.SaveChangesAsync();
+
                     await transaction.CommitAsync();
 
-                    // 6. Isprazni sesiju koristeći ispravan ključ
                     HttpContext.Session.Remove(SessionKey);
 
                     return Json(new { success = true, message = "Uspješno ste izvršili narudžbu!" });
                 }
                 catch (Exception ex)
                 {
-                    // U slučaju greške brišu se svi djelimični upisi
                     await transaction.RollbackAsync();
-                    return Json(new { success = false, message = "Greška prilikom obrade baze podataka: " + ex.Message });
+                    // Prikazaće nam detaljniju poruku ako opet zapne unutrašnja greška
+                    var innerMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                    return Json(new { success = false, message = "Greška prilikom obrade baze podataka: " + innerMessage });
                 }
             }
         }

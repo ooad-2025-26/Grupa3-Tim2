@@ -2,6 +2,44 @@
 @using SmartHairSalonApp.Models
 @inject SignInManager<Korisnik> SignInManager
 @inject UserManager<Korisnik> UserManager
+@inject SmartHairSalonApp.Data.ApplicationDbContext _context
+
+@{
+    int brojObavijesti = 0;
+    List<SmartHairSalonApp.Models.Obavijest> listaObavijesti = new List<SmartHairSalonApp.Models.Obavijest>();
+
+    if (User.Identity != null && User.Identity.IsAuthenticated)
+    {
+        var trenutniKorisnikId = UserManager.GetUserId(User);
+
+        if (trenutniKorisnikId != null)
+        {
+            bool jeOsoblje = User.IsInRole("zaposlenik") || User.IsInRole("Zaposlenik") ||
+                             User.IsInRole("admin") || User.IsInRole("Admin");
+
+            if (jeOsoblje)
+            {
+                // Zaposlenik vidi sve obavijesti koje počinju sa "SALON:" (sve nove narudžbe)
+                listaObavijesti = _context.Obavijesti
+                    .Where(o => o.Poruka.StartsWith("SALON:"))
+                    .OrderByDescending(o => o.Datum)
+                    .Take(5)
+                    .ToList();
+            }
+            else
+            {
+                // Obični klijent vidi samo svoje obavijesti (koje NE počinju sa SALON:, npr. "Vaša narudžba je prihvaćena")
+                listaObavijesti = _context.Obavijesti
+                    .Where(o => o.KorisnikId == trenutniKorisnikId && !o.Poruka.StartsWith("SALON:"))
+                    .OrderByDescending(o => o.Datum)
+                    .Take(5)
+                    .ToList();
+            }
+
+            brojObavijesti = listaObavijesti.Count;
+        }
+    }
+}
 
 <!DOCTYPE html>
 <html lang="bs">
@@ -63,22 +101,73 @@
 
                     <div class="d-flex align-items-center gap-4 h-icons-wrapper">
 
-                        <div class="position-relative d-inline-block">
-                            <a href="/Proizvod/Basket" class="btn p-0 border-0 nav-icon-btn position-relative" title="Korpa">
-                                <i class="bi bi-cart3"></i>
-                                <span id="brojac-proizvoda" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.65rem; padding: 0.25em 0.5em;">
-                                    0
-                                </span>
-                            </a>
-                        </div>
-
                         @if (SignInManager.IsSignedIn(User))
                         {
+                            <div class="dropdown d-inline-block" id="notif-wrapper">
+                                <a href="#" class="text-decoration-none nav-icon-btn dropdown-toggle no-caret position-relative" id="notifDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-bell"></i>
+                                    @if (brojObavijesti > 0)
+                                    {
+                                        <span id="brojac-obavijesti" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6rem; transform: translate(-20%, -10%);">
+                                            @brojObavijesti
+                                        </span>
+                                    }
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end shadow border-0 p-3" aria-labelledby="notifDropdown" style="min-width: 300px; border-radius: 16px; background-color: #fbfbfa;">
+                                    <li class="dropdown-header text-dark fw-bold border-bottom pb-2 mb-2 fs-6 d-flex justify-content-between align-items-center" style="font-family: 'Playfair Display', serif;">
+                                        <span>Obavještenja</span>
+                                        @if (brojObavijesti > 0)
+                                        {
+                                            <button onclick="oznaciSveProcitano(event)" class="btn btn-sm p-0 border-0 text-success" title="Označi sve kao pročitano" style="font-size: 1.1rem;">
+                                                <i class="bi bi-check2-all"></i>
+                                            </button>
+                                        }
+                                    </li>
+                                    <div id="lista-notifikacija-kontejner">
+                                        @if (brojObavijesti == 0)
+                                        {
+                                            <li class="text-muted text-center py-3 small nema-poruka-tekst">Trenutno nema novih poruka.</li>
+                                        }
+                                        else
+                                        {
+                                            foreach (var ob in listaObavijesti)
+                                            {
+                                                <li>
+                                                    <a class="dropdown-item small p-2 rounded mb-2 text-wrap text-dark d-flex align-items-start pojedinacna-obavijest"
+                                                       style="background-color: #f4f1ed; border-left: 4px solid #2b3a22;"
+                                                       asp-controller="Narudzba" asp-action="Index">
+                                                        <i class="bi bi-chat-left-dots-fill me-2 mt-1" style="color: #2b3a22;"></i>
+                                                        <div>
+                                                            @ob.Poruka
+                                                            <div class="text-muted" style="font-size: 0.75rem;">@ob.Datum.ToString("HH:mm")</div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            }
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li class="text-center">
+                                                <a asp-controller="Narudzba" asp-action="Index" class="text-decoration-none small fw-bold" style="color: #2b3a22;">Pogledaj sve narudžbe</a>
+                                            </li>
+                                        }
+                                    </div>
+                                </ul>
+                            </div>
+
+                            <div class="position-relative d-inline-block">
+                                <a href="/Proizvod/Basket" class="btn p-0 border-0 nav-icon-btn position-relative" title="Korpa">
+                                    <i class="bi bi-cart3"></i>
+                                    <span id="brojac-proizvoda" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.65rem; padding: 0.25em 0.5em;">
+                                        0
+                                    </span>
+                                </a>
+                            </div>
+
                             <div class="dropdown">
                                 <a href="#" class="text-decoration-none nav-icon-btn dropdown-toggle no-caret" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="bi bi-person-circle text-success"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0" aria-labelledby="userMenu">
+                                    <li><a class="dropdown-item small" asp-controller="Narudzba" asp-action="Index">Narudžbe</a></li>
                                     <li><a class="dropdown-item small" asp-area="Identity" asp-page="/Account/Manage/Index">Moj Profil</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li>
@@ -122,7 +211,15 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+        // Pokrećemo samo ako brojač korpe postoji na ekranu (korisnik je logovan)
+        if (document.getElementById('brojac-proizvoda')) {
         osvjeziKorpuIzBaze();
+        }
+
+        // Provjera stanja pročitanih obavijesti iz sesije
+        if (sessionStorage.getItem("obavijestiProcitane") === "true") {
+        ukloniBrojacObavijesti();
+        }
         });
 
         function osvjeziKorpuIzBaze() {
@@ -135,8 +232,7 @@
         .catch(err => console.error("Greška pri dohvaćanju korpe:", err));
         }
 
-        // ISPRAVLJENO: Kada se klikne u Shopu (Index), korisnik ostaje tu i samo se puni badge!
-        function dodajUKorpu(id) {
+        function daddUKorpu(id) {
         fetch(`/Proizvod/DodajUKorpu?id=${id}`, { method: 'POST' })
         .then(res => res.json())
         .then(data => {
@@ -180,11 +276,33 @@
         brojac.innerText = ukupnoArtikala;
         }
         }
+
+        function oznaciSveProcitano(event) {
+        event.stopPropagation();
+        event.preventDefault();
+
+        ukloniBrojacObavijesti();
+        sessionStorage.setItem("obavijestiProcitane", "true");
+        }
+
+        function ukloniBrojacObavijesti() {
+        const brojac = document.getElementById('brojac-obavijesti');
+        if (brojac) {
+        brojac.remove();
+        }
+
+        const stavke = document.querySelectorAll('.pojedinacna-obavijest');
+        stavke.forEach(item => {
+        item.style.opacity = "0.6";
+        item.style.borderLeft = "4px solid #999";
+        });
+        }
     </script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
 <style>
     .custom-navbar {
     font-family: 'Plus Jakarta Sans', sans-serif;
@@ -236,11 +354,10 @@
     transform: scale(1.05);
     }
 
-    .no-caret::after {
+    .no-caret::after, #notifDropdown::after {
     display: none !important;
     }
 
-    /* OVDJE JE POPRAVLJENO: Dodato je duplo @@ za Razor */
     @@media (max-width: 1199.98px) {
     .navbar-nav {
     padding: 20px 0;

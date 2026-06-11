@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "ContainingType": "SmartHairSalonApp.Controllers.SaloniApiController",
+    "Method": "GetSalone",
+    "RelativePath": "api/SaloniApi",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]
