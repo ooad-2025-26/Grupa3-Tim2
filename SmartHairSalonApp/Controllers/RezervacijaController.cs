@@ -85,14 +85,11 @@ namespace SmartHairSalonApp.Controllers
         }
 
         // POST: Rezervacija/Create
-        // 🔥 POPRAVLJENO: Proširene uloge i dodana backend blokada za administratorske račune
         [Authorize(Roles = "korisnik,admin,zaposlenik")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(
-            [Bind("UslugaId,ZeljeniTermin")] Rezervacija rezervacija)
+        public async Task<IActionResult> Create([Bind("UslugaId,ZeljeniTermin")] Rezervacija rezervacija)
         {
-            // Ako admin ili zaposlenik nekako pošalju zahtjev, odmah ih odbij i vrati na početnu
             if (User.IsInRole("admin") || User.IsInRole("zaposlenik"))
             {
                 return RedirectToAction("Index", "Home");
@@ -106,6 +103,20 @@ namespace SmartHairSalonApp.Controllers
             _context.Rezervacije.Add(rezervacija);
             await _context.SaveChangesAsync();
 
+            // Pošto je ZeljeniTermin već string, samo provjeravamo da nije null
+            string terminTekst = rezervacija.ZeljeniTermin ?? "Nije odabran";
+
+            // 🔥 IMPLEMENTACIJA OBAVIJESTI ZA ZAPOSLENIKE (Layout prepoznaje "SALON:")
+            var obavijestZaOsoblje = new Obavijest
+            {
+                Poruka = $"SALON: Novi zahtjev za termin od korisnika <b>{korisnik.UserName}</b> za {terminTekst}.",
+                Datum = DateTime.Now,
+                KorisnikId = korisnik.Id
+            };
+
+            _context.Obavijesti.Add(obavijestZaOsoblje);
+            await _context.SaveChangesAsync();
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -114,16 +125,22 @@ namespace SmartHairSalonApp.Controllers
         public async Task<IActionResult> Prihvati(int id)
         {
             var rezervacija = await _context.Rezervacije.FindAsync(id);
-
-            if (rezervacija == null)
-            {
-                return NotFound();
-            }
+            if (rezervacija == null) return NotFound();
 
             rezervacija.StatusRezervacije = StatusRezervacije.Potvrdjena;
 
-            await _context.SaveChangesAsync();
+            string terminTekst = rezervacija.ZeljeniTermin ?? "";
 
+            // 🔥 OBAVIJEST KUPCU DA MU JE TERMIN ODOBREN
+            var obavijestKupac = new Obavijest
+            {
+                Poruka = $"Vaš zahtjev za termin ({terminTekst}) je <span class='text-success fw-bold'>ODOBREN</span>!",
+                Datum = DateTime.Now,
+                KorisnikId = rezervacija.KorisnikId
+            };
+            _context.Obavijesti.Add(obavijestKupac);
+
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
@@ -132,16 +149,22 @@ namespace SmartHairSalonApp.Controllers
         public async Task<IActionResult> Odbij(int id)
         {
             var rezervacija = await _context.Rezervacije.FindAsync(id);
-
-            if (rezervacija == null)
-            {
-                return NotFound();
-            }
+            if (rezervacija == null) return NotFound();
 
             rezervacija.StatusRezervacije = StatusRezervacije.Odbijena;
 
-            await _context.SaveChangesAsync();
+            string terminTekst = rezervacija.ZeljeniTermin ?? "";
 
+            // 🔥 OBAVIJEST KUPCU DA MU JE TERMIN ODBIJEN
+            var obavijestKupac = new Obavijest
+            {
+                Poruka = $"Vaš zahtjev za termin ({terminTekst}) je nažalost <span class='text-danger fw-bold'>ODBIJEN</span>. Molimo pokušajte drugi termin.",
+                Datum = DateTime.Now,
+                KorisnikId = rezervacija.KorisnikId
+            };
+            _context.Obavijesti.Add(obavijestKupac);
+
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

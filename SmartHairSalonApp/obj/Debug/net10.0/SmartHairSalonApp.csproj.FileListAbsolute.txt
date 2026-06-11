@@ -356,6 +356,7 @@ C:\Users\Ajna\Documents\GitHub\Grupa3-Tim2\SmartHairSalonApp\obj\Debug\net10.0\c
 C:\Users\Ajna\Documents\GitHub\Grupa3-Tim2\SmartHairSalonApp\obj\Debug\net10.0\compressed\nezrqnk58p-{0}-muycvpuwrr-muycvpuwrr.gz
 C:\Users\Ajna\Documents\GitHub\Grupa3-Tim2\SmartHairSalonApp\obj\Debug\net10.0\compressed\v0zgfp0y55-{0}-87fc7y1x7t-87fc7y1x7t.gz
 C:\Users\Ajna\Documents\GitHub\Grupa3-Tim2\SmartHairSalonApp\obj\Debug\net10.0\compressed\yfc7ypekbg-{0}-mlv21k5csn-mlv21k5csn.gz
+C:\Users\Ajna\Documents\GitHub\Grupa3-Tim2\SmartHairSalonApp\obj\Debug\net10.0\compressed\jcbuxr7soe-{0}-8waa4c470b-8waa4c470b.gz
 C:\Users\Ajna\Documents\GitHub\Grupa3-Tim2\SmartHairSalonApp\obj\Debug\net10.0\compressed\0o6563pa80-{0}-61n19gt1b8-61n19gt1b8.gz
 C:\Users\Ajna\Documents\GitHub\Grupa3-Tim2\SmartHairSalonApp\obj\Debug\net10.0\compressed\yyvyeikxfy-{0}-xtxxf3hu2r-xtxxf3hu2r.gz
 C:\Users\Ajna\Documents\GitHub\Grupa3-Tim2\SmartHairSalonApp\obj\Debug\net10.0\compressed\xfmpbkohx3-{0}-bqjiyaj88i-bqjiyaj88i.gz
@@ -431,4 +432,3 @@ C:\Users\Ajna\Documents\GitHub\Grupa3-Tim2\SmartHairSalonApp\obj\Debug\net10.0\r
 C:\Users\Ajna\Documents\GitHub\Grupa3-Tim2\SmartHairSalonApp\obj\Debug\net10.0\SmartHairSalonApp.pdb
 C:\Users\Ajna\Documents\GitHub\Grupa3-Tim2\SmartHairSalonApp\obj\Debug\net10.0\SmartHairSalonApp.genruntimeconfig.cache
 C:\Users\Ajna\Documents\GitHub\Grupa3-Tim2\SmartHairSalonApp\obj\Debug\net10.0\ref\SmartHairSalonApp.dll
-C:\Users\Ajna\Documents\GitHub\Grupa3-Tim2\SmartHairSalonApp\obj\Debug\net10.0\compressed\jcbuxr7soe-{0}-8waa4c470b-8waa4c470b.gz

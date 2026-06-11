@@ -2,8 +2,8 @@
 
 @{
     ViewData["Title"] = "Spisak Narudžbi";
-    bool jeZaposlenik = User.IsInRole("zaposlenik");
-    bool jeAdmin = User.IsInRole("admin");
+    bool jeZaposlenik = User.IsInRole("zaposlenik") || User.IsInRole("Zaposlenik");
+    bool jeAdmin = User.IsInRole("admin") || User.IsInRole("Admin");
     bool jeSalonOsoblje = jeZaposlenik || jeAdmin;
 }
 
@@ -19,7 +19,7 @@
             }
             else if (jeAdmin)
             {
-                <text>Pregled Narudžbi (Admin Monitoring)</text>
+                <text>Upravljanje Narudžbama (Admin Panel)</text>
             }
             else
             {
@@ -65,50 +65,35 @@
                                 <td class="py-3 px-4 text-muted small">@(item.Korisnik?.Email ?? "Gost")</td>
                             }
                             <td class="py-3 px-4 fw-bold text-dark" style="font-size: 1.05rem;">
-                                €@(item.Korpa?.UkupnaCijena.ToString("F2") ?? "0.00")
+                                KM @(item.Korpa?.UkupnaCijena.ToString("F2") ?? "0.00")
                             </td>
                             <td class="py-3 px-4">
-                                @if (item.StatusNarudzbe == StatusNarudzbe.UObradi)
-                                {
-                                    <span class="badge rounded-pill bg-warning-light text-warning text-uppercase px-3 py-2 font-xs">U Obradi</span>
-                                }
-                                else if (item.StatusNarudzbe == StatusNarudzbe.Potvrdjena)
-                                {
-                                    <span class="badge rounded-pill bg-success-light text-success text-uppercase px-3 py-2 font-xs">Potvrđena</span>
-                                }
-                                else
-                                {
-                                    <span class="badge rounded-pill bg-danger-light text-danger text-uppercase px-3 py-2 font-xs">Odbijena</span>
-                                }
+                                <span id="status-badge-@item.Id" class="badge rounded-pill text-uppercase px-3 py-2 font-xs @(item.StatusNarudzbe == StatusNarudzbe.UObradi ? "bg-warning-light text-warning" : item.StatusNarudzbe == StatusNarudzbe.Potvrdjena ? "bg-success-light text-success" : "bg-danger-light text-danger")">
+                                    @(item.StatusNarudzbe == StatusNarudzbe.UObradi ? "U Obradi" : item.StatusNarudzbe == StatusNarudzbe.Potvrdjena ? "Potvrđena" : "Odbijena")
+                                </span>
                             </td>
                             <td class="py-3 px-4 text-end pe-4">
-                                @if (jeZaposlenik && item.StatusNarudzbe == StatusNarudzbe.UObradi)
-                                {
-                                    <div class="d-inline-flex gap-2">
-                                        <form asp-action="Odluci" method="post" class="m-0">
-                                            <input type="hidden" name="id" value="@item.Id" />
-                                            <button type="submit" name="odluka" value="prihvati" class="btn btn-dark btn-sm rounded-pill text-uppercase btn-premium-action px-3 shadow-sm">
-                                                <i class="bi bi-check2 me-1"></i> Prihvati
-                                            </button>
-                                        </form>
-                                        <form asp-action="Odluci" method="post" class="m-0">
-                                            <input type="hidden" name="id" value="@item.Id" />
-                                            <button type="submit" name="odluka" value="odbij" class="btn btn-outline-danger btn-sm rounded-pill text-uppercase font-xs fw-bold px-3">
-                                                <i class="bi bi-x-lg me-1"></i> Odbij
-                                            </button>
-                                        </form>
-                                    </div>
-                                }
-                                else if (jeAdmin)
-                                {
-                                    <span class="badge bg-light text-muted border border-light text-uppercase px-2 py-1 font-xs tracking-wide">
-                                        <i class="bi bi-eye me-1"></i> Samo pregled
-                                    </span>
-                                }
-                                else
-                                {
-                                    <span class="text-muted small fst-italic">Bez akcija</span>
-                                }
+                                <div id="akcije-@item.Id" class="d-inline-flex gap-2">
+                                    @if (jeSalonOsoblje && item.StatusNarudzbe == StatusNarudzbe.UObradi)
+                                    {
+                                        <button onclick="procesuirajNarudzbu(@item.Id, 'Potvrdjena')" class="btn btn-dark btn-sm rounded-pill text-uppercase btn-premium-action px-3 shadow-sm">
+                                            <i class="bi bi-check2 me-1"></i> Potvrdi
+                                        </button>
+                                        <button onclick="procesuirajNarudzbu(@item.Id, 'Odbijena')" class="btn btn-outline-danger btn-sm rounded-pill text-uppercase font-xs fw-bold px-3">
+                                            <i class="bi bi-x-lg me-1"></i> Odbij
+                                        </button>
+                                    }
+                                    else if (jeSalonOsoblje && item.StatusNarudzbe != StatusNarudzbe.UObradi)
+                                    {
+                                        <span class="badge bg-light text-muted border border-light text-uppercase px-2 py-1 font-xs tracking-wide">
+                                            <i class="bi bi-check-all me-1"></i> Završeno
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted small fst-italic">Bez akcija</span>
+                                    }
+                                </div>
                             </td>
                         </tr>
                     }
@@ -156,15 +141,15 @@
 
     /* Elegantne pastelne pozadine za statuse */
     .bg-success-light {
-        background-color: #ebfbee;
+        background-color: #ebfbee !important;
     }
 
     .bg-danger-light {
-        background-color: #fff5f5;
+        background-color: #fff5f5 !important;
     }
 
     .bg-warning-light {
-        background-color: #fff9db;
+        background-color: #fff9db !important;
     }
 
     /* Dugmad za akciju */
@@ -183,3 +168,66 @@
             color: #D4AF37 !important;
         }
 </style>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function procesuirajNarudzbu(id, enumStatus) {
+        let naslov = enumStatus === 'Potvrdjena' ? 'Želite li potvrditi narudžbu?' : 'Želite li odbiti narudžbu?';
+        let tekst = enumStatus === 'Potvrdjena' ? 'Narudžba će biti označena kao Potvrđena i spremna za klijenta.' : 'Ova narudžba će biti trajno odbijena.';
+        let ikona = enumStatus === 'Potvrdjena' ? 'question' : 'warning';
+        let dugmeBoja = enumStatus === 'Potvrdjena' ? '#1a1a1a' : '#dc3545';
+
+        Swal.fire({
+        title: naslov,
+        text: tekst,
+        icon: ikona,
+        showCancelButton: true,
+        confirmButtonColor: dugmeBoja,
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: enumStatus === 'Potvrdjena' ? 'Da, potvrdi!' : 'Da, odbij!',
+        cancelButtonText: 'Odustani'
+        }).then((result) => {
+        if (result.isConfirmed) {
+        // Pozivamo tvoju novu akciju iz kontrolera bez osvježavanja stranice
+        fetch(`/Narudzba/PromijeniStatus?id=${id}&noviStatus=${enumStatus}`, { method: 'POST' })
+        .then(res => res.json())
+        .then(data => {
+        if (data.success) {
+        // 1. Sakrij gumbe za akciju i zamijeni ih oznakom "Završeno"
+        let akcijeDiv = document.getElementById(`akcije-${id}`);
+        if (akcijeDiv) {
+        akcijeDiv.innerHTML = `<span class="badge bg-light text-muted border border-light text-uppercase px-2 py-1 font-xs tracking-wide"><i class="bi bi-check-all me-1"></i> Završeno</span>`;
+        }
+
+        // 2. Dinamički ažuriraj stil i tekst statusne značke
+        let badge = document.getElementById(`status-badge-${id}`);
+        if (badge) {
+        if (enumStatus === 'Potvrdjena') {
+        badge.innerText = "Potvrđena";
+        badge.className = "badge rounded-pill text-uppercase px-3 py-2 font-xs bg-success-light text-success";
+        } else {
+        badge.innerText = "Odbijena";
+        badge.className = "badge rounded-pill text-uppercase px-3 py-2 font-xs bg-danger-light text-danger";
+        }
+        }
+
+        // 3. Iskočni prozor sa uspjehom
+        Swal.fire({
+        title: enumStatus === 'Potvrdjena' ? 'Uspješno potvrđeno!' : 'Narudžba odbijena!',
+        text: `Narudžba #${id} je uspješno procesuirana.`,
+        icon: 'success',
+        timer: 2000,
+        showConfirmButton: false
+        });
+        }
+        })
+        .catch(err => {
+        console.error("Greška:", err);
+        Swal.fire('Greška', 'Došlo je do greške prilikom obrade narudžbe.', 'error');
+        });
+        }
+        });
+        }
+    </script>
+}

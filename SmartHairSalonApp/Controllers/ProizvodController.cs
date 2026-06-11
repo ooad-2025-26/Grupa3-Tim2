@@ -353,7 +353,7 @@ namespace SmartHairSalonApp.Controllers
 
                     var obavijestZaSalon = new Obavijest
                     {
-                        Poruka = $"SALON: Nova rezervacija proizvoda #{novaNarudzba.Id} spremna za preuzimanje.",
+                        Poruka = $"SALON: Kreirana je nova narudžba #{novaNarudzba.Id} i čeka na Vašu obradu.",
                         KorisnikId = korisnikId,
                         Datum = DateTime.Now
                     };
@@ -374,6 +374,46 @@ namespace SmartHairSalonApp.Controllers
                 }
             }
         }
+        [HttpPost]
+        [Authorize]
+        [Route("Proizvod/OznaciSveKaoProcitane")]
+        public async Task<IActionResult> OznaciSveKaoProcitane()
+        {
+            var korisnikId = _userManager.GetUserId(User);
+            if (string.IsNullOrEmpty(korisnikId)) return BadRequest();
+
+            List<Obavijest> obavijestiZaBrisanje;
+
+            // Ako je admin, brišemo salonske i admin poruke koje je pregledao
+            if (User.IsInRole("admin") || User.IsInRole("Admin"))
+            {
+                obavijestiZaBrisanje = await _context.Obavijesti
+                    .Where(o => o.Poruka.StartsWith("SALON:") || o.Poruka.StartsWith("ADMIN:"))
+                    .ToListAsync();
+            }
+            // Ako je zaposlenik, brišemo salonske poruke sa njegovog zvonca
+            else if (User.IsInRole("zaposlenik") || User.IsInRole("Zaposlenik"))
+            {
+                obavijestiZaBrisanje = await _context.Obavijesti
+                    .Where(o => o.Poruka.StartsWith("SALON:"))
+                    .ToListAsync();
+            }
+            // Ako je obični klijent, brišemo samo njegove lične obavijesti
+            else
+            {
+                obavijestiZaBrisanje = await _context.Obavijesti
+                    .Where(o => o.KorisnikId == korisnikId && !o.Poruka.StartsWith("SALON:") && !o.Poruka.StartsWith("ADMIN:"))
+                    .ToListAsync();
+            }
+
+            if (obavijestiZaBrisanje.Any())
+            {
+                _context.Obavijesti.RemoveRange(obavijestiZaBrisanje);
+                await _context.SaveChangesAsync();
+            }
+
+            return Json(new { success = true });
+        }
     }
 
     public class StavkaKorpeViewModel
@@ -386,6 +426,8 @@ namespace SmartHairSalonApp.Controllers
         public double CijenaSaPopustom => Cijena * (1 - (PopustProcenat / 100));
         public double UkupnoStavka => CijenaSaPopustom * Kolicina;
     }
+
+
 
     public class KorpaObracunViewModel
     {

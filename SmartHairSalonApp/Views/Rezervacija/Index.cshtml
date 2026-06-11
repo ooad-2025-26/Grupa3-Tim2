@@ -1,116 +1,90 @@
 ﻿@model IEnumerable<SmartHairSalonApp.Models.Rezervacija>
 
 @{
-    ViewData["Title"] = "Lista Rezervacija";
+    ViewData["Title"] = "Upravljanje Rezervacijama";
+    bool jeZaposlenik = User.IsInRole("zaposlenik") || User.IsInRole("Zaposlenik");
+    bool jeAdmin = User.IsInRole("admin") || User.IsInRole("Admin");
+    bool jeSalonOsoblje = jeZaposlenik || jeAdmin;
 }
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-<div class="container my-5">
-    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-5 pb-3 border-bottom border-light">
-        <div>
-            <h2 class="fw-bold text-uppercase tracking-wide m-0" style="color: #1a1a1a; font-family: 'Playfair Display', serif;">
-                @(User.IsInRole("korisnik") ? "Moje Rezervacije" : "Upravljanje Rezervacijama")
-            </h2>
-            <p class="text-muted small text-uppercase tracking-wider m-0 mt-1">Pregled i status salonskih termina</p>
-        </div>
-        @if (User.IsInRole("korisnik"))
-        {
-            <a asp-action="Create" class="btn btn-dark shadow-sm px-4 fw-semibold rounded-pill text-uppercase btn-premium-dark mt-3 mt-sm-0">
-                Nova Rezervacija
-            </a>
-        }
+<div class="container my-5" style="min-height: 75vh;">
+    <div class="mb-5 pb-3 border-bottom border-light">
+        <span class="text-uppercase tracking-widest text-gold fw-bold small d-block mb-2">Smart Hair Salon</span>
+        <h2 style="font-family: 'Playfair Display', serif;" class="fw-bold text-uppercase tracking-wide text-dark m-0">
+            Upravljanje Rezervacijama
+        </h2>
+        <p class="text-muted small text-uppercase tracking-wider m-0 mt-1">Pregled i status salonskih termina.</p>
     </div>
 
-    @if (!Model.Any())
-    {
-        <div class="text-center p-5 bg-white shadow-sm rounded-4 border border-light">
-            <i class="bi bi-calendar-x text-muted mb-3 d-block" style="font-size: 3rem;"></i>
-            <p class="text-muted text-uppercase tracking-wider small m-0">Trenutno nema evidentiranih rezervacija.</p>
-        </div>
-    }
-    else
-    {
-        <div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white">
-            <div style="height: 4px; background: linear-gradient(90deg, #D4AF37 0%, #F3E5AB 100%);"></div>
-            <div class="table-responsive">
-                <table class="table align-middle mb-0 custom-table">
-                    <thead class="table-light text-uppercase tracking-wider small">
-                        <tr>
-                            @if (!User.IsInRole("korisnik"))
-                            {
-                                <th class="ps-4">Klijent</th>
-                            }
-                            <th class="@(User.IsInRole("korisnik") ? "ps-4" : "")">Usluga</th>
-                            <th>Željeni Termin</th>
-                            <th>Status</th>
-                            <th class="text-end pe-4">Akcije</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                @if (!User.IsInRole("korisnik"))
-                                {
-                                    <td class="ps-4 fw-semibold text-dark">@item.Korisnik?.Email</td>
-                                }
-                                <td class="@(User.IsInRole("korisnik") ? "ps-4" : "") fw-bold text-dark" style="font-family: 'Playfair Display', serif; font-size: 1.1rem;">
-                                    @item.Usluga?.Naziv
-                                </td>
-                                <td class="text-muted small">
-                                    <i class="bi bi-clock text-gold me-1"></i> @item.ZeljeniTermin
-                                </td>
-                                <td>
-                                    @if (item.StatusRezervacije == SmartHairSalonApp.Models.StatusRezervacije.Potvrdjena)
-                                    {
-                                        <span class="badge rounded-pill bg-success-light text-success text-uppercase px-3 py-2 font-xs">Potvrđeno</span>
-                                    }
-                                    else if (item.StatusRezervacije == SmartHairSalonApp.Models.StatusRezervacije.Odbijena)
-                                    {
-                                        <span class="badge rounded-pill bg-danger-light text-danger text-uppercase px-3 py-2 font-xs">Odbijeno</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge rounded-pill bg-warning-light text-warning text-uppercase px-3 py-2 font-xs">U Obradi</span>
-                                    }
-                                </td>
-                                <td class="text-end pe-4">
-                                    <div class="btn-group shadow-sm rounded-3 overflow-hidden border border-light bg-white">
-                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-white btn-sm px-3 border-end" title="Detalji">
-                                            <i class="bi bi-info-circle text-muted"></i>
-                                        </a>
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white">
+        <div style="height: 4px; background: linear-gradient(90deg, #D4AF37 0%, #F3E5AB 100%);"></div>
 
-                                        @if (!User.IsInRole("korisnik"))
-                                        {
-                                            @if (item.StatusRezervacije == SmartHairSalonApp.Models.StatusRezervacije.UObradi)
-                                            {
-                                                <a asp-action="Prihvati" asp-route-id="@item.Id" class="btn btn-white btn-sm px-3 border-end" title="Prihvati">
-                                                    <i class="bi bi-check2 text-success fw-bold"></i>
-                                                </a>
-                                                <a asp-action="Odbij" asp-route-id="@item.Id" class="btn btn-white btn-sm px-3 border-end" title="Odbij">
-                                                    <i class="bi bi-x-lg text-danger"></i>
-                                                </a>
-                                            }
-                                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-white btn-sm px-3 border-end" title="Uredi">
-                                                <i class="bi bi-pencil-square text-dark"></i>
-                                            </a>
-                                            @if (User.IsInRole("admin"))
-                                            {
-                                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-white btn-sm px-3" title="Obriši">
-                                                    <i class="bi bi-trash3-fill text-danger"></i>
-                                                </a>
-                                            }
-                                        }
-                                    </div>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+        <div class="table-responsive">
+            <table class="table align-middle mb-0 custom-table">
+                <thead class="table-light text-uppercase tracking-wider small">
+                    <tr>
+                        <th class="py-3 px-4">Klijent</th>
+                        <th class="py-3 px-4">Usluga</th>
+                        <th class="py-3 px-4">Željeni Termin</th>
+                        <th class="py-3 px-4">Status</th>
+                        <th class="py-3 px-4 text-end pe-4">Akcije</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center py-5">
+                                <i class="bi bi-calendar-x text-muted mb-2 d-block" style="font-size: 2.5rem;"></i>
+                                <span class="text-muted text-uppercase tracking-wider small">Trenutno nema zakazanih termina u bazi.</span>
+                            </td>
+                        </tr>
+                    }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="py-3 px-4 text-muted small">
+                                @(item.Korisnik?.Email ?? "Gost/Klijent")
+                            </td>
+                            <td class="py-3 px-4 fw-bold text-dark">
+                                @(item.Usluga != null ? item.Usluga.Naziv : "Nije definisana")
+                            </td>
+                            <td class="py-3 px-4 text-muted small">
+                                <i class="bi bi-clock text-gold me-1"></i> @item.ZeljeniTermin
+                            </td>
+                            <td class="py-3 px-4">
+                                <span id="status-badge-rezervacija-@item.Id" class="badge rounded-pill text-uppercase px-3 py-2 font-xs
+                                    @(item.StatusRezervacije == StatusRezervacije.UObradi ? "bg-warning-light text-warning" :
+                                        item.StatusRezervacije == StatusRezervacije.Potvrdjena ? "bg-success-light text-success" :
+                                        "bg-danger-light text-danger")">
+                                    @(item.StatusRezervacije == StatusRezervacije.UObradi ? "U Obradi" :
+                                      item.StatusRezervacije == StatusRezervacije.Potvrdjena ? "Potvrđeno" : "Odbijeno")
+                                </span>
+                            </td>
+                            <td class="py-3 px-4 text-end pe-4">
+                                <div id="akcije-rezervacija-@item.Id" class="d-inline-flex gap-2">
+                                    @if (jeSalonOsoblje && item.StatusRezervacije == StatusRezervacije.UObradi)
+                                    {
+                                        <button onclick="procesuirajRezervaciju(@item.Id, 'Potvrdjena')" class="btn btn-light btn-sm rounded-circle border shadow-sm px-2" title="Potvrdi termin">
+                                            <i class="bi bi-check-lg text-success"></i>
+                                        </button>
+                                        <button onclick="procesuirajRezervaciju(@item.Id, 'Odbijena')" class="btn btn-light btn-sm rounded-circle border shadow-sm px-2" title="Odbij termin">
+                                            <i class="bi bi-x-lg text-danger"></i>
+                                        </button>
+                                    }
+
+                                    <a href="/Rezervacija/Details/@item.Id" class="btn btn-light btn-sm rounded border px-2" title="Detalji"><i class="bi bi-info-circle"></i></a>
+                                    <a href="/Rezervacija/Edit/@item.Id" class="btn btn-light btn-sm rounded border px-2" title="Uredi"><i class="bi bi-pencil-square"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
-    }
+    </div>
 </div>
 
 <style>
@@ -126,24 +100,14 @@
         letter-spacing: 0.1em;
     }
 
+    .tracking-widest {
+        letter-spacing: 0.2em;
+    }
+
     .font-xs {
         font-size: 0.7rem;
         font-weight: 600;
     }
-
-    .btn-premium-dark {
-        background-color: #1a1a1a;
-        border: 1px solid #1a1a1a;
-        font-size: 0.8rem;
-        font-weight: 600;
-        letter-spacing: 0.05em;
-        transition: all 0.25s ease;
-    }
-
-        .btn-premium-dark:hover {
-            background-color: #000000;
-            border-color: #D4AF37;
-        }
 
     .custom-table th {
         background-color: #fafafa;
@@ -159,23 +123,73 @@
     }
 
     .bg-success-light {
-        background-color: #ebfbee;
+        background-color: #ebfbee !important;
     }
 
     .bg-danger-light {
-        background-color: #fff5f5;
+        background-color: #fff5f5 !important;
     }
 
     .bg-warning-light {
-        background-color: #fff9db;
+        background-color: #fff9db !important;
     }
-
-    .btn-white {
-        background-color: #ffffff;
-        border: none;
-    }
-
-        .btn-white:hover {
-            background-color: #fafafa;
-        }
 </style>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function procesuirajRezervaciju(id, statusOdluke) {
+        let naslov = statusOdluke === 'Potvrdjena' ? 'Želite li potvrditi ovaj termin?' : 'Želite li odbiti ovaj termin?';
+        let tekst = statusOdluke === 'Potvrdjena' ? 'Klijentov termin će biti odobren.' : 'Ovaj salonski termin će biti otkazan.';
+        let ikona = statusOdluke === 'Potvrdjena' ? 'question' : 'warning';
+        let dugmeBoja = statusOdluke === 'Potvrdjena' ? '#198754' : '#dc3545';
+
+        Swal.fire({
+        title: naslov,
+        text: tekst,
+        icon: ikona,
+        showCancelButton: true,
+        confirmButtonColor: dugmeBoja,
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: statusOdluke === 'Potvrdjena' ? 'Da, potvrdi!' : 'Da, odbij!',
+        cancelButtonText: 'Odustani'
+        }).then((result) => {
+        if (result.isConfirmed) {
+        fetch(`/Rezervacija/PromijeniStatusRezervacije?id=${id}&status=${statusOdluke}`, { method: 'POST' })
+        .then(res => res.json())
+        .then(data => {
+        if (data.success) {
+        let badge = document.getElementById(`status-badge-rezervacija-${id}`);
+        if (badge) {
+        badge.innerText = data.noviStatusText;
+        if (statusOdluke === 'Potvrdjena') {
+        badge.className = "badge rounded-pill text-uppercase px-3 py-2 font-xs bg-success-light text-success";
+        } else {
+        badge.className = "badge rounded-pill text-uppercase px-3 py-2 font-xs bg-danger-light text-danger";
+        }
+        }
+
+        let akcijeDiv = document.getElementById(`akcije-rezervacija-${id}`);
+        if (akcijeDiv) {
+        let buttons = akcijeDiv.querySelectorAll('button');
+        buttons.forEach(btn => btn.remove());
+        }
+
+        Swal.fire({
+        title: statusOdluke === 'Potvrdjena' ? 'Termin Potvrđen!' : 'Termin Odbijen!',
+        text: `Uspješno ažuriran status salonskog termina.`,
+        icon: 'success',
+        timer: 2000,
+        showConfirmButton: false
+        });
+        }
+        })
+        .catch(err => {
+        console.error("Greška:", err);
+        Swal.fire('Greška', 'Nije moguće promijeniti status termina.', 'error');
+        });
+        }
+        });
+        }
+    </script>
+}

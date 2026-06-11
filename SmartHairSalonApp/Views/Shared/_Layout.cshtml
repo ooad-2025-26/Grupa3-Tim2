@@ -123,7 +123,7 @@
                                         </span>
                                     }
                                 </a>
-                                <ul class="dropdown-menu dropdown-menu-end shadow border-0 p-3" aria-labelledby="notifDropdown" style="min-width: 300px; border-radius: 16px; background-color: #fbfbfa;">
+                                <ul class="dropdown-menu dropdown-menu-end shadow border-0 p-3" aria-labelledby="notifDropdown" style="min-width: 320px; border-radius: 16px; background-color: #fbfbfa;">
                                     <li class="dropdown-header text-dark fw-bold border-bottom pb-2 mb-2 fs-6 d-flex justify-content-between align-items-center" style="font-family: 'Playfair Display', serif;">
                                         <span>Obavještenja</span>
                                         @if (brojObavijesti > 0)
@@ -133,7 +133,7 @@
                                             </button>
                                         }
                                     </li>
-                                    <div id="lista-notifikacija-kontejner">
+                                    <div id="lista-notifikacija-kontejner" style="max-height: 380px; overflow-y: auto;">
                                         @if (brojObavijesti == 0)
                                         {
                                             <li class="text-muted text-center py-3 small nema-poruka-tekst">Trenutno nema novih poruka.</li>
@@ -143,33 +143,35 @@
                                             foreach (var ob in listaObavijesti)
                                             {
                                                 bool jeAdminPoruka = ob.Poruka.StartsWith("ADMIN:");
+                                                bool jeRezervacija = ob.Poruka.ToLower().Contains("rezervacija");
                                                 string borderBoja = jeAdminPoruka ? "#8c7a6b" : "#2b3a22";
 
                                                 <li>
-                                                    <a class="dropdown-item small p-2 rounded mb-2 text-wrap text-dark d-flex align-items-start pojedinacna-obavijest"
-                                                       style="background-color: #f4f1ed; border-left: 4px solid @borderBoja;"
-                                                       asp-controller="Narudzba" asp-action="Index">
+                                                    <div class="dropdown-item small p-3 rounded mb-2 text-wrap text-dark d-flex align-items-start pojedinacna-obavijest"
+                                                         style="background-color: #f4f1ed; border-left: 4px solid @borderBoja; cursor: default; white-space: normal;">
 
                                                         @if (jeAdminPoruka)
                                                         {
-                                                            <i class="bi bi-person-plus-fill me-2 mt-1" style="color: #8c7a6b;"></i>
+                                                            <i class="bi bi-person-plus-fill me-2 mt-1" style="color: #8c7a6b; font-size: 1.1rem;"></i>
+                                                        }
+                                                        else if (jeRezervacija)
+                                                        {
+                                                            <i class="bi bi-calendar-check-fill me-2 mt-1" style="color: #D4AF37; font-size: 1.1rem;"></i>
                                                         }
                                                         else
                                                         {
-                                                            <i class="bi bi-chat-left-dots-fill me-2 mt-1" style="color: #2b3a22;"></i>
+                                                            <i class="bi bi-bag-check-fill me-2 mt-1" style="color: #2b3a22; font-size: 1.1rem;"></i>
                                                         }
 
-                                                        <div>
-                                                            @ob.Poruka
-                                                            <div class="text-muted" style="font-size: 0.75rem;">@ob.Datum.ToString("HH:mm")</div>
+                                                        <div class="w-100">
+                                                            <span class="d-block text-dark lh-sm">@Html.Raw(ob.Poruka)</span>
+                                                            <div class="text-muted mt-1 small" style="font-size: 0.72rem;">
+                                                                <i class="bi bi-clock me-1"></i> @ob.Datum.ToString("HH:mm") h
+                                                            </div>
                                                         </div>
-                                                    </a>
+                                                    </div>
                                                 </li>
                                             }
-                                            <li><hr class="dropdown-divider"></li>
-                                            <li class="text-center">
-                                                <a asp-controller="Narudzba" asp-action="Index" class="text-decoration-none small fw-bold" style="color: #2b3a22;">Pogledaj sve narudžbe</a>
-                                            </li>
                                         }
                                     </div>
                                 </ul>
@@ -289,7 +291,6 @@
 
         if (korpa && korpa.length > 0) {
         korpa.forEach(item => {
-        // Osiguravamo mapiranje bez obzira na to da li C# vraća 'kolicina' ili 'Kolicina'
         ukupnoArtikala += (item.kolicina || item.Kolicina || 0);
         });
         }
@@ -302,8 +303,21 @@
         event.stopPropagation();
         event.preventDefault();
 
+        // Pozivamo backend endpoint koji smo upravo dodali u ProizvodController
+        fetch('/Proizvod/OznaciSveKaoProcitane', { method: 'POST' })
+        .then(res => res.json())
+        .then(data => {
+        if(data.success) {
         ukloniBrojacObavijesti();
-        sessionStorage.setItem("obavijestiProcitane", "true");
+
+        // Odmah praznimo meni na zvoncu i ispisujemo poruku da nema novih
+        const kontejner = document.getElementById('lista-notifikacija-kontejner');
+        if(kontejner) {
+        kontejner.innerHTML = '<li class="text-muted text-center py-3 small nema-poruka-tekst">Besprjekorno! Nemate novih poruka.</li>';
+        }
+        }
+        })
+        .catch(err => console.error("Greška pri čišćenju obavijesti:", err));
         }
 
         function ukloniBrojacObavijesti() {
@@ -377,6 +391,16 @@
 
     .no-caret::after, #notifDropdown::after {
     display: none !important;
+    }
+
+    /* Zlatni linkovi unutar zvonca za otvaranje modula */
+    .text-gold {
+    color: #D4AF37 !important;
+    transition: color 0.2s ease;
+    }
+
+    .text-gold:hover {
+    color: #bfa030 !important;
     }
 
     @@media (max-width: 1199.98px) {

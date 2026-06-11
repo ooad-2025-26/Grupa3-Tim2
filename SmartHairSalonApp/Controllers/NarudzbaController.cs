@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using SmartHairSalonApp.Data;
 using SmartHairSalonApp.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authorization; // 🔥 Dodano za zaključavanje kontrolera
+using Microsoft.AspNetCore.Authorization;
 
 namespace SmartHairSalonApp.Controllers
 {
-    [Authorize] // 🔥 Kompletan kontroler narudžbi je sada nevidljiv za goste
+    [Authorize] // Kompletan kontroler narudžbi je nevidljiv za goste
     public class NarudzbaController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -30,7 +30,8 @@ namespace SmartHairSalonApp.Controllers
 
             List<Narudzba> narudzbe;
 
-            if (User.IsInRole("admin") || User.IsInRole("zaposlenik"))
+            // Pokrivamo i admina i zaposlenika (velika i mala slova za svaki slučaj)
+            if (User.IsInRole("admin") || User.IsInRole("Admin") || User.IsInRole("zaposlenik") || User.IsInRole("Zaposlenik"))
             {
                 narudzbe = await _context.Narudzbe
                     .Include(n => n.Korisnik)
@@ -51,38 +52,34 @@ namespace SmartHairSalonApp.Controllers
             return View(narudzbe);
         }
 
-        // POST: Narudzba/Odluci
+        // POST: Narudzba/PromijeniStatus
+        // Promijenili smo naziv i parametre da savršeno prima Enum sa klijenta preko Ajaxa
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Odluci(int id, string odluka)
+        [Authorize(Roles = "admin, Admin, zaposlenik, Zaposlenik")] // Dozvoljeno i adminu i zaposleniku
+        public async Task<IActionResult> PromijeniStatus(int id, StatusNarudzbe noviStatus)
         {
-            if (!User.IsInRole("zaposlenik"))
-            {
-                return Forbid();
-            }
-
             var narudzba = await _context.Narudzbe.FindAsync(id);
             if (narudzba == null) return NotFound();
 
-            if (odluka == "prihvati")
-            {
-                narudzba.StatusNarudzbe = StatusNarudzbe.Potvrdjena;
+            // Dodjeljujemo proslijeđeni enum status (Potvrdjena ili Odbijena)
+            narudzba.StatusNarudzbe = noviStatus;
 
-                var obavijestKupac = new Obavijest
-                {
-                    Poruka = $"Vaša narudžba #{narudzba.Id} je PRIHVAĆENA od strane našeg tima!",
-                    KorisnikId = narudzba.KorisnikId,
-                    Datum = DateTime.Now
-                };
-                _context.Obavijesti.Add(obavijestKupac);
+            // Kreiranje obavijesti za kupca na osnovu odluke osoblja
+            string porukaKupcu = "";
+            if (noviStatus == StatusNarudzbe.Potvrdjena)
+            {
+                porukaKupcu = $"Vaša narudžba #{narudzba.Id} je PRIHVAĆENA od strane našeg tima i spremna je za preuzimanje!";
             }
-            else if (odluka == "odbij")
+            else if (noviStatus == StatusNarudzbe.Odbijena)
             {
-                narudzba.StatusNarudzbe = StatusNarudzbe.Odbijena;
+                porukaKupcu = $"Vaša narudžba #{narudzba.Id} je nažalost ODBIJENA (artikli trenutno nisu na stanju).";
+            }
 
+            if (!string.IsNullOrEmpty(porukaKupcu))
+            {
                 var obavijestKupac = new Obavijest
                 {
-                    Poruka = $"Vaša narudžba #{narudzba.Id} je nažalost ODBIJENA (artikli trenutno nisu na stanju).",
+                    Poruka = porukaKupcu,
                     KorisnikId = narudzba.KorisnikId,
                     Datum = DateTime.Now
                 };
@@ -91,7 +88,8 @@ namespace SmartHairSalonApp.Controllers
 
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+            // Vraćamo JSON odgovor umjesto Redirect-a, jer radimo preko Fetch/Ajax-a bez osvježavanja stranice
+            return Json(new { success = true, statusNaziv = narudzba.StatusNarudzbe.ToString() });
         }
     }
 }
