@@ -1,7 +1,6 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -19,6 +18,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using SmartHairSalonApp.Models;
+using SmartHairSalonApp.Data; // 🔥 OMOGUĆAVA PRISTUP BAZI PODATAKA
 
 namespace SmartHairSalonApp.Areas.Identity.Pages.Account
 {
@@ -30,13 +30,15 @@ namespace SmartHairSalonApp.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<Korisnik> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ApplicationDbContext _context; // 🔥 POLJE ZA BAZU
 
         public RegisterModel(
             UserManager<Korisnik> userManager,
             IUserStore<Korisnik> userStore,
             SignInManager<Korisnik> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ApplicationDbContext context) // 🔥 INJEKCIJA TVOG CONTEXTA
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,6 +46,7 @@ namespace SmartHairSalonApp.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context; // 🔥 DODJELJIVANJE VRIJEDNOSTI
         }
 
         [BindProperty]
@@ -100,10 +103,21 @@ namespace SmartHairSalonApp.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    // 🔥 POPRAVLJENO: Dodjeljuje se uloga "korisnik" umjesto "admin" za registraciju klijenata
+                    // Dodjeljuje se uloga "korisnik" za registraciju klijenata
                     await _userManager.AddToRoleAsync(user, "korisnik");
 
                     _logger.LogInformation("Korisnik je kreirao novi račun sa šifrom.");
+
+                    // 🔥 OVDJE SE KREIRA OBAVIJEST KOJU SAMO ADMIN VIDI (Layout prepoznaje "ADMIN:")
+                    var obavijestZaAdmina = new Obavijest
+                    {
+                        Poruka = $"ADMIN: Registriran je novi korisnički nalog: <b>{Input.Ime} {Input.Prezime}</b> ({Input.Email}).",
+                        Datum = DateTime.Now,
+                        KorisnikId = user.Id
+                    };
+
+                    _context.Obavijesti.Add(obavijestZaAdmina);
+                    await _context.SaveChangesAsync();
 
                     // Automatska prijava korisnika nakon uspješne registracije
                     await _signInManager.SignInAsync(user, isPersistent: false);

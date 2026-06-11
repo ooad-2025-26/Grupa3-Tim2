@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SmartHairSalonApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a5af6184d8d1afc50cb89317da93ad7b5352ab84")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+891c8bcaf0d8a5f65bc95ae86d72880d5de6f40c")]
 [assembly: System.Reflection.AssemblyProductAttribute("SmartHairSalonApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SmartHairSalonApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

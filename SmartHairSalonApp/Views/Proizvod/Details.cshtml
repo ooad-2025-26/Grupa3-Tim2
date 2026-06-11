@@ -15,11 +15,11 @@
 
     <div class="row g-5 align-items-center">
         <div class="col-md-6">
-            <div class="bg-light rounded-3 overflow-hidden shadow-sm" style="height: 450px;">
-                <img src="https://images.unsplash.com/photo-1608248597481-496100c80836?q=80&w=800"
-                     class="w-100 h-100 style-izgled"
-                     style="object-fit: cover;"
-                     alt="@Model.Naziv">
+            <div class="d-flex align-items-center justify-content-center rounded-4 bg-white overflow-hidden shadow-sm p-4" style="height: 450px; border: 1px solid #f1f1ef;">
+                <img src="@Url.Content("~/images/proizvod" + (ViewBag.BrojacSlike ?? 1) + ".jpg")"
+                     alt="@Model.Naziv"
+                     class="img-fluid"
+                     style="max-height: 100%; object-fit: contain;" />
             </div>
         </div>
 

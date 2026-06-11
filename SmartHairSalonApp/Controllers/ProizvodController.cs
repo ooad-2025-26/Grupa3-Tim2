@@ -45,6 +45,13 @@ namespace SmartHairSalonApp.Controllers
                 return NotFound();
             }
 
+            // 🔥 LOGIKA ZA SLIKU: Saznajemo koji je ovo proizvod po redu u bazi podataka
+            var sviProizvodi = await _context.Proizvodi.ToListAsync();
+            int indeksProizvoda = sviProizvodi.FindIndex(p => p.Id == id);
+
+            // Pošto FindIndex kreće od 0, a naše slike od 1, dodajemo +1
+            ViewBag.BrojacSlike = indeksProizvoda != -1 ? indeksProizvoda + 1 : 1;
+
             return View(proizvod);
         }
 
