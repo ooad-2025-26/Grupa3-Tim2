@@ -200,17 +200,51 @@ namespace SmartHairSalonApp.Controllers
         public async Task<IActionResult> Edit(
             int id,
             [Bind("Id,StatusRezervacije,KorisnikId,UslugaId,ZeljeniTermin")]
-            Rezervacija rezervacija)
+    Rezervacija rezervacija)
         {
             if (id != rezervacija.Id)
             {
                 return NotFound();
             }
 
+            // 🔥 NOVO: Ako admin pokuša poslati formu za izmjenu statusa, backend ga blokira!
+            if (User.IsInRole("admin") || User.IsInRole("Admin"))
+            {
+                ModelState.AddModelError("", "Admin nema ovlasti za mijenjanje statusa rezervacije. To radi isključivo zaposlenik.");
+
+                // Vraćamo ga na isti pogled sa ispisanom greškom na vrhu forme
+                ViewData["KorisnikId"] = new SelectList(_context.Users, "Id", "Id", rezervacija.KorisnikId);
+                ViewData["UslugaId"] = new SelectList(_context.Usluge, "Id", "Naziv", rezervacija.UslugaId);
+                return View(rezervacija);
+            }
+
             if (ModelState.IsValid)
             {
                 try
                 {
+                    string terminTekst = rezervacija.ZeljeniTermin ?? "";
+
+                    if (rezervacija.StatusRezervacije == StatusRezervacije.Potvrdjena)
+                    {
+                        var obavijestKupac = new Obavijest
+                        {
+                            Poruka = $"Vaš zahtjev za termin ({terminTekst}) je <span class='text-success fw-bold'>ODOBREN</span>!",
+                            Datum = DateTime.Now,
+                            KorisnikId = rezervacija.KorisnikId
+                        };
+                        _context.Obavijesti.Add(obavijestKupac);
+                    }
+                    else if (rezervacija.StatusRezervacije == StatusRezervacije.Odbijena)
+                    {
+                        var obavijestKupac = new Obavijest
+                        {
+                            Poruka = $"Vaš zahtjev za termin ({terminTekst}) je nažalost <span class='text-danger fw-bold'>ODBIJEN</span>. Molimo pokušajte drugi termin.",
+                            Datum = DateTime.Now,
+                            KorisnikId = rezervacija.KorisnikId
+                        };
+                        _context.Obavijesti.Add(obavijestKupac);
+                    }
+
                     _context.Update(rezervacija);
                     await _context.SaveChangesAsync();
                 }
@@ -220,7 +254,6 @@ namespace SmartHairSalonApp.Controllers
                     {
                         return NotFound();
                     }
-
                     throw;
                 }
 

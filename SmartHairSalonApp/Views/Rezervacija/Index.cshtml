@@ -6,9 +6,7 @@
     bool jeAdmin = User.IsInRole("admin") || User.IsInRole("Admin");
     bool jeSalonOsoblje = jeZaposlenik || jeAdmin;
 }
-
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
 <div class="container my-5" style="min-height: 75vh;">
     <div class="mb-5 pb-3 border-bottom border-light">
         <span class="text-uppercase tracking-widest text-gold fw-bold small d-block mb-2">Smart Hair Salon</span>
@@ -57,26 +55,26 @@
                             <td class="py-3 px-4">
                                 <span id="status-badge-rezervacija-@item.Id" class="badge rounded-pill text-uppercase px-3 py-2 font-xs
                                     @(item.StatusRezervacije == StatusRezervacije.UObradi ? "bg-warning-light text-warning" :
-                                        item.StatusRezervacije == StatusRezervacije.Potvrdjena ? "bg-success-light text-success" :
-                                        "bg-danger-light text-danger")">
+                                            item.StatusRezervacije == StatusRezervacije.Potvrdjena ? "bg-success-light text-success" :
+                                            "bg-danger-light text-danger")">
                                     @(item.StatusRezervacije == StatusRezervacije.UObradi ? "U Obradi" :
                                       item.StatusRezervacije == StatusRezervacije.Potvrdjena ? "Potvrđeno" : "Odbijeno")
                                 </span>
                             </td>
                             <td class="py-3 px-4 text-end pe-4">
                                 <div id="akcije-rezervacija-@item.Id" class="d-inline-flex gap-2">
-                                    @if (jeSalonOsoblje && item.StatusRezervacije == StatusRezervacije.UObradi)
-                                    {
-                                        <button onclick="procesuirajRezervaciju(@item.Id, 'Potvrdjena')" class="btn btn-light btn-sm rounded-circle border shadow-sm px-2" title="Potvrdi termin">
-                                            <i class="bi bi-check-lg text-success"></i>
-                                        </button>
-                                        <button onclick="procesuirajRezervaciju(@item.Id, 'Odbijena')" class="btn btn-light btn-sm rounded-circle border shadow-sm px-2" title="Odbij termin">
-                                            <i class="bi bi-x-lg text-danger"></i>
-                                        </button>
-                                    }
+                                    @* 🔥 Brzi dugmići uklonjeni odavde. Sada tabela izgleda čisto, prostrano i bez duple logike! *@
 
-                                    <a href="/Rezervacija/Details/@item.Id" class="btn btn-light btn-sm rounded border px-2" title="Detalji"><i class="bi bi-info-circle"></i></a>
-                                    <a href="/Rezervacija/Edit/@item.Id" class="btn btn-light btn-sm rounded border px-2" title="Uredi"><i class="bi bi-pencil-square"></i></a>
+                                    <a href="/Rezervacija/Details/@item.Id" class="btn btn-light btn-sm rounded border px-2" title="Detalji">
+                                        <i class="bi bi-info-circle"></i>
+                                    </a>
+
+                                    @if (jeSalonOsoblje)
+                                    {
+                                        <a href="/Rezervacija/Edit/@item.Id" class="btn btn-light btn-sm rounded border px-2" title="Uredi">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                    }
                                 </div>
                             </td>
                         </tr>
@@ -135,61 +133,7 @@
     }
 </style>
 
+@* Zadržavamo skripte za svaki slučaj, iako smo gumicom obrisali pozive u tabeli *@
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        function procesuirajRezervaciju(id, statusOdluke) {
-        let naslov = statusOdluke === 'Potvrdjena' ? 'Želite li potvrditi ovaj termin?' : 'Želite li odbiti ovaj termin?';
-        let tekst = statusOdluke === 'Potvrdjena' ? 'Klijentov termin će biti odobren.' : 'Ovaj salonski termin će biti otkazan.';
-        let ikona = statusOdluke === 'Potvrdjena' ? 'question' : 'warning';
-        let dugmeBoja = statusOdluke === 'Potvrdjena' ? '#198754' : '#dc3545';
-
-        Swal.fire({
-        title: naslov,
-        text: tekst,
-        icon: ikona,
-        showCancelButton: true,
-        confirmButtonColor: dugmeBoja,
-        cancelButtonColor: '#6c757d',
-        confirmButtonText: statusOdluke === 'Potvrdjena' ? 'Da, potvrdi!' : 'Da, odbij!',
-        cancelButtonText: 'Odustani'
-        }).then((result) => {
-        if (result.isConfirmed) {
-        fetch(`/Rezervacija/PromijeniStatusRezervacije?id=${id}&status=${statusOdluke}`, { method: 'POST' })
-        .then(res => res.json())
-        .then(data => {
-        if (data.success) {
-        let badge = document.getElementById(`status-badge-rezervacija-${id}`);
-        if (badge) {
-        badge.innerText = data.noviStatusText;
-        if (statusOdluke === 'Potvrdjena') {
-        badge.className = "badge rounded-pill text-uppercase px-3 py-2 font-xs bg-success-light text-success";
-        } else {
-        badge.className = "badge rounded-pill text-uppercase px-3 py-2 font-xs bg-danger-light text-danger";
-        }
-        }
-
-        let akcijeDiv = document.getElementById(`akcije-rezervacija-${id}`);
-        if (akcijeDiv) {
-        let buttons = akcijeDiv.querySelectorAll('button');
-        buttons.forEach(btn => btn.remove());
-        }
-
-        Swal.fire({
-        title: statusOdluke === 'Potvrdjena' ? 'Termin Potvrđen!' : 'Termin Odbijen!',
-        text: `Uspješno ažuriran status salonskog termina.`,
-        icon: 'success',
-        timer: 2000,
-        showConfirmButton: false
-        });
-        }
-        })
-        .catch(err => {
-        console.error("Greška:", err);
-        Swal.fire('Greška', 'Nije moguće promijeniti status termina.', 'error');
-        });
-        }
-        });
-        }
-    </script>
 }

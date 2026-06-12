@@ -1,44 +1,115 @@
 ﻿@model SmartHairSalonApp.Models.Salon
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Uredi Salon";
 }
 
-<h1>Edit</h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-<h4>Salon</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Naziv" class="control-label"></label>
-                <input asp-for="Naziv" class="form-control" />
-                <span asp-validation-for="Naziv" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Lokacija" class="control-label"></label>
-                <input asp-for="Lokacija" class="form-control" />
-                <span asp-validation-for="Lokacija" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RadnoVrijeme" class="control-label"></label>
-                <input asp-for="RadnoVrijeme" class="form-control" />
-                <span asp-validation-for="RadnoVrijeme" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="container my-5" style="max-width: 600px;">
+    <div class="mb-4 pb-2 text-center border-bottom border-light">
+        <span class="text-uppercase tracking-widest text-gold fw-bold small d-block mb-2">Smart Hair Salon</span>
+        <h2 class="fw-bold text-uppercase tracking-wide" style="color: #1a1a1a; font-family: 'Playfair Display', serif;">Ažuriranje Salona</h2>
+        <p class="text-muted small text-uppercase tracking-wider m-0">Izmjena osnovnih informacija i radnog vremena</p>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white">
+        <div style="height: 4px; background: linear-gradient(90deg, #D4AF37 0%, #F3E5AB 100%);"></div>
+        <div class="card-body p-4 p-md-5">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+                <input type="hidden" asp-for="Id" />
+
+                <div class="form-group mb-4">
+                    <label asp-for="Naziv" class="form-label text-muted text-uppercase tracking-wider small fw-semibold">
+                        <i class="bi bi-shop text-gold me-1"></i> Naziv Salona
+                    </label>
+                    <input asp-for="Naziv" class="form-control custom-input" placeholder="Unesite naziv salona" />
+                    <span asp-validation-for="Naziv" class="text-danger small"></span>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label asp-for="Lokacija" class="form-label text-muted text-uppercase tracking-wider small fw-semibold">
+                        <i class="bi bi-geo-alt text-gold me-1"></i> Lokacija / Adresa
+                    </label>
+                    <input asp-for="Lokacija" class="form-control custom-input" placeholder="Unesite adresu" />
+                    <span asp-validation-for="Lokacija" class="text-danger small"></span>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label asp-for="RadnoVrijeme" class="form-label text-muted text-uppercase tracking-wider small fw-semibold">
+                        <i class="bi bi-clock text-gold me-1"></i> Radno Vrijeme
+                    </label>
+                    <input asp-for="RadnoVrijeme" class="form-control custom-input" placeholder="npr. Pon - Sub: 08:00 - 20:00" />
+                    <span asp-validation-for="RadnoVrijeme" class="text-danger small"></span>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center pt-3 border-top border-light mt-5">
+                    <a asp-action="Index" class="btn btn-outline-secondary px-4 rounded-pill text-uppercase btn-custom-outline">Odustani</a>
+                    <button type="submit" class="btn btn-dark px-4 rounded-pill text-uppercase btn-premium-dark shadow-sm">Snimi Izmjene</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<style>
+    .text-gold {
+        color: #D4AF37 !important;
+    }
+
+    .tracking-wider {
+        letter-spacing: 0.1em;
+    }
+
+    .tracking-widest {
+        letter-spacing: 0.2em;
+    }
+
+    .custom-input {
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 12px 16px;
+        font-size: 0.95rem;
+        transition: all 0.2s ease;
+        min-height: 50px;
+    }
+
+        .custom-input:focus {
+            border-color: #D4AF37;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+            outline: none;
+        }
+
+    .btn-premium-dark {
+        background-color: #1a1a1a;
+        border: 1px solid #1a1a1a;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        transition: all 0.25s ease;
+    }
+
+        .btn-premium-dark:hover {
+            background-color: #000000;
+            border-color: #D4AF37;
+        }
+
+    .btn-custom-outline {
+        font-size: 0.8rem;
+        font-weight: 600;
+        border-radius: 50px;
+        transition: all 0.2s ease;
+    }
+
+        .btn-custom-outline:hover {
+            border-color: #1a1a1a;
+            color: #1a1a1a;
+        }
+</style>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

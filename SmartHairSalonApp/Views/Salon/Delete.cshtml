@@ -1,39 +1,108 @@
 ﻿@model SmartHairSalonApp.Models.Salon
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Brisanje Salona";
 }
 
-<h1>Delete</h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Salon</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Naziv)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Naziv)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Lokacija)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Lokacija)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RadnoVrijeme)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RadnoVrijeme)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+<div class="container my-5" style="max-width: 600px;">
+    <div class="mb-4 pb-2 text-center border-bottom border-light">
+        <span class="text-uppercase tracking-widest text-danger fw-bold small d-block mb-2">Upozorenje o brisanju</span>
+        <h2 class="fw-bold text-uppercase tracking-wide" style="color: #1a1a1a; font-family: 'Playfair Display', serif;">Ukloni Salon</h2>
+        <p class="text-muted small text-uppercase tracking-wider m-0">Jeste li sigurni da želite trajno obrisati ovaj salon?</p>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white">
+        <div style="height: 4px; background: linear-gradient(90deg, #dc3545 0%, #D4AF37 100%);"></div>
+        <div class="card-body p-4 p-md-5">
+
+            <div class="mb-5">
+                <div class="d-flex align-items-center mb-4 pb-3 border-bottom border-light">
+                    <div class="bg-light rounded-circle p-3 me-3">
+                        <i class="bi bi-shop text-gold fs-4"></i>
+                    </div>
+                    <div>
+                        <span class="text-muted text-uppercase tracking-wider small d-block">Naziv Salona</span>
+                        <h5 class="fw-bold text-dark m-0">@Model.Naziv</h5>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center mb-4 pb-3 border-bottom border-light">
+                    <div class="bg-light rounded-circle p-3 me-3">
+                        <i class="bi bi-geo-alt text-gold fs-4"></i>
+                    </div>
+                    <div>
+                        <span class="text-muted text-uppercase tracking-wider small d-block">Lokacija / Adresa</span>
+                        <h6 class="text-secondary m-0">@Model.Lokacija</h6>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center mb-2">
+                    <div class="bg-light rounded-circle p-3 me-3">
+                        <i class="bi bi-clock text-gold fs-4"></i>
+                    </div>
+                    <div>
+                        <span class="text-muted text-uppercase tracking-wider small d-block">Radno Vrijeme</span>
+                        <h6 class="text-secondary m-0">@Model.RadnoVrijeme</h6>
+                    </div>
+                </div>
+            </div>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+
+                <div class="d-flex justify-content-between align-items-center pt-3 border-top border-light mt-4">
+                    <a asp-action="Index" class="btn btn-outline-secondary px-4 rounded-pill text-uppercase btn-custom-outline">
+                        Odustani
+                    </a>
+                    <button type="submit" class="btn btn-danger px-4 rounded-pill text-uppercase btn-premium-danger shadow-sm">
+                        <i class="bi bi-trash3-fill me-1"></i> Potvrdi Brisanje
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
 </div>
+
+<style>
+    .text-gold {
+        color: #D4AF37 !important;
+    }
+
+    .tracking-wider {
+        letter-spacing: 0.1em;
+    }
+
+    .tracking-widest {
+        letter-spacing: 0.2em;
+    }
+
+    .btn-premium-danger {
+        background-color: #dc3545;
+        border: 1px solid #dc3545;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        transition: all 0.25s ease;
+    }
+
+        .btn-premium-danger:hover {
+            background-color: #bd2130;
+            border-color: #D4AF37;
+            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+        }
+
+    .btn-custom-outline {
+        font-size: 0.8rem;
+        font-weight: 600;
+        border-radius: 50px;
+        transition: all 0.2s ease;
+    }
+
+        .btn-custom-outline:hover {
+            border-color: #1a1a1a;
+            color: #1a1a1a;
+        }
+</style>

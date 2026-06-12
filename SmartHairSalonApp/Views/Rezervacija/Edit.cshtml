@@ -2,12 +2,17 @@
 
 @{
     ViewData["Title"] = "Izmjena Rezervacije";
+    bool jeAdmin = User.IsInRole("admin") || User.IsInRole("Admin");
 }
 
 <div class="container my-5" style="max-width: 600px;">
     <div class="mb-4 pb-2 text-center border-bottom border-light">
-        <h2 class="fw-bold text-uppercase tracking-wide" style="color: #1a1a1a; font-family: 'Playfair Display', serif;">Ažuriranje Rezervacije</h2>
-        <p class="text-muted small text-uppercase tracking-wider m-0">Promjena statusa i detalja termina</p>
+        <h2 class="fw-bold text-uppercase tracking-wide" style="color: #1a1a1a; font-family: 'Playfair Display', serif;">
+            @(jeAdmin ? "Pregled Rezervacije" : "Ažuriranje Rezervacije")
+        </h2>
+        <p class="text-muted small text-uppercase tracking-wider m-0">
+            @(jeAdmin ? "Pregled detalja termina (Samo za čitanje)" : "Promjena statusa i detalja termina")
+        </p>
     </div>
 
     <div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white">
@@ -20,25 +25,56 @@
 
                 <div class="form-group mb-4">
                     <label asp-for="UslugaId" class="form-label text-muted text-uppercase tracking-wider small fw-semibold">Odabrana Usluga</label>
-                    <select asp-for="UslugaId" class="form-select custom-input" asp-items="ViewBag.UslugaId"></select>
+                    @if (jeAdmin)
+                    {
+                        <select asp-for="UslugaId" class="form-select custom-input bg-light text-muted" disabled asp-items="ViewBag.UslugaId"></select>
+                        <input type="hidden" asp-for="UslugaId" />
+                    }
+                    else
+                    {
+                        <select asp-for="UslugaId" class="form-select custom-input" asp-items="ViewBag.UslugaId"></select>
+                    }
                     <span asp-validation-for="UslugaId" class="text-danger small"></span>
                 </div>
 
                 <div class="form-group mb-4">
                     <label asp-for="ZeljeniTermin" class="form-label text-muted text-uppercase tracking-wider small fw-semibold">Vrijeme Termina</label>
-                    <input asp-for="ZeljeniTermin" class="form-control custom-input" />
+                    @if (jeAdmin)
+                    {
+                        <input asp-for="ZeljeniTermin" class="form-control custom-input bg-light text-muted" disabled />
+                        <input type="hidden" asp-for="ZeljeniTermin" />
+                    }
+                    else
+                    {
+                        <input asp-for="ZeljeniTermin" class="form-control custom-input" />
+                    }
                     <span asp-validation-for="ZeljeniTermin" class="text-danger small"></span>
                 </div>
 
                 <div class="form-group mb-4">
                     <label asp-for="StatusRezervacije" class="form-label text-muted text-uppercase tracking-wider small fw-semibold">Status Rezervacije</label>
-                    <select asp-for="StatusRezervacije" class="form-select custom-input" asp-items="Html.GetEnumSelectList<SmartHairSalonApp.Models.StatusRezervacije>()"></select>
+                    @if (jeAdmin)
+                    {
+                        <select asp-for="StatusRezervacije" class="form-select custom-input bg-light text-muted" disabled asp-items="Html.GetEnumSelectList<SmartHairSalonApp.Models.StatusRezervacije>()"></select>
+                        <input type="hidden" asp-for="StatusRezervacije" />
+                        <small class="text-danger d-block mt-2"><i class="bi bi-exclamation-triangle-fill me-1"></i> Admin nema ovlasti za izmjenu statusa. To radi zaposlenik.</small>
+                    }
+                    else
+                    {
+                        <select asp-for="StatusRezervacije" class="form-select custom-input" asp-items="Html.GetEnumSelectList<SmartHairSalonApp.Models.StatusRezervacije>()"></select>
+                    }
                     <span asp-validation-for="StatusRezervacije" class="text-danger small"></span>
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center pt-3 border-top border-light mt-5">
-                    <a asp-action="Index" class="btn btn-outline-secondary px-4 rounded-pill text-uppercase btn-custom-outline">Odustani</a>
-                    <button type="submit" class="btn btn-dark px-4 rounded-pill text-uppercase btn-premium-dark shadow-sm">Snimi Izmjene</button>
+                    <a asp-action="Index" class="btn btn-outline-secondary px-4 rounded-pill text-uppercase btn-custom-outline @(jeAdmin ? "w-100 text-center" : "")">
+                        @(jeAdmin ? "Nazad na listu" : "Odustani")
+                    </a>
+
+                    @if (!jeAdmin)
+                    {
+                        <button type="submit" class="btn btn-dark px-4 rounded-pill text-uppercase btn-premium-dark shadow-sm">Snimi Izmjene</button>
+                    }
                 </div>
             </form>
         </div>
