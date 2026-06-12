@@ -12,7 +12,9 @@
 **Link aplikacije:** [http://grupa3-001-site1.rtempurl.com/](http://grupa3-001-site1.rtempurl.com/)
 
 VAŽNA NAPOMENA ZA PRISTUP STRANICI (SmarterASP Zaštita): Zbog restrikcija besplatnog SmarterASP hosting provajdera (privremeni URL), prilikom prvog ulaska na stranicu pojaviće se sivi prozorčić za autentifikaciju cijelog sajta (Basic Authentication). Molimo unesite sljedeće podatke kako biste otključali pristup aplikaciji:
+
 **Username:** 11309152
+
 **Password:** 60-dayfreetrial
 
 ---
